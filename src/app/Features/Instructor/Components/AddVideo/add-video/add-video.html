@@ -1,0 +1,28 @@
+<form (ngSubmit)="onSubmit()">
+  <!-- Video Title -->
+  <div class="mb-3">
+    <label class="form-label">Video Title</label>
+    <input type="text" class="form-control" [(ngModel)]="title" name="title" required>
+  </div>
+
+  <!-- Video Arrangement -->
+  <div class="mb-3">
+    <label class="form-label">Video Arrangement</label>
+    <input type="number" class="form-control" [(ngModel)]="videoArrangement" name="videoArrangement" min="1" required>
+  </div>
+
+  <!-- Module Id -->
+  <div class="mb-3">
+    <label class="form-label">Module</label>
+    <input type="number" class="form-control" [(ngModel)]="moduleId" name="moduleId" required>
+    <!-- Later: Replace with dropdown of modules -->
+  </div>
+
+  <!-- File Upload -->
+  <div class="mb-3">
+    <label class="form-label">Upload Video</label>
+    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="video/*" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create Video</button>
+</form>

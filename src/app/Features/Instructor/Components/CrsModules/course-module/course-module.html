@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Main Content -->
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+
+      <!-- Dashboard Header -->
+      <div class="dashboard-header d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2>Module Dashboard</h2>
+          <p class="text-muted">Manage your learning modules efficiently</p>
+        </div>
+        <button class="btn btn-primary" routerLink="/instructor/AddModule">
+          <i class="fas fa-plus"></i> Add New Module
+        </button>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="stats-card text-center">
+            <i class="fas fa-cube text-primary"></i>
+            <h3>{{ totalModules }}</h3>
+            <p class="text-muted">Total Modules</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card text-center">
+            <i class="fas fa-book text-success"></i>
+            <h3>{{ totalCourses }}</h3>
+            <p class="text-muted">Active Courses</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card text-center">
+            <i class="fas fa-video text-info"></i>
+            <h3>{{ totalVideos }}</h3>
+            <p class="text-muted">Total Videos</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card text-center">
+            <i class="fas fa-users text-warning"></i>
+            <h3>{{ totalLearners }}</h3>
+            <p class="text-muted">Active Learners</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modules Table -->
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Arrangement</th>
+              <th>Course</th>
+              <th>Videos</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let module of modules">
+              <td>{{ module.id }}</td>
+              <td>{{ module.title }}</td>
+              <td><span class="badge badge-arrangement">{{ module.moduleArrangement }}</span></td>
+              <td>{{ module.course?.title }}</td>
+              <td><span class="badge bg-secondary">{{ module.videos?.length }}</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
