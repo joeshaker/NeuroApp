@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';
+import { AddCourse } from './Features/Instructor/Components/add-course/add-course';
 
 export const routes: Routes = [
+  {path:'addCourse', component:AddCourse , pathMatch:'full'},
     {
     path: '',
      component: SimpleLayout,
