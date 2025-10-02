@@ -1,0 +1,234 @@
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header d-flex justify-content-between align-items-center">
+      <div>
+        <h3 class="mb-0">Instructor Dashboard</h3>
+        <p class="text-muted mb-0">Welcome back, Dr. Chen</p>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <div class="input-group me-3">
+          <input type="text" class="form-control search-box" placeholder="Search...">
+          <span class="input-group-text bg-transparent border-0"><i class="fas fa-search"></i></span>
+        </div>
+
+        <div class="dropdown me-3">
+          <a class="btn btn-light position-relative" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="fas fa-bell"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+          </a>
+        </div>
+
+        <div class="dropdown">
+          <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
+            <div class="d-none d-md-block">
+              <div>Dr. Michael Chen</div>
+              <small class="text-muted">Instructor</small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row">
+      <div class="col-xl-3 col-md-6">
+        <div class="stats-card courses">
+          <div class="d-flex justify-content-between align-items-center">
+            <div><h3 class="mb-0">12</h3><p class="text-muted mb-0">Courses</p></div>
+            <div class="icon"><i class="fas fa-book"></i></div>
+          </div>
+          <div class="mt-3"><small class="text-success"><i class="fas fa-arrow-up"></i> 5.2% from last month</small></div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stats-card students">
+          <div class="d-flex justify-content-between align-items-center">
+            <div><h3 class="mb-0">1,248</h3><p class="text-muted mb-0">Students</p></div>
+            <div class="icon"><i class="fas fa-users"></i></div>
+          </div>
+          <div class="mt-3"><small class="text-success"><i class="fas fa-arrow-up"></i> 12.4% from last month</small></div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stats-card earnings">
+          <div class="d-flex justify-content-between align-items-center">
+            <div><h3 class="mb-0">$8,420</h3><p class="text-muted mb-0">Earnings</p></div>
+            <div class="icon"><i class="fas fa-dollar-sign"></i></div>
+          </div>
+          <div class="mt-3"><small class="text-success"><i class="fas fa-arrow-up"></i> 8.1% from last month</small></div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stats-card rating">
+          <div class="d-flex justify-content-between align-items-center">
+            <div><h3 class="mb-0">4.8</h3><p class="text-muted mb-0">Rating</p></div>
+            <div class="icon"><i class="fas fa-star"></i></div>
+          </div>
+          <div class="mt-3"><small class="text-success"><i class="fas fa-arrow-up"></i> 0.3 from last month</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity & Top Courses -->
+    <div class="row mt-4">
+      <div class="col-lg-8">
+        <div class="recent-activity">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="mb-0">Recent Activity</h5>
+            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon course"><i class="fas fa-book"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="mb-0">New course published</h6>
+                <p class="text-muted mb-0">Advanced Web Development</p>
+                <small class="text-muted">2 hours ago</small>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon student"><i class="fas fa-user-plus"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="mb-0">42 new students enrolled</h6>
+                <p class="text-muted mb-0">JavaScript Fundamentals course</p>
+                <small class="text-muted">5 hours ago</small>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon earning"><i class="fas fa-dollar-sign"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="mb-0">Payment received</h6>
+                <p class="text-muted mb-0">$420 from course sales</p>
+                <small class="text-muted">1 day ago</small>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon course"><i class="fas fa-comment"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="mb-0">New review received</h6>
+                <p class="text-muted mb-0">"Excellent course content!"</p>
+                <small class="text-muted">2 days ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Courses -->
+      <div class="col-lg-4">
+        <div class="top-courses">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="mb-0">Top Courses</h5>
+            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+          </div>
+          <div class="course-list">
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=100&q=80" class="rounded" width="50" height="50" alt="course">
+              <div class="flex-grow-1 ms-3"><h6 class="mb-0">Web Development</h6><small class="text-muted">245 students</small></div>
+              <span class="badge bg-primary">4.9</span>
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100&q=80" class="rounded" width="50" height="50" alt="course">
+              <div class="flex-grow-1 ms-3"><h6 class="mb-0">Data Science</h6><small class="text-muted">189 students</small></div>
+              <span class="badge bg-primary">4.8</span>
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=100&q=80" class="rounded" width="50" height="50" alt="course">
+              <div class="flex-grow-1 ms-3"><h6 class="mb-0">Mobile Development</h6><small class="text-muted">167 students</small></div>
+              <span class="badge bg-primary">4.7</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=100&q=80" class="rounded" width="50" height="50" alt="course">
+              <div class="flex-grow-1 ms-3"><h6 class="mb-0">UI/UX Design</h6><small class="text-muted">142 students</small></div>
+              <span class="badge bg-primary">4.6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Course Progress -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="recent-activity">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="mb-0">Course Progress</h5>
+            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+          </div>
+          <div class="row">
+            <!-- Web Development -->
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="course-card card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="course">
+                  <span class="course-badge">Bestseller</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Web Development Bootcamp</h5>
+                  <p class="card-text text-muted">Complete web development course covering HTML, CSS, JavaScript and more.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="progress flex-grow-1 me-3">
+                      <div class="progress-bar bg-primary" style="width: 85%" aria-valuenow="85"></div>
+                    </div>
+                    <small>85%</small>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                    <div><i class="fas fa-users text-muted me-1"></i><small class="text-muted">245 students</small></div>
+                    <div><i class="fas fa-star text-warning me-1"></i><small class="text-muted">4.9</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Data Science -->
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="course-card card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="course">
+                  <span class="course-badge">Popular</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Data Science Fundamentals</h5>
+                  <p class="card-text text-muted">Learn data analysis, visualization, and machine learning basics.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="progress flex-grow-1 me-3">
+                      <div class="progress-bar bg-success" style="width: 72%" aria-valuenow="72"></div>
+                    </div>
+                    <small>72%</small>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                    <div><i class="fas fa-users text-muted me-1"></i><small class="text-muted">189 students</small></div>
+                    <div><i class="fas fa-star text-warning me-1"></i><small class="text-muted">4.8</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Mobile App -->
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="course-card card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="course">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Mobile App Development</h5>
+                  <p class="card-text text-muted">Build cross-platform mobile applications using React Native.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="progress flex-grow-1 me-3">
+                      <div class="progress-bar bg-info" style="width: 65%" aria-valuenow="65"></div>
+                    </div>
+                    <small>65%</small>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                    <div><i class="fas fa-users text-muted me-1"></i><small class="text-muted">167 students</small></div>
+                    <div><i class="fas fa-star text-warning me-1"></i><small class="text-muted">4.7</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- row -->
+        </div>
+      </div>
+    </div>
+  </div>

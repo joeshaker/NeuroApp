@@ -1,0 +1,129 @@
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 20px;
+      transition: all 0.3s;
+    }
+
+    /* Header */
+    .header {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px 25px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 25px;
+    }
+
+    .search-box {
+      background-color: #f5f7fb;
+      border-radius: 50px;
+      padding: 8px 15px;
+      border: none;
+      width: 300px;
+    }
+
+    .user-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* Stats Cards */
+    .stats-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+      border-left: 4px solid var(--primary);
+    }
+
+    .stats-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stats-card .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+
+    .stats-card.courses .icon { background-color: var(--primary); }
+    .stats-card.students .icon { background-color: var(--success); }
+    .stats-card.earnings .icon { background-color: var(--warning); }
+    .stats-card.rating .icon { background-color: var(--info); }
+
+    /* Progress Bars */
+    .progress {
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    /* Recent Activity & Top Courses */
+    .recent-activity, .top-courses {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+    }
+
+    .activity-icon.course { background-color: var(--primary); }
+    .activity-icon.student { background-color: var(--success); }
+    .activity-icon.earning { background-color: var(--warning); }
+
+    /* Course Cards */
+    .course-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+      margin-bottom: 20px;
+    }
+
+    .course-card:hover { transform: translateY(-5px); }
+
+    .course-card img {
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .course-card .card-body { padding: 15px; }
+
+    .course-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--primary);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
