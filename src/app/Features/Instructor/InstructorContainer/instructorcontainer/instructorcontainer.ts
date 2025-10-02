@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+import { InsSidebar } from "../../Components/InsSidebar/ins-sidebar/ins-sidebar";
+import { Insdashboard } from "../../Components/Dashboard/insdashboard/insdashboard";
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-instructorcontainer',
+  imports: [InsSidebar, Insdashboard,RouterOutlet],
+  templateUrl: './instructorcontainer.html',
+  styleUrl: './instructorcontainer.css'
+})
+export class Instructorcontainer {
+
+}
