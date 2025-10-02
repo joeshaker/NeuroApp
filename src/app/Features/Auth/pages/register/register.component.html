@@ -1,0 +1,171 @@
+<div class="auth-container">
+  <div class="auth-background"></div>
+
+  <div class="auth-content">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Join NeuroTech and start your learning journey</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+        @if (errorMessage) {
+          <div class="error-alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        <div class="form-group">
+          <label for="userName" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input
+              type="text"
+              id="userName"
+              formControlName="userName"
+              class="form-input"
+              placeholder="Enter your full name"
+              [class.invalid]="userName?.invalid && userName?.touched"
+            />
+          </div>
+          @if (userName?.invalid && userName?.touched) {
+            <div class="error-message">
+              @if (userName?.errors?.['required']) {
+                <span>Name is required</span>
+              }
+              @if (userName?.errors?.['minlength']) {
+                <span>Name must be at least 3 characters</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="Enter your email"
+              [class.invalid]="email?.invalid && email?.touched"
+            />
+          </div>
+          @if (email?.invalid && email?.touched) {
+            <div class="error-message">
+              @if (email?.errors?.['required']) {
+                <span>Email is required</span>
+              }
+              @if (email?.errors?.['email']) {
+                <span>Please enter a valid email</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="form-input"
+              placeholder="Create a password"
+              [class.invalid]="password?.invalid && password?.touched"
+            />
+            <i
+              class="fas input-icon-right"
+              [class.fa-eye]="!showPassword"
+              [class.fa-eye-slash]="showPassword"
+              (click)="togglePassword()"
+            ></i>
+          </div>
+          @if (password?.invalid && password?.touched) {
+            <div class="error-message">
+              @if (password?.errors?.['required']) {
+                <span>Password is required</span>
+              }
+              @if (password?.errors?.['minlength']) {
+                <span>Password must be at least 6 characters</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              class="form-input"
+              placeholder="Confirm your password"
+              [class.invalid]="(confirmPassword?.invalid && confirmPassword?.touched) || (registerForm.errors?.['passwordMismatch'] && confirmPassword?.touched)"
+            />
+            <i
+              class="fas input-icon-right"
+              [class.fa-eye]="!showConfirmPassword"
+              [class.fa-eye-slash]="showConfirmPassword"
+              (click)="toggleConfirmPassword()"
+            ></i>
+          </div>
+          @if (confirmPassword?.invalid && confirmPassword?.touched) {
+            <div class="error-message">
+              @if (confirmPassword?.errors?.['required']) {
+                <span>Please confirm your password</span>
+              }
+            </div>
+          }
+          @if (registerForm.errors?.['passwordMismatch'] && confirmPassword?.touched) {
+            <div class="error-message">
+              <span>Passwords do not match</span>
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="role" class="form-label">I am a</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user-tag input-icon"></i>
+            <select
+              id="role"
+              formControlName="role"
+              class="form-input form-select"
+            >
+              <option value="student">Student</option>
+              <option value="instructor">Instructor</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="isLoading"
+          [class.loading]="isLoading"
+        >
+          @if (isLoading) {
+            <span class="spinner"></span>
+            <span>Creating account...</span>
+          } @else {
+            <span>Create Account</span>
+          }
+        </button>
+
+        <div class="auth-footer">
+          <p class="footer-text">
+            Already have an account?
+            <a routerLink="/auth/login" class="footer-link">Sign in here</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

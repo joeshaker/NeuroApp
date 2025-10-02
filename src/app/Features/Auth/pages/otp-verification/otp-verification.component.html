@@ -1,0 +1,131 @@
+<div class="auth-container">
+  <div class="auth-background"></div>
+
+  <div class="auth-content">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="icon-wrapper">
+          <i class="fas fa-envelope-open-text"></i>
+        </div>
+        <h1 class="auth-title">Verify Your Email</h1>
+        <p class="auth-subtitle">
+          We've sent a 6-digit verification code to<br>
+          <strong>{{ email }}</strong>
+        </p>
+      </div>
+
+      <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="auth-form">
+        @if (errorMessage) {
+          <div class="error-alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        @if (successMessage) {
+          <div class="success-alert">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ successMessage }}</span>
+          </div>
+        }
+
+        <div class="otp-inputs">
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit1"
+            class="otp-input"
+            (input)="onInput($event, 0)"
+            (keydown)="onKeyDown($event, 0)"
+            (paste)="onPaste($event)"
+            [class.invalid]="otpForm.get('digit1')?.invalid && otpForm.get('digit1')?.touched"
+          />
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit2"
+            class="otp-input"
+            (input)="onInput($event, 1)"
+            (keydown)="onKeyDown($event, 1)"
+            [class.invalid]="otpForm.get('digit2')?.invalid && otpForm.get('digit2')?.touched"
+          />
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit3"
+            class="otp-input"
+            (input)="onInput($event, 2)"
+            (keydown)="onKeyDown($event, 2)"
+            [class.invalid]="otpForm.get('digit3')?.invalid && otpForm.get('digit3')?.touched"
+          />
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit4"
+            class="otp-input"
+            (input)="onInput($event, 3)"
+            (keydown)="onKeyDown($event, 3)"
+            [class.invalid]="otpForm.get('digit4')?.invalid && otpForm.get('digit4')?.touched"
+          />
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit5"
+            class="otp-input"
+            (input)="onInput($event, 4)"
+            (keydown)="onKeyDown($event, 4)"
+            [class.invalid]="otpForm.get('digit5')?.invalid && otpForm.get('digit5')?.touched"
+          />
+          <input
+            #otpInput
+            type="text"
+            maxlength="1"
+            formControlName="digit6"
+            class="otp-input"
+            (input)="onInput($event, 5)"
+            (keydown)="onKeyDown($event, 5)"
+            [class.invalid]="otpForm.get('digit6')?.invalid && otpForm.get('digit6')?.touched"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="isLoading || !otpForm.valid"
+          [class.loading]="isLoading"
+        >
+          @if (isLoading) {
+            <span class="spinner"></span>
+            <span>Verifying...</span>
+          } @else {
+            <span>Verify & Continue</span>
+          }
+        </button>
+
+        <div class="resend-section">
+          <p class="resend-text">Didn't receive the code?</p>
+          <button
+            type="button"
+            class="btn-resend"
+            [disabled]="!canResend || isResending"
+            (click)="resendOtp()"
+          >
+            @if (isResending) {
+              <span class="spinner-small"></span>
+              <span>Resending...</span>
+            } @else if (!canResend) {
+              <span>Resend in {{ resendCountdown }}s</span>
+            } @else {
+              <span>Resend Code</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
