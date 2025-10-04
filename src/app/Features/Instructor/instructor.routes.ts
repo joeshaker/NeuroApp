@@ -1,21 +1,22 @@
+
 import { CourseModule } from './Components/CrsModules/course-module/course-module';
-import { Courses } from './Components/Courses/courses/courses';
 import { Routes } from '@angular/router';
+import { Courses } from './Components/Courses/courses/courses';
 import { Instructorcontainer } from './InstructorContainer/instructorcontainer/instructorcontainer';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'instructor',
     component: Instructorcontainer,
     children: [
-      { 
-        path: '', 
-        redirectTo: 'dashboard', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       },
-      { 
-        path: 'dashboard', 
-        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard) 
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard)
       },
       {
         path:'courses',

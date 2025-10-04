@@ -5,7 +5,6 @@
       color: white;
       height: 100vh;
       position: fixed;
-      width: var(--sidebar-width);
       transition: all 0.3s;
       z-index: 1000;
     }
@@ -23,7 +22,7 @@
       transition: all 0.3s;
     }
 
-    .sidebar .nav-link:hover, 
+    .sidebar .nav-link:hover,
     .sidebar .nav-link.active {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
