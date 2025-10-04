@@ -7,7 +7,7 @@ export const routes: Routes = [
   // {path:'addCourse', component:AddCourse , pathMatch:'full'},
     {
         path: 'auth',
-        loadChildren: () => import('./Features/Auth/auth.routes').then(m => m.authRoutes)
+        loadChildren: () => import('./Features/auth/auth.routes').then(m => m.authRoutes)
     },
     {
         path: '',
@@ -17,9 +17,10 @@ export const routes: Routes = [
     {
         path: '**',
         redirectTo: 'auth/login'
-    }
-    path: '',
-     component: SimpleLayout,
+    },
+    {
+        path: '',
+        component: SimpleLayout,
         loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
         // data: { roles: ['instructor'] }
     },
