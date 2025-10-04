@@ -5,25 +5,25 @@ import { Courses } from './Components/Courses/courses/courses';
 import { Instructorcontainer } from './InstructorContainer/instructorcontainer/instructorcontainer';
 
 export const routes: Routes = [
-  {
-    path: 'instructor',
-    component: Instructorcontainer,
-    children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard)
-      },
-      {
-        path:'courses',
-        loadComponent: () => import('./Components/Courses/courses/courses').then(m => m.Courses)
-      }
-    ]
-  },
+  // {
+  //   path: 'instructor',
+  //   component: Instructorcontainer,
+  //   children: [
+  //     {
+  //       path: '',
+  //       redirectTo: 'dashboard',
+  //       pathMatch: 'full'
+  //     },
+  //     {
+  //       path: 'dashboard',
+  //       loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard)
+  //     },
+  //     {
+  //       path:'courses',
+  //       loadComponent: () => import('./Components/Courses/courses/courses').then(m => m.Courses)
+  //     }
+  //   ]
+  // },
   {
     path: 'instructor',
     component: Instructorcontainer,
@@ -56,6 +56,10 @@ export const routes: Routes = [
       {
         path:'AddVideo',
         loadComponent:()=>import('./Components/AddVideo/add-video/add-video').then(m=>m.AddVideo)
+      },
+      {
+        path:'AddCourse',
+        loadComponent:()=>import('./Components/add-course/add-course').then(m=>m.AddCourse)
       }
     ]
   }
