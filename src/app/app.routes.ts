@@ -6,6 +6,18 @@ import { Instructorcontainer } from './Features/Instructor/InstructorContainer/i
 export const routes: Routes = [
   // {path:'addCourse', component:AddCourse , pathMatch:'full'},
     {
+        path: 'auth',
+        loadChildren: () => import('./Features/Auth/auth.routes').then(m => m.authRoutes)
+    },
+    {
+        path: '',
+        redirectTo: 'auth/login',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: 'auth/login'
+    }
     path: '',
      component: SimpleLayout,
         loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
