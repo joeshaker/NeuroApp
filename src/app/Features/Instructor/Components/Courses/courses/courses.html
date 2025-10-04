@@ -1,1 +1,167 @@
-<p>courses works!</p>
+<div class="course-container ">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">Course Management</h1>
+    <button class="btn btn-primary" id="createCourseBtn" routerLink="/instructor/AddCourse">
+      <i class="fas fa-plus me-2"></i> Create New Course
+    </button>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="d-flex justify-content-around mb-5">
+    <div class="stats-card fade-in col-2">
+      <div class="stats-icon">
+        <i class="fas fa-book"></i>
+      </div>
+      <div class="stats-value">18</div>
+      <div class="stats-label">Active Courses</div>
+    </div>
+    <div class="stats-card fade-in col-2" style="animation-delay: 0.1s;">
+      <div class="stats-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stats-value">2,841</div>
+      <div class="stats-label">Enrolled Students</div>
+    </div>
+    <div class="stats-card fade-in col-2" style="animation-delay: 0.2s;">
+      <div class="stats-icon">
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="stats-value">4.8</div>
+      <div class="stats-label">Average Rating</div>
+    </div>
+    <div class="stats-card fade-in col-2" style="animation-delay: 0.3s;">
+      <div class="stats-icon">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="stats-value">$3,240</div>
+      <div class="stats-label">Monthly Revenue</div>
+    </div>
+  </div>
+
+  <!-- Course Creation Form (Initially Hidden) -->
+  <!-- <div class="form-container" id="courseForm" style="display: none;">
+    <h2 class="form-title">Create New Course</h2>
+
+    <div class="form-card">
+      <h3 class="form-title">Course Information</h3>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label">Course Title</label>
+            <input type="text" class="form-control" placeholder="e.g. Advanced Web Development">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select">
+              <option>Select Category</option>
+              <option>Web Development</option>
+              <option>Data Science</option>
+              <option>Mobile Development</option>
+              <option>UI/UX Design</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Course Description</label>
+        <textarea class="form-control" rows="4"
+          placeholder="Describe what students will learn in this course"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label">Price ($)</label>
+            <input type="number" class="form-control" placeholder="0.00">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label">Instructor</label>
+            <select class="form-select">
+              <option>Select Instructor</option>
+              <option>Dr. Sarah Johnson</option>
+              <option>Prof. Michael Chen</option>
+              <option>Dr. Emily Rodriguez</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="form-label">Thumbnail</label>
+            <input type="file" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" id="freeCourse">
+        <label class="form-check-label" for="freeCourse">
+          This is a free course
+        </label>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" id="saveCourseBtn">
+        <i class="fas fa-save me-2"></i> Save Course
+      </button>
+      <button class="btn btn-outline" id="cancelCourseBtn">
+        <i class="fas fa-times me-2"></i> Cancel
+      </button>
+    </div>
+  </div> -->
+
+  <!-- Courses Grid -->
+  <h2 class="mb-4">Your Courses</h2>
+  <div class="courses-grid">
+    <!-- Course Card 1 -->
+
+    @for (item of AllCourses; track $index) {
+
+      <div class="course-card fade-in">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            class="course-image" alt="Web Development">
+          <span class="course-badge">{{item?.categoryName}}</span>
+        </div>
+        <div class="course-content">
+          <h3 class="course-title">{{item?.title}}</h3>
+          <p class="course-description">{{item?.description}}</p>
+
+          <div class="course-stats">
+            <div class="stat">
+              <i class="fas fa-cube"></i>
+              <span>5 Modules</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-play-circle"></i>
+              <span>24 Videos</span>
+            </div>
+          </div>
+
+          <div class="course-meta">
+            <div class="course-price">{{item?.price}}</div>
+            <div class="course-instructor">{{item?.instructorName}}</div>
+          </div>
+
+          <div class="course-actions">
+            <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn btn-sm btn-outline"><i class="fas fa-chart-bar"></i> Stats</button>
+            <button class="btn btn-sm btn-outline"><i class="fas fa-eye"></i> View</button>
+          </div>
+        </div>
+      </div>
+
+    }
+
+
+
+
+  </div>
+</div>

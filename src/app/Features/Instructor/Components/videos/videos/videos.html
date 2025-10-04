@@ -1,0 +1,109 @@
+<div class="dashboard-header">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h2>Video Dashboard</h2>
+      <p class="text-muted">Manage your learning videos efficiently</p>
+    </div>
+    <div class="col-md-6 text-end">
+      <button class="btn btn-primary" routerLink="/instructor/AddVideo">
+        <i class="fas fa-plus"></i> Add New Video
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Loader -->
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-primary"></div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row" *ngIf="!loading">
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <i class="fas fa-video text-primary"></i>
+      <h3>{{ videos.length }}</h3>
+      <p class="text-muted">Total Videos</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <i class="fas fa-clock text-success"></i>
+      <h3>{{ totalDuration | number }}s</h3>
+      <p class="text-muted">Total Duration</p>
+    </div>
+  </div>
+</div>
+
+<!-- Search and Toggle -->
+<div class="row mb-4">
+  <div class="col-md-2">
+    <div class="view-toggle">
+      <button [class.active]="gridView" (click)="toggleView(true)">
+        <i class="fas fa-th"></i>
+      </button>
+      <button [class.active]="!gridView" (click)="toggleView(false)">
+        <i class="fas fa-list"></i>
+      </button>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search videos...">
+    </div>
+  </div>
+</div>
+
+<!-- Grid View -->
+<div class="row" *ngIf="gridView && !loading">
+  <div class="col-md-4" *ngFor="let video of filteredVideos">
+    <div class="video-card">
+      <div class="video-thumbnail">
+        <i class="fas fa-play-circle"></i>
+        <div class="video-duration">{{ video.duration || 0 }}s</div>
+      </div>
+      <h5>{{ video.title }}</h5>
+      <div class="d-flex justify-content-between mb-2">
+        <span class="badge badge-arrangement">Arr: {{ video.videoArrangement }}</span>
+        <span class="badge duration-badge">{{ video.duration || 0 }}s</span>
+      </div>
+      <p class="text-muted small">Module ID: {{ video.moduleId }}</p>
+      <div class="video-actions d-flex justify-content-end">
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteVideo(video.id!)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List View -->
+<div *ngIf="!gridView && !loading" class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Arrangement</th>
+        <th>Module</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let video of filteredVideos">
+        <td>{{ video.id }}</td>
+        <td>{{ video.title }}</td>
+        <td>{{ video.duration || 0 }}s</td>
+        <td>{{ video.videoArrangement }}</td>
+        <td>{{ video.moduleId }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteVideo(video.id!)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
