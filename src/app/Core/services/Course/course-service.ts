@@ -35,6 +35,11 @@ export class CourseService {
   }
 
 
+  GetCourseById(id: number):Observable<IAllCourses> {
+  return  this.http.get<IAllCourses>(`${this.baseUrl}/${id}`)
+  }
+
+
 
 
 }
