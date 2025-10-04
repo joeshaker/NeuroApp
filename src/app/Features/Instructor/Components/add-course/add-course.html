@@ -47,7 +47,7 @@
   </div>
 
   <div class="row">
-    <form class="col-lg-8">
+    <form (ngSubmit)="SaveCourse()" [formGroup]="AddCourseForm" class="col-lg-8">
       <!-- Course Creation Form -->
       <div class="form-container fade-in">
         <h2 class="form-title">Course Information</h2>
@@ -55,13 +55,13 @@
         <div class="form-card">
           <div class="mb-4">
             <label class="form-label">Course Title</label>
-            <input type="text" class="form-control" placeholder="Enter course title">
+            <input formControlName="title"  type="text" class="form-control" placeholder="Enter course title">
             <div class="form-text">Make it descriptive and engaging for potential students.</div>
           </div>
 
           <div class="mb-4">
             <label class="form-label">Course Description</label>
-            <textarea class="form-control" rows="5"
+            <textarea formControlName="description" class="form-control" rows="5"
               placeholder="Describe what students will learn in this course"></textarea>
             <div class="form-text">Provide a comprehensive overview of the course content and learning outcomes.</div>
           </div>
@@ -70,11 +70,10 @@
             <div class="col-md-6">
               <div class="mb-4">
                 <label class="form-label">Category</label>
-                <select class="form-select">
+                <select formControlName="categoryId" class="form-select">
                   <option selected disabled>Select Category</option>
                   @for (item of AllCategories; track $index) {
-                    <option>{{item?.name ?? ''}}</option>
-
+                    <option  [ngValue]="item?.id" >{{item?.name ?? ''}}</option>
                   }
                 </select>
               </div>
@@ -82,7 +81,7 @@
             <div class="col-md-6">
               <div class="mb-4">
                 <label class="form-label">Thumbnail</label>
-                <input type="file" class="form-control">
+                <input formControlName="thumbnailUrl" type="file" class="form-control">
                 <div class="form-text">Recommended size: 1280x720 pixels</div>
               </div>
             </div>
@@ -94,14 +93,14 @@
                 <label class="form-label">Price</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" placeholder="0.00" step="0.01">
+                  <input formControlName="price" type="number" class="form-control" placeholder="0.00" step="0.01">
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-4 d-flex align-items-end h-100">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="freeCourse">
+                  <input formControlName="isFree" class="form-check-input" type="checkbox" role="switch" id="freeCourse">
                   <label class="form-check-label" for="freeCourse">
                     This is a free course
                   </label>
@@ -119,7 +118,7 @@
             <button class="btn btn-outline me-2">
               <i class="fas fa-eye me-2"></i> Preview
             </button>
-            <button class="btn btn-primary">
+            <button  type="submit" class="btn btn-primary">
               <i class="fas fa-save me-2"></i> Save & Continue
             </button>
           </div>
