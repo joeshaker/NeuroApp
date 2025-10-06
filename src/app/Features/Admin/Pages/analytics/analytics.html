@@ -1,0 +1,205 @@
+<!-- Analytics Page -->
+<div class="analytics-page">
+  <div class="page-header mb-4">
+    <h3><i class="fas fa-chart-line me-2"></i>Analytics & Reports</h3>
+    <p class="text-muted">Course platform insights and performance metrics</p>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3">Loading analytics...</p>
+  </div>
+
+  <div *ngIf="!loading && analytics">
+    <!-- Overview Stats -->
+    <div class="row mb-4">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card users">
+          <div class="stats-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="stats-content">
+            <h3>{{ analytics.totalUsers | number }}</h3>
+            <p class="text-muted mb-0">Total Students</p>
+            <small class="text-success">
+              <i class="fas fa-arrow-up"></i> {{ analytics.activeStudents }} active
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card products">
+          <div class="stats-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="stats-content">
+            <h3>{{ analytics.totalCourses | number }}</h3>
+            <p class="text-muted mb-0">Total Courses</p>
+            <small class="text-info">
+              <i class="fas fa-book"></i> Active courses
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card orders">
+          <div class="stats-icon">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="stats-content">
+            <h3>{{ analytics.totalEnrollments | number }}</h3>
+            <p class="text-muted mb-0">Total Enrollments</p>
+            <small class="text-success">
+              <i class="fas fa-chart-line"></i> Growing
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card revenue">
+          <div class="stats-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="stats-content">
+            <h3>142</h3>
+            <p class="text-muted mb-0">Total Instructors</p>
+            <small class="text-success">
+              <i class="fas fa-arrow-up"></i> 12 verified this month
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row">
+      <!-- Sales Chart -->
+      <div class="col-lg-8 mb-4">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5><i class="fas fa-chart-bar me-2"></i>Enrollments Overview</h5>
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-outline-primary active">6 Months</button>
+              <button type="button" class="btn btn-outline-primary">1 Year</button>
+              <button type="button" class="btn btn-outline-primary">All Time</button>
+            </div>
+          </div>
+          <div class="chart-body">
+            <div class="bar-chart">
+              <div class="chart-bars">
+                <div class="bar-item" *ngFor="let month of analytics.enrollmentsByMonth">
+                  <div class="bar-wrapper">
+                    <div class="bar-fill"
+                         [style.height.%]="getEnrollmentPercentage(month.enrollments)"
+                         [title]="month.enrollments">
+                    </div>
+                  </div>
+                  <div class="bar-label">{{ month.month }}</div>
+                  <div class="bar-value">{{ month.enrollments }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users by Role -->
+      <div class="col-lg-4 mb-4">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h5><i class="fas fa-tags me-2"></i>Courses by Category</h5>
+          </div>
+          <div class="chart-body">
+            <div class="role-distribution">
+              <div class="role-item" *ngFor="let cat of analytics.coursesByCategory; let i = index">
+                <div class="role-info">
+                  <span class="role-name">{{ cat.categoryName }}</span>
+                  <span class="role-count">{{ cat.coursesCount }}</span>
+                </div>
+                <div class="progress mb-2">
+                  <div class="progress-bar"
+                       [style.width.%]="getCategoryPercentage(cat.coursesCount)"
+                       [style.background-color]="getCategoryColor(i)">
+                  </div>
+                </div>
+                <small class="text-muted">{{ getCategoryPercentage(cat.coursesCount) | number:'1.1-1' }}%</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Metrics -->
+    <div class="row">
+      <!-- Top Performers -->
+      <div class="col-lg-6 mb-4">
+        <div class="metrics-card">
+          <h5 class="mb-4"><i class="fas fa-trophy me-2"></i>Top Performers</h5>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Metric</th>
+                  <th>Value</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge bg-warning text-dark">1</span></td>
+                  <td>Most Popular Course</td>
+                  <td>Deep Learning</td>
+                  <td><span class="text-success">+25%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-secondary">2</span></td>
+                  <td>Top Category</td>
+                  <td>Machine Learning</td>
+                  <td><span class="text-success">+18%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-secondary">3</span></td>
+                  <td>Top Instructor</td>
+                  <td>Dr. Sarah Johnson</td>
+                  <td><span class="text-success">+32%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="col-lg-6 mb-4">
+        <div class="metrics-card">
+          <h5 class="mb-4"><i class="fas fa-clock me-2"></i>Performance Metrics</h5>
+          <div class="metric-row">
+            <div class="metric-label">Average Course Rating</div>
+            <div class="metric-value">4.7/5.0</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Completion Rate</div>
+            <div class="metric-value">68.3%</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Student Satisfaction</div>
+            <div class="metric-value">4.8/5.0</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Active Learning Hours</div>
+            <div class="metric-value">12,450</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Growth Rate</div>
+            <div class="metric-value text-success">+15.7%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
