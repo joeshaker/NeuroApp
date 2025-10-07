@@ -1,0 +1,37 @@
+
+/* Features */
+.features {
+  padding: 80px 60px;
+  text-align: center;
+}
+.features h2 {
+  margin-bottom: 50px;
+  font-size: 2rem;
+  color: #222;
+}
+
+.feature-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.card {
+  background: white;
+  padding: 30px;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px);
+}
+.card img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+.card h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}

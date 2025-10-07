@@ -21,8 +21,23 @@ export class CourseService {
   }
 
 
-
-  AddCourse(course : IAddCourse) {
-    this.http.post(this.baseUrl, course);
+  AddCourse(course : IAddCourse) : any  {
+     return  this.http.post(this.baseUrl, course);
   }
+
+
+  ViewCourseDetails(id:number):Observable<IAllCourses[]> {
+    return this.http.get<IAllCourses[]>(`${this.baseUrl}/${id}`);
+  }
+
+  EditCourse(id:number , EditCourse :IAddCourse ) :any {
+    return this.http.put(`${this.baseUrl}/${id}`, EditCourse);
+  }
+
+
+  GetCourseById(id: number):Observable<IAllCourses> {
+  return  this.http.get<IAllCourses>(`${this.baseUrl}/${id}`)
+  }
+
+
 }

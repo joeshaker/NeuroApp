@@ -25,42 +25,48 @@ export const routes: Routes = [
   //   ]
   // },
   {
-    path: 'instructor',
+    path: '',
     component: Instructorcontainer,
     children: [
-      { 
-        path: '', 
-        redirectTo: 'dashboard', 
-        pathMatch: 'full' 
-      },
-      { 
-        path: 'dashboard', 
-        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard) 
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       },
       {
-        path:'courses',
+        path: 'dashboard',
+        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard)
+      },
+      {
+        path: 'courses',
         loadComponent: () => import('./Components/Courses/courses/courses').then(m => m.Courses)
       },
       {
-        path:'module',
-        loadComponent:()=>import('./Components/CrsModules/course-module/course-module').then(m=>m.CourseModule)
+        path: 'module',
+        loadComponent: () => import('./Components/CrsModules/course-module/course-module').then(m => m.CourseModule)
       },
       {
-        path:'AddModule',
-        loadComponent:()=>import('./Components/AddModule/addmodule/addmodule').then(m=>m.Addmodule)
+        path: 'AddModule',
+        loadComponent: () => import('./Components/AddModule/addmodule/addmodule').then(m => m.Addmodule)
       },
       {
-        path:'Videos',
-        loadComponent:()=>import('./Components/videos/videos/videos').then(m=>m.Videos)
+        path: 'Videos',
+        loadComponent: () => import('./Components/videos/videos/videos').then(m => m.Videos)
       },
       {
-        path:'AddVideo',
-        loadComponent:()=>import('./Components/AddVideo/add-video/add-video').then(m=>m.AddVideo)
+        path: 'AddVideo',
+        loadComponent: () => import('./Components/AddVideo/add-video/add-video').then(m => m.AddVideo)
       },
       {
-        path:'AddCourse',
-        loadComponent:()=>import('./Components/add-course/add-course').then(m=>m.AddCourse)
+        path: 'AddCourse',
+        loadComponent: () => import('./Components/add-course/add-course').then(m => m.AddCourse)
+      },
+      {
+        path: 'EditModule/:id',
+        loadComponent: () => import('./Components/EditModule/editmodule/editmodule')
+          .then(m => m.Editmodule)
       }
+
     ]
   }
 ];

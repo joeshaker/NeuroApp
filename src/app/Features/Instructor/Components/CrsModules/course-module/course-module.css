@@ -5,19 +5,25 @@
             --light-bg: #f8f9fa;
             --dark-bg: #343a40;
         }
-        
+
         body {
             background-color: #f5f7fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
 
-        
+
         .main-content {
             margin-left: 250px;
+            /* keep sidebar offset */
             padding: 20px;
+            max-width: 1100px;
+            /* limit content width */
+            margin-right: auto;
+            margin-left: auto;
+            /* center horizontally */
         }
-        
+
+
         .dashboard-header {
             background-color: white;
             border-radius: 10px;
@@ -25,7 +31,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-        
+
         .stats-card {
             background-color: white;
             border-radius: 10px;
@@ -34,16 +40,16 @@
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
-        
+
         .stats-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .stats-card i {
             font-size: 2.5rem;
             margin-bottom: 15px;
         }
-        
+
         .module-card {
             background-color: white;
             border-radius: 10px;
@@ -52,72 +58,72 @@
             margin-bottom: 20px;
             transition: all 0.3s;
         }
-        
+
         .module-card:hover {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .module-card .module-actions {
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
+
         .module-card:hover .module-actions {
             opacity: 1;
         }
-        
+
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .btn-danger {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
         }
-        
+
         .table-responsive {
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .table thead {
             background-color: var(--secondary-color);
             color: white;
         }
-        
+
         .search-box {
             position: relative;
         }
-        
+
         .search-box i {
             position: absolute;
             left: 15px;
             top: 12px;
             color: #6c757d;
         }
-        
+
         .search-box input {
             padding-left: 40px;
         }
-        
+
         .badge-arrangement {
             background-color: var(--primary-color);
         }
-        
+
         .pagination .page-item.active .page-link {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
                 height: auto;
                 position: relative;
             }
-            
+
             .main-content {
                 margin-left: 0;
             }
