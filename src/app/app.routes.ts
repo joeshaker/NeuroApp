@@ -6,19 +6,19 @@ import { EditCourse } from './Features/Instructor/Components/edit-course/edit-co
 
 export const routes: Routes = [
   // {path:'addCourse', component:AddCourse , pathMatch:'full'},
-    {
-        path: 'auth',
-        loadChildren: () => import('./Features/Auth/auth.routes').then(m => m.authRoutes)
-    },
-    {
-        path: '',
-        redirectTo: 'auth/login',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        redirectTo: 'auth/login'
-    },
+    // {
+    //     path: 'auth',
+    //     loadChildren: () => import('./Features/Auth/auth.routes').then(m => m.authRoutes)
+    // },
+    // {
+    //     path: '',
+    //     redirectTo: 'auth/login',
+    //     pathMatch: 'full'
+    // },
+    // {
+    //     path: '**',
+    //     redirectTo: 'auth/login'
+    // },
   {path:'editCourse/:id', component:EditCourse , pathMatch:'full'},
     {
         path: '',

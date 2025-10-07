@@ -17,21 +17,21 @@
   <div class="row">
     <div class="col-lg-8">
       <!-- Course Editing Form -->
-      <div class="form-container fade-in">
+      <form [formGroup]="EditCourseForm"  (submit)="UpdateCourse(CourseData.id)" class="form-container fade-in" >
         <h2 class="form-title">Course Information</h2>
 
         <div class="form-card">
           <div class="mb-4">
             <label class="form-label">Course Title</label>
-            <input type="text" class="form-control" value="Complete Web Development Bootcamp"
+            <input  formControlName="title" type="text" class="form-control"  [value]="CourseData?.title ?? ' ' "
               placeholder="Enter course title">
             <div class="form-text">Make it descriptive and engaging for potential students.</div>
           </div>
 
           <div class="mb-4">
             <label class="form-label">Course Description</label>
-            <textarea class="form-control" rows="5"
-              placeholder="Describe what students will learn in this course">Learn HTML, CSS, JavaScript, React, Node.js, MongoDB and more! This comprehensive bootcamp will take you from beginner to job-ready developer.</textarea>
+            <textarea  formControlName="description" class="form-control" rows="5"
+              placeholder="Describe what students will learn in this course">{{CourseData?.description ?? ' '}}</textarea>
             <div class="form-text">Provide a comprehensive overview of the course content and learning outcomes.</div>
           </div>
 
@@ -39,25 +39,20 @@
             <div class="col-md-6">
               <div class="mb-4">
                 <label class="form-label">Category</label>
-                <select class="form-select">
+                <select  formControlName="categoryId" class="form-select">
                   <option>Select Category</option>
-                  <option selected>Web Development</option>
-                  <option>Data Science</option>
-                  <option>Mobile Development</option>
-                  <option>UI/UX Design</option>
-                  <option>Business</option>
-                  <option>Marketing</option>
+                  @for (item of AllCategories; track $index) {
+                    <option [ngValue]="CourseData.categoryId" [selected]="CourseData.categoryId == item.id">{{item?.name ?? ' '}}</option>
+                  }
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-4">
                 <label class="form-label">Instructor</label>
-                <select class="form-select">
-                  <option>Select Instructor</option>
-                  <option selected>Dr. Sarah Johnson</option>
-                  <option>Prof. Michael Chen</option>
-                  <option>Dr. Emily Rodriguez</option>
+                <select formControlName="instructorId"   class="form-select">
+                  <!-- <option >Select Instructor</option> -->
+                  <option  ngValue="2" selected>Dr. Sarah Johnson</option>
                 </select>
               </div>
             </div>
@@ -66,6 +61,7 @@
           <div class="mb-4">
             <label class="form-label">Thumbnail URL</label>
             <input type="text" class="form-control"
+            formControlName="thumbnailUrl"
               value="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
               placeholder="Enter thumbnail URL">
             <div class="form-text">Provide a direct URL to your course thumbnail image.</div>
@@ -83,14 +79,14 @@
                 <label class="form-label">Price</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" value="89.99" step="0.01">
+                  <input  formControlName="price" type="number" class="form-control" [value]="CourseData?.price   ?? 0" step="0.01">
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-4 d-flex align-items-end h-100">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="freeCourse">
+                  <input formControlName="isFree" class="form-check-input" type="checkbox" role="switch" id="freeCourse">
                   <label class="form-check-label" for="freeCourse">
                     This is a free course
                   </label>
@@ -108,12 +104,12 @@
             <button class="btn btn-outline me-2">
               <i class="fas fa-eye me-2"></i> Preview
             </button>
-            <button class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
               <i class="fas fa-save me-2"></i> Update Course
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
 
 
