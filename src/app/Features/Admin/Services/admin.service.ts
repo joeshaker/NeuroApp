@@ -27,7 +27,7 @@ import {
   IDashboardStats,
   IPaginationParams,
   IPaginatedResponse
-} from '../../admin/Interfaces/admin.interface';
+} from '../../Admin/Interfaces/admin.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AdminService } from '../../../admin/Services/admin.service';
+import { AdminService } from '../../../Admin/Services/admin.service';
 
 @Component({
   selector: 'app-admin-dashboard',

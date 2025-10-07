@@ -14,12 +14,12 @@ import { ICategory } from '../../Interfaces/admin.interface';
 export class AdminCategories implements OnInit {
   categories: ICategory[] = [];
   loading = false;
-  
+
   showAddModal = false;
   showEditModal = false;
   showDeleteModal = false;
   selectedCategory: ICategory | null = null;
-  
+
   newCategory: any = {
     name: '',
     description: '',
