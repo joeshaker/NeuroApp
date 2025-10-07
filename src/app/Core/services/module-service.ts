@@ -35,6 +35,13 @@ export interface ModuleDto {
   courseId: number;
 }
 
+export interface UpdateModuleDto {
+  id: number;
+  title: string;
+  moduleArrangement: number;
+  courseId: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -59,11 +66,20 @@ export class ModuleService {
     return this.http.get<GetModuleDto[]>(`${this.baseUrl}/api/Module`);
   }
 
+updateModule(module: UpdateModuleDto & { id: number }): Observable<any> {
+  return this.http.put(`${this.baseUrl}/api/Module`, module);
+}
+
+
   // Get all courses
 
 
   // Get all courses
   getCourses(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/api/Course`);
+  }
+
+  getAllModulesByCourseId(courseId: number): Observable<GetModuleDto[]> {
+    return this.http.get<GetModuleDto[]>(`${this.baseUrl}/api/Module/GetModulesByCrsID/${courseId}`);
   }
 }

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { VideoCreateDto, VideoService } from '../../../../../Core/services/Videoservice/videoservice';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-videos',
@@ -37,13 +38,43 @@ export class Videos implements OnInit {
     });
   }
 
-  deleteVideo(id: number): void {
-    if (confirm('Are you sure you want to delete this video?')) {
-      this.videoService.deleteVideo(id).subscribe(() => {
-        this.videos = this.videos.filter(v => v.id !== id);
+deleteVideo(id: number): void {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'This action cannot be undone!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.videoService.deleteVideo(id).subscribe({
+        next: () => {
+          this.videos = this.videos.filter(v => v.id !== id);
+          this.cdr.detectChanges();
+
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'The video has been deleted.',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        },
+        error: () => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Something went wrong while deleting the video.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
       });
     }
-  }
+  });
+}
+
 
   toggleView(isGrid: boolean): void {
     this.gridView = isGrid;

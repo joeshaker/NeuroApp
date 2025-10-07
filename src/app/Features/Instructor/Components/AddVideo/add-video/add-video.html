@@ -11,11 +11,22 @@
     <input type="number" class="form-control" [(ngModel)]="videoArrangement" name="videoArrangement" min="1" required>
   </div>
 
-  <!-- Module Id -->
+  <!-- Course Select -->
   <div class="mb-3">
-    <label class="form-label">Module</label>
-    <input type="number" class="form-control" [(ngModel)]="moduleId" name="moduleId" required>
-    <!-- Later: Replace with dropdown of modules -->
+    <label class="form-label">Select Course</label>
+    <select class="form-control" [(ngModel)]="selectedCourseId" name="courseId" (change)="onCourseChange($event)" required>
+      <option value="" disabled selected>Select a course</option>
+      <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+    </select>
+  </div>
+
+  <!-- Module Select -->
+  <div class="mb-3">
+    <label class="form-label">Select Module</label>
+    <select class="form-control" [(ngModel)]="moduleId" name="moduleId" required [disabled]="!modules.length">
+      <option value="" disabled selected>Select a module</option>
+      <option *ngFor="let module of modules" [value]="module.id">{{ module.title }}</option>
+    </select>
   </div>
 
   <!-- File Upload -->
