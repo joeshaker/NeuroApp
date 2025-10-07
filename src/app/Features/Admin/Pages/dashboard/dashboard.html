@@ -1,0 +1,182 @@
+<!-- Admin Dashboard Main Content -->
+<div class="admin-dashboard">
+  <!-- Header -->
+  <div class="header d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="mb-0">Admin Dashboard</h3>
+      <p class="text-muted mb-0">Welcome back, Administrator</p>
+    </div>
+
+    <div class="d-flex align-items-center">
+      <div class="input-group me-3">
+        <input type="text" class="form-control search-box" placeholder="Search...">
+        <span class="input-group-text bg-transparent border-0"><i class="fas fa-search"></i></span>
+      </div>
+
+      <div class="dropdown me-3">
+        <a class="btn btn-light position-relative" href="#" role="button" data-bs-toggle="dropdown">
+          <i class="fas fa-bell"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+        </a>
+      </div>
+
+      <div class="dropdown">
+        <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin" class="rounded-circle me-2" width="40" height="40">
+          <div class="d-none d-md-block">
+            <div>Admin User</div>
+            <small class="text-muted">Administrator</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row" *ngIf="!loading">
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="stats-card users">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-0">{{ stats.activeStudents | number }}</h3>
+            <p class="text-muted mb-0">Active Students</p>
+          </div>
+          <div class="icon"><i class="fas fa-user-graduate"></i></div>
+        </div>
+        <div class="mt-3">
+          <small class="text-success"><i class="fas fa-chart-line"></i> Currently enrolled</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="stats-card products">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-0">{{ stats.totalCourses | number }}</h3>
+            <p class="text-muted mb-0">Total Courses</p>
+          </div>
+          <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+        </div>
+        <div class="mt-3">
+          <small class="text-info"><i class="fas fa-book"></i> {{ stats.totalCategories }} categories</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="stats-card orders">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-0">{{ stats.totalEnrollments | number }}</h3>
+            <p class="text-muted mb-0">Total Enrollments</p>
+          </div>
+          <div class="icon"><i class="fas fa-user-check"></i></div>
+        </div>
+        <div class="mt-3">
+          <small class="text-success"><i class="fas fa-chart-line"></i> Active learners</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="stats-card revenue">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-0">{{ stats.totalInstructors | number }}</h3>
+            <p class="text-muted mb-0">Total Instructors</p>
+          </div>
+          <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        </div>
+        <div class="mt-3">
+          <small class="text-warning"><i class="fas fa-clock"></i> {{ stats.pendingInstructors }} pending</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="row" *ngIf="loading">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading dashboard data...</p>
+    </div>
+  </div>
+
+  <!-- Recent Activity Section -->
+  <div class="row mt-4">
+    <!-- Recent Enrollments -->
+    <div class="col-lg-12 mb-4">
+      <div class="recent-activity">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h5 class="mb-0"><i class="fas fa-user-check me-2"></i>Recent Enrollments</h5>
+          <a routerLink="/admin/analytics" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let enrollment of recentEnrollments">
+                <td>{{ enrollment.studentName }}</td>
+                <td>{{ enrollment.courseName }}</td>
+                <td>{{ enrollment.enrollmentDate | date: 'short' }}</td>
+                <td><span class="badge bg-{{ getStatusClass(enrollment.status) }}">{{ enrollment.status }}</span></td>
+              </tr>
+              <tr *ngIf="recentEnrollments.length === 0">
+                <td colspan="4" class="text-center text-muted">No recent enrollments</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="quick-actions">
+        <h5 class="mb-4"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <a routerLink="/admin/courses" class="action-card">
+              <i class="fas fa-graduation-cap fa-2x mb-3"></i>
+              <h6>Manage Courses</h6>
+              <p class="text-muted mb-0">View and edit courses</p>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a routerLink="/admin/instructors" class="action-card">
+              <i class="fas fa-chalkboard-teacher fa-2x mb-3"></i>
+              <h6>Manage Instructors</h6>
+              <p class="text-muted mb-0">Verify and manage instructors</p>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a routerLink="/admin/categories" class="action-card">
+              <i class="fas fa-tags fa-2x mb-3"></i>
+              <h6>Manage Categories</h6>
+              <p class="text-muted mb-0">Organize course categories</p>
+            </a>
+          </div>
+          <div class="col-md-3 mb-3">
+            <a routerLink="/admin/analytics" class="action-card">
+              <i class="fas fa-chart-line fa-2x mb-3"></i>
+              <h6>View Analytics</h6>
+              <p class="text-muted mb-0">Detailed reports & insights</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

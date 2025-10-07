@@ -56,12 +56,16 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "NeuroApp:build:production"
             },
             "development": {
-              "buildTarget": "NeuroApp:build:development"
+              "buildTarget": "NeuroApp:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

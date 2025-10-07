@@ -1,0 +1,127 @@
+<div class="enrollments-page">
+  <div class="page-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h3><i class="fas fa-user-check me-2"></i>Enrollments Management</h3>
+        <p class="text-muted mb-0">Track and manage student enrollments</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-section mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by student or course..."
+            (input)="onSearch($event)"
+          >
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="btn-group w-100" role="group">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            [class.active]="statusFilter === 'All'"
+            (click)="onStatusFilter('All')"
+          >
+            All ({{ getStatusCount('All') }})
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            [class.active]="statusFilter === 'Active'"
+            (click)="onStatusFilter('Active')"
+          >
+            Active ({{ getStatusCount('Active') }})
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            [class.active]="statusFilter === 'Completed'"
+            (click)="onStatusFilter('Completed')"
+          >
+            Completed ({{ getStatusCount('Completed') }})
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            [class.active]="statusFilter === 'Cancelled'"
+            (click)="onStatusFilter('Cancelled')"
+          >
+            Cancelled ({{ getStatusCount('Cancelled') }})
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container" *ngIf="!loading">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Enrollment ID</th>
+          <th>Student</th>
+          <th>Course</th>
+          <th>Enrollment Date</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let enrollment of filteredEnrollments">
+          <td>{{ enrollment.enrollmentId }}</td>
+          <td>{{ enrollment.studentName || enrollment.studentId }}</td>
+          <td>{{ enrollment.courseName || 'Course #' + enrollment.courseId }}</td>
+          <td>{{ enrollment.enrollmentDate | date: 'short' }}</td>
+          <td>
+            <span class="badge bg-{{ getStatusClass(enrollment.status) }}">
+              {{ enrollment.status }}
+            </span>
+          </td>
+          <td>
+            <div class="progress" style="height: 20px;">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                [style.width.%]="enrollment.progress || 0"
+              >
+                {{ enrollment.progress || 0 }}%
+              </div>
+            </div>
+          </td>
+          <td>
+            <button
+              class="btn btn-sm btn-warning me-2"
+              *ngIf="enrollment.status === 'Active'"
+              (click)="cancelEnrollment(enrollment.enrollmentId)"
+            >
+              <i class="fas fa-ban"></i> Cancel
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="deleteEnrollment(enrollment.enrollmentId)"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredEnrollments.length === 0">
+          <td colspan="7" class="text-center text-muted py-4">
+            No enrollments found
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3">Loading enrollments...</p>
+  </div>
+</div>

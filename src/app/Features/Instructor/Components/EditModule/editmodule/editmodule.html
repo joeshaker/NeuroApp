@@ -1,0 +1,35 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="form-card">
+    <!-- Module Title -->
+    <div class="mb-4">
+      <label class="form-label">Module Title <span class="text-danger">*</span></label>
+      <input type="text" [(ngModel)]="moduleData.title" name="title" class="form-control" required>
+    </div>
+
+    <!-- Module Arrangement -->
+    <div class="mb-4">
+      <label class="form-label">Module Arrangement <span class="text-danger">*</span></label>
+      <input type="number" [(ngModel)]="moduleData.moduleArrangement" name="moduleArrangement"
+             class="form-control" min="1" max="50" required>
+    </div>
+
+    <!-- Course Selection -->
+    <div class="mb-4">
+      <label class="form-label">Course <span class="text-danger">*</span></label>
+      <select [(ngModel)]="moduleData.courseId" name="courseId" class="form-select" required>
+        <option value="" disabled>Select a course</option>
+        <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="form-actions">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+      <i class="fas fa-times me-1"></i> Cancel
+    </button>
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-save me-1"></i> Update Module
+    </button>
+  </div>
+</form>
