@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./Features/auth/auth.routes').then((m) => m.authRoutes),
+      import('./Features/Auth/auth.routes').then((m) => m.authRoutes),
   },
 
   // 🔹 Instructor area
@@ -32,7 +32,7 @@ export const routes: Routes = [
     path: 'admin',
     component: SimpleLayout,
     loadChildren: () =>
-      import('./Features/admin/admin.routes').then((m) => m.adminRoutes),
+      import('./Features/Admin/admin.routes').then((m) => m.adminRoutes),
     // canActivate: [AuthGuard],
     // data: { roles: ['admin'] }
   },

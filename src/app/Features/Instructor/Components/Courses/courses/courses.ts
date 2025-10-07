@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../../../Core/interfaces/Course/iall-courses';
 import { RouterLink } from '@angular/router';
+import { ModuleService } from '../../../../../Core/services/module-service';
 @Component({
   selector: 'app-courses',
   standalone:true,
@@ -12,7 +13,7 @@ import { RouterLink } from '@angular/router';
 export class Courses implements OnInit {
 
   AllCourses: IAllCourses[] = [];
-  constructor(private service: CourseService,private cdr: ChangeDetectorRef) { }
+  constructor(private service: CourseService,private cdr: ChangeDetectorRef  , private moduleService : ModuleService) { }
 
   ngOnInit(): void {
     this.service.GetAllCourses().subscribe({
@@ -29,11 +30,21 @@ export class Courses implements OnInit {
 
 
   ViewCourse(id: number) {
+
+     this.moduleService.getAllModulesByCourseId(id).subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    })
+
+
     this.service.ViewCourseDetails(id).subscribe({
       next: (response) => {
         console.log(response);
       }
     })
+
+
 
   }
 
