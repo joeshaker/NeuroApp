@@ -1,0 +1,63 @@
+/* Categories Page Styles */
+.categories-page {
+  min-height: 100vh;
+}
+
+.page-header h3 {
+  color: #333;
+  font-weight: 600;
+}
+
+.categories-grid {
+  margin-top: 20px;
+}
+
+.category-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+  height: 100%;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.category-header h5 {
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.category-description {
+  color: #6c757d;
+  margin-bottom: 15px;
+  min-height: 60px;
+}
+
+.category-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+}
+
+.products-count {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.modal.show {
+  background-color: rgba(0, 0, 0, 0.5);
+}

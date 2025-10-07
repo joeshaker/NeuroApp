@@ -1,0 +1,233 @@
+<!-- Users Management Page -->
+<div class="users-page">
+  <div class="page-header mb-4">
+    <h3><i class="fas fa-users me-2"></i>User Management</h3>
+    <p class="text-muted">Manage all users in the system</p>
+  </div>
+
+  <!-- Filters & Search -->
+  <div class="filters-bar mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by name or email..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()">
+          <button class="btn btn-primary" (click)="onSearch()">Search</button>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <select class="form-select" [(ngModel)]="selectedRole" (change)="onSearch()">
+          <option value="">All Roles</option>
+          <option value="Student">Student</option>
+          <option value="Instructor">Instructor</option>
+          <option value="Admin">Admin</option>
+          <option value="Seller">Seller</option>
+          <option value="Customer">Customer</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select class="form-select" [(ngModel)]="selectedStatus" (change)="onSearch()">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+      </div>
+      <div class="col-md-4 text-end">
+        <button class="btn btn-success">
+          <i class="fas fa-plus me-2"></i>Add New User
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="users-table-container">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Last Login</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="user.avatar || 'https://ui-avatars.com/api/?name=' + user.name"
+                     class="user-avatar me-2"
+                     [alt]="user.name">
+                <strong>{{ user.name }}</strong>
+              </div>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone || 'N/A' }}</td>
+            <td>
+              <span class="badge bg-{{ getRoleBadgeClass(user.role) }}">
+                {{ user.role }}
+              </span>
+            </td>
+            <td>
+              <span class="badge bg-{{ getStatusBadgeClass(user.status) }}">
+                {{ user.status }}
+              </span>
+            </td>
+            <td>{{ user.createdAt | date: 'MMM d, y' }}</td>
+            <td>{{ user.lastLogin ? (user.lastLogin | date: 'MMM d, y') : 'Never' }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="editUser(user)"
+                  title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  *ngIf="user.status === 'Active'"
+                  class="btn btn-sm btn-outline-warning"
+                  (click)="deactivateUser(user)"
+                  title="Deactivate">
+                  <i class="fas fa-ban"></i>
+                </button>
+                <button
+                  *ngIf="user.status === 'Inactive'"
+                  class="btn btn-sm btn-outline-success"
+                  (click)="activateUser(user)"
+                  title="Activate">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="confirmDelete(user)"
+                  title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="users.length === 0 && !loading">
+            <td colspan="8" class="text-center text-muted py-5">
+              <i class="fas fa-users fa-3x mb-3 d-block"></i>
+              <p>No users found</p>
+            </td>
+          </tr>
+          <tr *ngIf="loading">
+            <td colspan="8" class="text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="mt-3">Loading users...</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container d-flex justify-content-between align-items-center mt-4" *ngIf="!loading && users.length > 0">
+      <div class="pagination-info">
+        Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ (currentPage * pageSize) < totalCount ? (currentPage * pageSize) : totalCount }} of {{ totalCount }} users
+      </div>
+      <nav>
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of getPaginationArray()" [class.active]="page === currentPage">
+            <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" [class.show]="showDeleteModal" [style.display]="showDeleteModal ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" (click)="closeModals()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete user <strong>{{ selectedUser?.name }}</strong>?</p>
+        <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModals()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" [class.show]="showEditModal" [style.display]="showEditModal ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="btn-close" (click)="closeModals()"></button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="selectedUser">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" [(ngModel)]="selectedUser.name" name="name">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="selectedUser.email" name="email">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-control" [(ngModel)]="selectedUser.phone" name="phone">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Role</label>
+              <select class="form-select" [(ngModel)]="selectedUser.role" name="role">
+                <option value="Student">Student</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Admin">Admin</option>
+                <option value="Seller">Seller</option>
+                <option value="Customer">Customer</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Status</label>
+              <select class="form-select" [(ngModel)]="selectedUser.status" name="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Suspended">Suspended</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModals()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="saveUser()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade" [class.show]="showDeleteModal || showEditModal" *ngIf="showDeleteModal || showEditModal"></div>

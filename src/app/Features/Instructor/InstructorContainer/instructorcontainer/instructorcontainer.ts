@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-instructorcontainer',
-  imports: [InsSidebar, Insdashboard,RouterOutlet],
+  imports: [InsSidebar,RouterOutlet],
   templateUrl: './instructorcontainer.html',
   styleUrl: './instructorcontainer.css'
 })

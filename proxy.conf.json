@@ -1,0 +1,9 @@
+[
+  {
+    "context": ["/api"],
+    "target": "http://localhost:7011",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+]

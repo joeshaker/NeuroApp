@@ -1,0 +1,96 @@
+<div class="admin-courses">
+  <div class="header d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="mb-0">Course Management</h3>
+      <p class="text-muted mb-0">Manage all AI courses on the platform</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="input-group me-3">
+        <input
+          type="text"
+          class="form-control search-box"
+          placeholder="Search courses..."
+          (input)="onSearch($event)">
+        <span class="input-group-text bg-transparent border-0">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="loading">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading courses...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <div class="col-12">
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Type</th>
+              <th>Instructor ID</th>
+              <th>Category ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of getFilteredCourses()">
+              <td>{{ course.id }}</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img
+                    *ngIf="course.thumbnailUrl"
+                    [src]="course.thumbnailUrl"
+                    alt="{{ course.title }}"
+                    class="course-thumbnail me-2"
+                    onerror="this.src='https://via.placeholder.com/50'">
+                  <strong>{{ course.title }}</strong>
+                </div>
+              </td>
+              <td>
+                <span class="description-text">{{ course.description }}</span>
+              </td>
+              <td>
+                <span *ngIf="course.isFree" class="badge bg-success">Free</span>
+                <span *ngIf="!course.isFree">${{ course.price }}</span>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="course.isFree ? 'bg-success' : 'bg-primary'">
+                  {{ course.isFree ? 'Free' : 'Paid' }}
+                </span>
+              </td>
+              <td>{{ course.instructorId }}</td>
+              <td>{{ course.categoryId }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="deleteCourse(course.id)"
+                    title="Delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="getFilteredCourses().length === 0">
+              <td colspan="8" class="text-center text-muted py-4">
+                <i class="fas fa-graduation-cap fa-3x mb-3 d-block"></i>
+                No courses found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

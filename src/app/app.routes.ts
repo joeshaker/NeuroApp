@@ -2,36 +2,78 @@ import { Route, Routes } from '@angular/router';
 import { Homecontainer } from './Features/Home/homecontainer/homecontainer/homecontainer';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';
 
-
 export const routes: Routes = [
+  // 🔹 Admin area as default (for testing)
   {
     path: '',
-    redirectTo: 'Home',
+    redirectTo: 'admin/dashboard',
     pathMatch: 'full'
   },
-  {
-    path: 'Home',
-    component: Homecontainer
-  },
+
+  // 🔹 Auth routes
   {
     path: 'auth',
-    loadChildren: () => import('./Features/auth/auth.routes').then(m => m.authRoutes)
+    loadChildren: () =>
+      import('./Features/Auth/auth.routes').then((m) => m.authRoutes),
   },
-  {
-    path: 'login',
-    redirectTo: 'auth/login',
-    pathMatch: 'full'
-  },
+
+  // 🔹 Instructor area
   {
     path: 'instructor',
     component: SimpleLayout,
-    loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
+    loadChildren: () =>
+      import('./Features/Instructor/instructor.routes').then((m) => m.routes),
+    // canActivate: [AuthGuard],
     // data: { roles: ['instructor'] }
   },
+
+  // 🔹 Admin area
+  {
+    path: 'admin',
+    component: SimpleLayout,
+    loadChildren: () =>
+      import('./Features/Admin/admin.routes').then((m) => m.adminRoutes),
+    // canActivate: [AuthGuard],
+    // data: { roles: ['admin'] }
+  },
+
+  // 🔹 Wildcard fallback
   {
     path: '**',
-    redirectTo: 'auth/login'
+    redirectTo: 'admin/dashboard'
   }
+];
+
+
+// export const routes: Routes = [
+//   {
+//     path: '',
+//     redirectTo: 'Home',
+//     pathMatch: 'full'
+//   },
+//   {
+//     path: 'Home',
+//     component: Homecontainer
+//   },
+//   {
+//     path: 'auth',
+//     loadChildren: () => import('./Features/auth/auth.routes').then(m => m.authRoutes)
+//   },
+//   {
+//     path: 'login',
+//     redirectTo: 'auth/login',
+//     pathMatch: 'full'
+//   },
+//   {
+//     path: 'instructor',
+//     component: SimpleLayout,
+//     loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
+//     // data: { roles: ['instructor'] }
+//   },
+//   {
+//     path: '**',
+//     redirectTo: 'auth/login'
+//   }
 
 // import { AddCourse } from './Features/Instructor/Components/add-course/add-course';
 // import { Instructorcontainer } from './Features/Instructor/InstructorContainer/instructorcontainer/instructorcontainer';
