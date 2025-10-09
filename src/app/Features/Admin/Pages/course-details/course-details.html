@@ -1,0 +1,28 @@
+<div class="course-details-container" *ngIf="!isLoading && course; else loadingOrError">
+
+  <div class="card">
+    <img [src]="course.thumbnailUrl" alt="Course Image" class="course-image">
+
+    <div class="card-content">
+      <h2 class="course-title">{{ course.title }}</h2>
+      <p class="course-description">{{ course.description }}</p>
+
+      <div class="course-meta">
+        <p><strong>Department:</strong> {{ course.categoryName }}</p>
+        <p><strong>Hours:</strong> {{ course.instructorName }}</p>
+        <p><strong>Degree:</strong> {{ course.description }}</p>
+        <p><strong>Minimum Degree:</strong> {{ course.price }}</p>
+      </div>
+
+      <button class="back-btn" routerLink="/courses">← Back to Courses</button>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingOrError>
+  <div class="status-box">
+    <p *ngIf="isLoading">Loading course details...</p>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</ng-template>
