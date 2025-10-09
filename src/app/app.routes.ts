@@ -10,6 +10,13 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
 
+  // 🔹 Course routes
+  {
+    path: 'courses',
+    loadChildren: () =>
+      import('./Features/Admin/Pages/course-details/course-details').then((m) => m.CourseDetailsComponent),
+  },
+
   // 🔹 Auth routes
   {
     path: 'auth',
