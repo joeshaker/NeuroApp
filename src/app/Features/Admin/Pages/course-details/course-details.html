@@ -1,28 +1,53 @@
-<div class="course-details-container" *ngIf="!isLoading && course; else loadingOrError">
+<div class="container py-5" *ngIf="!isLoading && course; else loadingOrError">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
 
-  <div class="card">
-    <img [src]="course.thumbnailUrl" alt="Course Image" class="course-image">
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+          <div class="col-md-5">
+            <img 
+              [src]="course.thumbnailUrl" 
+              class="img-fluid h-100 w-100 object-fit-cover" 
+              alt="Course Image">
+          </div>
+          <div class="col-md-7">
+            <div class="card-body p-4">
+              <h3 class="card-title mb-3 fw-bold text-primary">
+                {{ course.title }}
+              </h3>
+              <p class="text-muted mb-3">{{ course.description }}</p>
 
-    <div class="card-content">
-      <h2 class="course-title">{{ course.title }}</h2>
-      <p class="course-description">{{ course.description }}</p>
+              <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item">
+                  <strong>Category:</strong> {{ course.categoryName }}
+                </li>
+                <li class="list-group-item">
+                  <strong>Instructor:</strong> {{ course.instructorName }}
+                </li>
+                <li class="list-group-item">
+                  <strong>Price:</strong> {{ course.price }}
+                </li>
+              </ul>
 
-      <div class="course-meta">
-        <p><strong>Department:</strong> {{ course.categoryName }}</p>
-        <p><strong>Hours:</strong> {{ course.instructorName }}</p>
-        <p><strong>Degree:</strong> {{ course.description }}</p>
-        <p><strong>Minimum Degree:</strong> {{ course.price }}</p>
+              <button class="btn btn-outline-primary mt-3" routerLink="/courses">
+                ← Back to Courses
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <button class="back-btn" routerLink="/courses">← Back to Courses</button>
     </div>
   </div>
-
 </div>
 
 <ng-template #loadingOrError>
-  <div class="status-box">
-    <p *ngIf="isLoading">Loading course details...</p>
-    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
   </div>
 </ng-template>
