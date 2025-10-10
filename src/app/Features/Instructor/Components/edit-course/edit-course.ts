@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../../Core/services/Course/course-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
 import { CategoryService } from '../../../../Core/services/Category/category-service';
 import { IAllCategories } from '../../../../Core/interfaces/Category/iall-categories';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IAddCourse } from '../../../../Core/interfaces/Course/iadd-course';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-course',
@@ -15,7 +16,7 @@ import { IAddCourse } from '../../../../Core/interfaces/Course/iadd-course';
 })
 export class EditCourse implements OnInit {
 
-  constructor(private service: CourseService , private route: ActivatedRoute , private cdr: ChangeDetectorRef , private allCategories:CategoryService) { }
+  constructor(private service: CourseService , private route: ActivatedRoute , private cdr: ChangeDetectorRef , private allCategories:CategoryService , private routeTo :Router ) { }
   id: number = 0;
   CourseData!: IAllCourses;
   AllCategories: IAllCategories[] = [];
@@ -63,11 +64,26 @@ export class EditCourse implements OnInit {
 
     this.service.EditCourse(id, this.EditCourseForm.value as IAddCourse).subscribe({
       next: (response) => {
-        console.log(this.EditCourseForm.value);
-
         console.log(response);
         console.log("Course Updated Successfully");
-      }
+        Swal.fire({
+        title: 'Updated Successfully!',
+        text: 'The course has been updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.routeTo.navigate(['instructor/courses']);
+        }
+      });
+    },
+    error: (err) => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong while updating the course.',
+        icon: 'error'
+      });
+    }
     });
 
   }

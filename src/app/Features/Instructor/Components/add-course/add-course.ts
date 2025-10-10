@@ -4,6 +4,8 @@ import { IAllCategories } from '../../../../Core/interfaces/Category/iall-catego
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from '../../../../Core/services/Course/course-service';
 import { IAddCourse } from '../../../../Core/interfaces/Course/iadd-course';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-course',
@@ -13,9 +15,13 @@ import { IAddCourse } from '../../../../Core/interfaces/Course/iadd-course';
 })
 export class AddCourse implements OnInit {
 
+   iconSuccess : any = document.querySelector('#type-success');
+
+
+
   AllCategories: IAllCategories[] = [];
 
-  constructor(private service: CategoryService , private cdr:ChangeDetectorRef , private courseService : CourseService) {}
+  constructor(private service: CategoryService , private cdr:ChangeDetectorRef , private courseService : CourseService , private route:Router) {}
 
   ngOnInit(): void {
    this.service.GetAllCategories().subscribe({
@@ -55,9 +61,27 @@ export class AddCourse implements OnInit {
         console.log(this.AddCourseForm.value);
 
         console.log(response);
+       Swal.fire({
+        title: 'Good Job!',
+        text: 'Course added successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.route.navigate(['instructor/courses']);
+        }
+      });
+    },
+    error: (err : any) => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong while adding the course. Make Sure that u add All correct Fields',
+        icon: 'error'
+      });
+    }
+  });
       }
 
-    })
 
 
 
@@ -65,4 +89,3 @@ export class AddCourse implements OnInit {
   }
 
 
-}
