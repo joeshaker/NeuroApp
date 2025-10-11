@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../Services/admin.service';
@@ -18,10 +18,11 @@ export class AdminEnrollments implements OnInit {
   searchTerm = '';
   statusFilter = 'All';
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef  ) {}
 
   ngOnInit() {
     this.loadEnrollments();
+    this.cdr.detectChanges();
   }
 
   loadEnrollments() {
@@ -31,6 +32,7 @@ export class AdminEnrollments implements OnInit {
         this.enrollments = data;
         this.filteredEnrollments = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading enrollments:', error);

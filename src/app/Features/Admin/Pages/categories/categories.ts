@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../Services/admin.service';
@@ -26,10 +26,11 @@ export class AdminCategories implements OnInit {
     isActive: true
   };
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadCategories();
+    this.cdr.detectChanges();
   }
 
   loadCategories() {
@@ -45,6 +46,7 @@ export class AdminCategories implements OnInit {
           createdAt: cat.createdAt || new Date()
         } as ICategory));
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading categories:', error);

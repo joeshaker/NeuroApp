@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../Services/admin.service';
@@ -27,7 +27,7 @@ export class AdminInstructors implements OnInit {
     bio: ''
   };
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef  ) {}
 
   ngOnInit() {
     this.loadInstructors();
@@ -39,6 +39,7 @@ export class AdminInstructors implements OnInit {
       next: (data) => {
         this.instructors = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading instructors:', error);

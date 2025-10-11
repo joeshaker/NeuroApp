@@ -21,7 +21,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./Features/Auth/auth.routes').then((m) => m.authRoutes),
+      import('./../app/Features/auth/auth.routes').then((m) => m.authRoutes),
   },
 
   // 🔹 Instructor area

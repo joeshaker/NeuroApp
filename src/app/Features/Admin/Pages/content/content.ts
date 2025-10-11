@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../Services/admin.service';
 import { IModule, IVideo, ICourse } from '../../Interfaces/admin.interface';
@@ -17,18 +17,20 @@ export class AdminContent implements OnInit {
   loading = false;
   activeTab = 'modules';
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr:ChangeDetectorRef  ) {}
 
   ngOnInit() {
     this.loadCourses();
     this.loadModules();
     this.loadVideos();
+    this.cdr.detectChanges();
   }
 
   loadCourses() {
     this.adminService.getCourses().subscribe({
       next: (data) => {
         this.courses = data;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading courses:', error);
@@ -42,6 +44,7 @@ export class AdminContent implements OnInit {
       next: (data) => {
         this.modules = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading modules:', error);
@@ -54,6 +57,7 @@ export class AdminContent implements OnInit {
     this.adminService.getVideos().subscribe({
       next: (data) => {
         this.videos = data;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading videos:', error);

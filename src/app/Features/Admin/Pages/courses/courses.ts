@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../Services/admin.service';
@@ -32,12 +32,13 @@ export class AdminCourses implements OnInit {
     categoryId: 0
   };
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef  ) {}
 
   ngOnInit() {
     this.loadCourses();
     this.loadCategories();
     this.loadInstructors();
+    this.cdr.detectChanges();
   }
 
   loadCourses() {
@@ -46,6 +47,7 @@ export class AdminCourses implements OnInit {
       next: (data) => {
         this.courses = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading courses:', error);
@@ -59,6 +61,7 @@ export class AdminCourses implements OnInit {
     this.adminService.getCategories().subscribe({
       next: (data) => {
         this.categories = data;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading categories:', error);
@@ -70,6 +73,7 @@ export class AdminCourses implements OnInit {
     this.adminService.getInstructors().subscribe({
       next: (data) => {
         this.instructors = data;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading instructors:', error);

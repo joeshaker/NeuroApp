@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
@@ -17,7 +17,8 @@ export class CourseDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +30,7 @@ export class CourseDetailsComponent implements OnInit {
         next: (data) => {
           this.course = data;
           this.isLoading = false;
+          this.cdr.detectChanges();
         },
         error: (error) => {
           this.errorMessage = 'Failed to load course details.';

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../Services/admin.service';
 import { IAnalytics } from '../../Interfaces/admin.interface';
@@ -14,10 +14,11 @@ export class AdminAnalytics implements OnInit {
   analytics: IAnalytics | null = null;
   loading = false;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadAnalytics();
+    this.cdr.detectChanges();
   }
 
   loadAnalytics() {
@@ -26,6 +27,7 @@ export class AdminAnalytics implements OnInit {
       next: (data) => {
         this.analytics = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading analytics:', error);

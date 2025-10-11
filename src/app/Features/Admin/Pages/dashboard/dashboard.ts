@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AdminService } from '../../../Admin/Services/admin.service';
@@ -24,10 +24,11 @@ export class AdminDashboard implements OnInit {
   recentEnrollments: any[] = [];
   loading = true;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService,private cdr:ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadDashboardData();
+    this.cdr.detectChanges();
   }
 
   loadDashboardData() {
@@ -45,6 +46,7 @@ export class AdminDashboard implements OnInit {
           totalCategories: data.totalCategories
         };
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading dashboard stats:', error);
