@@ -1,57 +1,62 @@
-# Admin Dashboard
+# Admin Dashboard - AI Courses Platform
 
 ## Overview
-The Admin Dashboard is a comprehensive management interface for administrators to oversee and manage all aspects of the platform including users, products, orders, categories, and analytics.
+The Admin Dashboard is a comprehensive management interface for administrators to oversee and manage all aspects of the AI Courses Platform including courses, instructors, students, enrollments, categories, and analytics.
 
 ## Features
 
 ### 1. Dashboard (Home)
-- **Overview Statistics**: Display total users, products, orders, and revenue
-- **Recent Activity**: Show recent users and orders
+- **Overview Statistics**: Display total students, courses, enrollments, and instructors
+- **Recent Activity**: Show recent enrollments and course activities
 - **Quick Actions**: Fast access to common administrative tasks
-- **Real-time Metrics**: Active users, pending orders, low stock alerts
+- **Real-time Metrics**: Active students, pending instructor verifications, course categories
 
 ### 2. Analytics
-- **Sales Overview**: Monthly sales chart with visual representation
-- **User Distribution**: Breakdown of users by role (Student, Instructor, Admin, etc.)
-- **Performance Metrics**: Conversion rates, customer satisfaction, growth rates
-- **Top Performers**: Best-selling products and top instructors
+- **Enrollment Overview**: Monthly enrollment trends with visual representation
+- **Student Distribution**: Breakdown of active vs enrolled students
+- **Performance Metrics**: Course completion rates, student satisfaction, growth rates
+- **Top Performers**: Popular courses and top instructors
 
-### 3. User Management
-- **View All Users**: Paginated table with search and filter capabilities
-- **User Actions**:
-  - Activate/Deactivate users
-  - Edit user information (name, email, phone, role, status)
-  - Delete users (with confirmation)
-- **Role Management**: Assign roles (Student, Instructor, Admin, Seller, Customer)
-- **Status Control**: Active, Inactive, Suspended
+### 3. Course Management
+- **View All Courses**: Comprehensive course listing with search and filter capabilities
+- **Course Actions**:
+  - Add new courses
+  - Edit course information (title, description, price, category, instructor)
+  - Delete courses (with confirmation)
+  - Manage course categories and pricing
 
-### 4. Product Management
-- **View All Products**: Searchable product list with details
-- **CRUD Operations**:
-  - Create new products
-  - Edit product details (name, description, price, stock, status)
-  - Delete products
-  - Approve pending products
-- **Stock Monitoring**: Track product inventory levels
-- **Status Management**: Draft, Published, Archived
+### 4. Instructor Management
+- **View All Instructors**: List of all platform instructors
+- **Instructor Actions**:
+  - Register new instructors
+  - Verify instructor credentials
+  - View instructor expertise and bio
+  - Monitor instructor course assignments
 
-### 5. Order Management
-- **View All Orders**: Complete order history with search
-- **Order Details**: View full order information including items and customer data
-- **Status Updates**: 
-  - Mark orders as Processing, Shipped, Delivered, or Cancelled
-  - Track payment status (Pending, Paid, Failed, Refunded)
-- **Customer Information**: Access customer details for each order
+### 5. Enrollment Management
+- **View All Enrollments**: Track student course enrollments
+- **Enrollment Actions**:
+  - Monitor enrollment status (Active, Completed, Cancelled)
+  - Cancel enrollments when needed
+  - Track student progress
+  - View enrollment history by student or instructor
 
 ### 6. Category Management
-- **View Categories**: Grid layout of all product categories
-- **CRUD Operations**:
-  - Add new categories
-  - Edit category details
-  - Delete categories
-  - Toggle active/inactive status
-- **Product Count**: Display number of products per category
+- **View All Categories**: Organize courses into categories
+- **Category Actions**:
+  - Add new course categories
+  - Edit category information
+  - Activate/Deactivate categories
+  - Monitor courses per category
+
+### 7. Content Management (Modules & Videos)
+- **Module Management**: Organize course content into modules
+- **Video Management**: Upload and manage course videos
+- **Content Actions**:
+  - Add modules to courses
+  - Upload videos to modules
+  - Organize content order
+  - Delete outdated content
 
 ## Structure
 
@@ -63,10 +68,11 @@ Admin/
 ├── Pages/
 │   ├── dashboard/           # Main dashboard overview
 │   ├── analytics/           # Analytics and reports
-│   ├── users/              # User management
-│   ├── products/           # Product management
-│   ├── orders/             # Order management
-│   └── categories/         # Category management
+│   ├── courses/            # Course management
+│   ├── instructors/        # Instructor management
+│   ├── enrollments/        # Enrollment management
+│   ├── categories/         # Category management
+│   └── content/            # Content management (modules & videos)
 ├── Services/
 │   └── admin.service.ts    # API service for all admin operations
 ├── Interfaces/
@@ -80,10 +86,11 @@ Admin/
 /admin
 ├── /dashboard          - Main dashboard
 ├── /analytics         - Analytics & reports
-├── /users            - User management
-├── /products         - Product management
-├── /orders           - Order management
-└── /categories       - Category management
+├── /courses          - Course management
+├── /instructors      - Instructor management
+├── /enrollments      - Enrollment management
+├── /categories       - Category management
+└── /content          - Content management (modules & videos)
 ```
 
 ## Design
@@ -113,43 +120,52 @@ Admin/
 
 ### Admin Service Methods
 
-**User Management:**
-- `getUsers(params)` - Get paginated users
-- `getUserById(id)` - Get single user
-- `createUser(user)` - Create new user
-- `updateUser(id, user)` - Update user
-- `deleteUser(id)` - Delete user
-- `activateUser(id)` - Activate user
-- `deactivateUser(id)` - Deactivate user
+**Course Management:**
+- `getCourses()` - Get all courses
+- `getCourseById(id)` - Get single course
+- `createCourse(course)` - Create new course
+- `updateCourse(id, course)` - Update course
+- `deleteCourse(id)` - Delete course
 
-**Product Management:**
-- `getProducts(params)` - Get paginated products
-- `getProductById(id)` - Get single product
-- `createProduct(product)` - Create product
-- `updateProduct(id, product)` - Update product
-- `deleteProduct(id)` - Delete product
-- `approveProduct(id)` - Approve product
+**Instructor Management:**
+- `getInstructors()` - Get all instructors
+- `getInstructorById(id)` - Get single instructor
+- `registerInstructor(instructor)` - Register new instructor
+- `verifyInstructor(id)` - Verify instructor credentials
 
-**Order Management:**
-- `getOrders(params)` - Get paginated orders
-- `getOrderById(id)` - Get single order
-- `updateOrder(id, order)` - Update order
-- `deleteOrder(id)` - Delete order
+**Enrollment Management:**
+- `getEnrollments()` - Get all enrollments
+- `getEnrollmentsByStudent(studentId)` - Get enrollments by student
+- `getEnrollmentsByInstructor(instructorId)` - Get enrollments by instructor
+- `addEnrollment(enrollment)` - Add new enrollment
+- `cancelEnrollment(id)` - Cancel enrollment
+- `deleteEnrollment(id)` - Delete enrollment
 
 **Category Management:**
-- `getCategories(params)` - Get categories
+- `getCategories()` - Get all categories
 - `getCategoryById(id)` - Get single category
-- `createCategory(category)` - Create category
+- `createCategory(category)` - Create new category
 - `updateCategory(id, category)` - Update category
 - `deleteCategory(id)` - Delete category
+
+**Content Management:**
+- `getModules()` - Get all modules
+- `getModulesByCourse(courseId)` - Get modules by course
+- `createModule(module)` - Create new module
+- `updateModule(module)` - Update module
+- `deleteModule(id)` - Delete module
+- `getVideos()` - Get all videos
+- `uploadVideo(file, title, moduleId, order)` - Upload video
+- `updateVideo(video)` - Update video
+- `deleteVideo(id)` - Delete video
 
 **Analytics:**
 - `getAnalytics()` - Get comprehensive analytics
 - `getDashboardStats()` - Get dashboard statistics
 
-## Mock Data
+## Error Handling
 
-Each page includes mock data fallback for development/testing when API is unavailable. This allows frontend development to proceed independently.
+Each page includes proper error handling and fallback states when API calls fail. Loading states and user feedback are provided for all operations.
 
 ## Authentication
 
@@ -195,8 +211,10 @@ Each page includes mock data fallback for development/testing when API is unavai
 - Real-time dashboard updates with WebSockets
 - Export data to CSV/PDF
 - Advanced filtering and sorting
-- Bulk operations for users/products
-- Email notification system
+- Bulk operations for courses and enrollments
+- Email notification system for instructor verification
 - Activity logs and audit trails
 - Advanced analytics with charts library (Chart.js/D3.js)
-- Role and permission management system
+- Course recommendation engine
+- Student progress tracking
+- Automated course completion certificates

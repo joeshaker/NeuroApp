@@ -3,9 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, map } from 'rxjs';
 import { environment } from '../../../../environments/environments.development';
 import {
-  IUser,
-  IUserCreate,
-  IUserUpdate,
   ICourse,
   ICourseCreate,
   ICourseUpdate,
@@ -18,15 +15,12 @@ import {
   IModuleCreate,
   IModuleUpdate,
   IVideo,
-  IVideoUpload,
   IVideoUpdate,
   ICategory,
   ICategoryCreate,
   ICategoryUpdate,
   IAnalytics,
-  IDashboardStats,
-  IPaginationParams,
-  IPaginatedResponse
+  IDashboardStats
 } from '../../Admin/Interfaces/admin.interface';
 
 @Injectable({
@@ -36,7 +30,6 @@ export class AdminService {
   private apiUrl: string;
 
   constructor(private http: HttpClient) {
-    // Normalize API base URL: prefer absolute backend, fallback to localhost:7011
     this.apiUrl = (typeof environment.apiUrl === 'string' && environment.apiUrl.startsWith('http'))
       ? environment.apiUrl
       : 'http://localhost:5075/api';
@@ -59,7 +52,7 @@ export class AdminService {
         totalCategories: data.categories.length,
         activeStudents: new Set(data.enrollments.filter(e => e.status === 'Active').map(e => e.studentId)).size,
         pendingInstructors: data.instructors.filter(i => !i.isVerified).length,
-        totalUsers: 0
+        totalStudents: 0
       }))
     );
   }
@@ -86,7 +79,7 @@ export class AdminService {
           totalCategories: data.categories.length,
           activeStudents: new Set(data.enrollments.filter(e => e.status === 'Active').map(e => e.studentId)).size,
           pendingInstructors: data.instructors.filter(i => !i.isVerified).length,
-          totalUsers: 0,
+          totalStudents: 0,
           recentEnrollments,
           enrollmentsByMonth,
           coursesByCategory
@@ -208,7 +201,7 @@ export class AdminService {
   }
 
   getModulesByCourse(courseId: number): Observable<IModule[]> {
-    return this.http.get<IModule[]>(`${this.apiUrl}/Module?courseId=${courseId}`);
+    return this.http.get<IModule[]>(`${this.apiUrl}/Module/GetModulesByCrsID/${courseId}`);
   }
 
   createModule(module: IModuleCreate): Observable<IModule> {
@@ -229,8 +222,14 @@ export class AdminService {
     return this.http.get<IVideo[]>(`${this.apiUrl}/Video/GetAllVideos`);
   }
 
-  uploadVideo(video: IVideoUpload): Observable<IVideo> {
-    return this.http.post<IVideo>(`${this.apiUrl}/Video/upload`, video);
+  uploadVideo(videoFile: File, title: string, moduleId: number, videoOrder: number): Observable<IVideo> {
+    const formData = new FormData();
+    formData.append('File', videoFile);
+    formData.append('Title', title);
+    formData.append('ModuleId', moduleId.toString());
+    formData.append('VideoArrangement', videoOrder.toString());
+
+    return this.http.post<IVideo>(`${this.apiUrl}/Video/upload`, formData);
   }
 
   updateVideo(video: IVideoUpdate): Observable<IVideo> {
@@ -263,42 +262,7 @@ export class AdminService {
     return this.http.delete<void>(`${this.apiUrl}/Category/${id}`);
   }
 
-  // ==================== USER MANAGEMENT (Placeholder) ====================
-
-  getUsers(params: IPaginationParams): Observable<IPaginatedResponse<IUser>> {
-    return new Observable(observer => {
-      observer.next({
-        data: [],
-        totalCount: 0,
-        page: params.page,
-        pageSize: params.pageSize,
-        totalPages: 0
-      });
-      observer.complete();
-    });
-  }
-
-  getUserById(id: string): Observable<IUser> {
-    return new Observable();
-  }
-
-  createUser(user: IUserCreate): Observable<IUser> {
-    return new Observable();
-  }
-
-  updateUser(id: string, user: IUserUpdate): Observable<IUser> {
-    return new Observable();
-  }
-
-  deleteUser(id: string): Observable<void> {
-    return new Observable();
-  }
-
-  activateUser(id: string): Observable<void> {
-    return new Observable();
-  }
-
-  deactivateUser(id: string): Observable<void> {
-    return new Observable();
-  }
+  // ==================== STUDENT MANAGEMENT ====================
+  // Note: Student management is handled through the Auth system
+  // Students are users with the 'Student' role
 }
