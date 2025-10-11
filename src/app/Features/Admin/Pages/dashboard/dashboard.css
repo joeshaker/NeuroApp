@@ -33,19 +33,19 @@
   transform: translateY(-5px);
 }
 
-.stats-card.users {
+.stats-card.students {
   border-left-color: #4361ee;
 }
 
-.stats-card.products {
+.stats-card.courses {
   border-left-color: #4cc9f0;
 }
 
-.stats-card.orders {
+.stats-card.enrollments {
   border-left-color: #f72585;
 }
 
-.stats-card.revenue {
+.stats-card.instructors {
   border-left-color: #4ade80;
 }
 
@@ -60,19 +60,19 @@
   color: white;
 }
 
-.stats-card.users .icon {
+.stats-card.students .icon {
   background-color: #4361ee;
 }
 
-.stats-card.products .icon {
+.stats-card.courses .icon {
   background-color: #4cc9f0;
 }
 
-.stats-card.orders .icon {
+.stats-card.enrollments .icon {
   background-color: #f72585;
 }
 
-.stats-card.revenue .icon {
+.stats-card.instructors .icon {
   background-color: #4ade80;
 }
 

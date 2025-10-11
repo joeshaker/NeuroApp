@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../environments/environments.development';
-
-interface Instructor {
-  id: number;
-  userId: string;
-  expertise: string;
-  bio: string;
-  isVerified: boolean;
-}
+import { FormsModule } from '@angular/forms';
+import { AdminService } from '../../Services/admin.service';
+import { IInstructor, IInstructorRegister } from '../../Interfaces/admin.interface';
 
 @Component({
   selector: 'app-admin-instructors',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './instructors.html',
   styleUrl: './instructors.css'
 })
 export class AdminInstructors implements OnInit {
-  instructors: Instructor[] = [];
+  instructors: IInstructor[] = [];
   loading = true;
   searchTerm = '';
+  showAddModal = false;
+  showVerifyModal = false;
+  selectedInstructor: IInstructor | null = null;
 
-  constructor(private http: HttpClient) {}
+  newInstructor: IInstructorRegister = {
+    email: '',
+    password: '',
+    name: '',
+    expertise: '',
+    bio: ''
+  };
+
+  constructor(private adminService: AdminService) {}
 
   ngOnInit() {
     this.loadInstructors();
@@ -31,7 +35,7 @@ export class AdminInstructors implements OnInit {
 
   loadInstructors() {
     this.loading = true;
-    this.http.get<Instructor[]>(`${environment.apiUrl}/Instructor`).subscribe({
+    this.adminService.getInstructors().subscribe({
       next: (data) => {
         this.instructors = data;
         this.loading = false;
@@ -39,23 +43,63 @@ export class AdminInstructors implements OnInit {
       error: (error) => {
         console.error('Error loading instructors:', error);
         this.loading = false;
+        this.showErrorMessage('Failed to load instructors');
       }
     });
   }
 
-  verifyInstructor(id: number) {
-    this.http.put(`${environment.apiUrl}/Instructor/verify/${id}`, {}).subscribe({
-      next: () => {
-        const instructor = this.instructors.find(i => i.id === id);
-        if (instructor) {
-          instructor.isVerified = true;
-        }
+  showAddInstructorModal() {
+    this.newInstructor = {
+      email: '',
+      password: '',
+      name: '',
+      expertise: '',
+      bio: ''
+    };
+    this.showAddModal = true;
+  }
+
+  addInstructor() {
+    if (!this.newInstructor.email || !this.newInstructor.password || !this.newInstructor.name || !this.newInstructor.expertise) {
+      this.showErrorMessage('Please fill in all required fields');
+      return;
+    }
+
+    this.adminService.registerInstructor(this.newInstructor).subscribe({
+      next: (instructor) => {
+        this.instructors.push(instructor);
+        this.showAddModal = false;
+        this.showSuccessMessage('Instructor registered successfully');
       },
       error: (error) => {
-        console.error('Error verifying instructor:', error);
-        alert('Failed to verify instructor');
+        console.error('Error registering instructor:', error);
+        this.showErrorMessage('Failed to register instructor');
       }
     });
+  }
+
+  confirmVerify(instructor: IInstructor) {
+    this.selectedInstructor = instructor;
+    this.showVerifyModal = true;
+  }
+
+  verifyInstructor() {
+    if (this.selectedInstructor) {
+      this.adminService.verifyInstructor(this.selectedInstructor.id).subscribe({
+        next: () => {
+          const instructor = this.instructors.find(i => i.id === this.selectedInstructor?.id);
+          if (instructor) {
+            instructor.isVerified = true;
+          }
+          this.showVerifyModal = false;
+          this.showSuccessMessage('Instructor verified successfully');
+        },
+        error: (error) => {
+          console.error('Error verifying instructor:', error);
+          this.showErrorMessage('Failed to verify instructor');
+        }
+      });
+    }
   }
 
   getFilteredInstructors() {
@@ -64,7 +108,8 @@ export class AdminInstructors implements OnInit {
     }
     return this.instructors.filter(instructor =>
       instructor.expertise?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      instructor.bio?.toLowerCase().includes(this.searchTerm.toLowerCase())
+      instructor.bio?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      instructor.userId?.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -79,5 +124,21 @@ export class AdminInstructors implements OnInit {
 
   getVerifiedCount(): number {
     return this.instructors.filter(i => i.isVerified).length;
+  }
+
+  closeModals() {
+    this.showAddModal = false;
+    this.showVerifyModal = false;
+    this.selectedInstructor = null;
+  }
+
+  private showSuccessMessage(message: string) {
+    // Using alert for now, can be replaced with toast notifications
+    alert(message);
+  }
+
+  private showErrorMessage(message: string) {
+    // Using alert for now, can be replaced with toast notifications
+    alert(message);
   }
 }

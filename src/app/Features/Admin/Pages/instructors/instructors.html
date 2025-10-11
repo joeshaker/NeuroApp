@@ -94,7 +94,7 @@
                 <button
                   *ngIf="!instructor.isVerified"
                   class="btn btn-sm btn-success"
-                  (click)="verifyInstructor(instructor.id)"
+                 (click)="confirmVerify(instructor)"
                   title="Verify Instructor">
                   <i class="fas fa-check me-1"></i>Verify
                 </button>

@@ -12,6 +12,7 @@ import { AdminService } from '../../../Admin/Services/admin.service';
 })
 export class AdminDashboard implements OnInit {
   stats = {
+    totalStudents: 0,
     totalCourses: 0,
     totalEnrollments: 0,
     totalInstructors: 0,
@@ -35,6 +36,7 @@ export class AdminDashboard implements OnInit {
     this.adminService.getDashboardStats().subscribe({
       next: (data) => {
         this.stats = {
+          totalStudents: data.totalStudents,
           totalCourses: data.totalCourses,
           totalEnrollments: data.totalEnrollments,
           totalInstructors: data.totalInstructors,
@@ -48,6 +50,7 @@ export class AdminDashboard implements OnInit {
         console.error('Error loading dashboard stats:', error);
         // fallback minimal stats to keep UI working
         this.stats = {
+          totalStudents: 0,
           totalCourses: 0,
           totalEnrollments: 0,
           totalInstructors: 0,

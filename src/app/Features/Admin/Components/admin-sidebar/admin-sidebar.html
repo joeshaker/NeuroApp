@@ -1,76 +1,73 @@
-<!-- Admin Sidebar -->
+<!-- Professional AI Courses Admin Sidebar -->
 <div class="w-100">
   <div class="sidebar d-flex flex-column">
+    <!-- Enhanced Brand Header -->
     <div class="logo d-flex align-items-center">
-      <i class="fas fa-shield-halved fa-2x me-2"></i>
-      <h4 class="logo-text mb-0">Admin Panel</h4>
+      <i class="fas fa-robot fa-lg me-2"></i>
+      <h4 class="logo-text mb-0">AI Academy</h4>
     </div>
 
-    <ul class="nav flex-column mt-4">
+    <!-- Main Navigation -->
+    <ul class="nav flex-column mt-2">
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/dashboard"
-           routerLinkActive="active">
-          <i class="fas fa-home"></i><span>Dashboard</span>
+        <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">
+          <i class="fas fa-chart-pie"></i><span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/analytics"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/analytics" routerLinkActive="active">
           <i class="fas fa-chart-line"></i><span>Analytics</span>
         </a>
       </li>
+
+      <!-- Courses Section -->
+      <div class="nav-divider"></div>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/courses"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/courses" routerLinkActive="active">
           <i class="fas fa-graduation-cap"></i><span>Courses</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/instructors"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/instructors" routerLinkActive="active">
           <i class="fas fa-chalkboard-teacher"></i><span>Instructors</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/categories"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/categories" routerLinkActive="active">
           <i class="fas fa-tags"></i><span>Categories</span>
         </a>
       </li>
+
+      <!-- Management Section -->
+      <div class="nav-divider"></div>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/enrollments"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/enrollments" routerLinkActive="active">
           <i class="fas fa-user-check"></i><span>Enrollments</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"
-           routerLink="/admin/content"
-           routerLinkActive="active">
+        <a class="nav-link" routerLink="/admin/content" routerLinkActive="active">
           <i class="fas fa-photo-video"></i><span>Content</span>
         </a>
       </li>
-      <li class="nav-item mt-3">
-        <a class="nav-link logout-link"
-           (click)="logout()"
-           style="cursor: pointer;">
+
+      <!-- Logout -->
+      <li class="nav-item mt-4">
+        <a class="nav-link logout-link" (click)="logout()" style="cursor: pointer;">
           <i class="fas fa-sign-out-alt"></i><span>Logout</span>
         </a>
       </li>
     </ul>
 
-    <div class="mt-auto p-3 text-center">
+    <!-- Enhanced User Section -->
+    <div class="user-section mt-auto text-center">
       <div class="user-profile mb-3">
         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin" class="img-fluid">
       </div>
-      <h6 class="mb-0">Admin User</h6>
-      <small>Administrator</small>
+      <div class="user-info">
+        <h6 class="mb-0">Dr. Alex Chen</h6>
+        <small>AI Education Director</small>
+      </div>
     </div>
   </div>
 </div>

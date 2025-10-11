@@ -64,7 +64,7 @@ export class AdminAnalytics implements OnInit {
   // Fallback analytics in case API fails
   setMockAnalytics() {
     this.analytics = {
-      totalUsers: 0,
+      totalStudents: 0,
       totalCourses: 12,
       totalEnrollments: 85,
       totalInstructors: 8,

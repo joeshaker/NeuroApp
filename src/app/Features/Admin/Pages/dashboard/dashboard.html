@@ -35,7 +35,7 @@
   <!-- Stats Cards -->
   <div class="row" *ngIf="!loading">
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="stats-card users">
+      <div class="stats-card students">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h3 class="mb-0">{{ stats.activeStudents | number }}</h3>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="stats-card products">
+      <div class="stats-card courses">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h3 class="mb-0">{{ stats.totalCourses | number }}</h3>
@@ -65,7 +65,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="stats-card orders">
+      <div class="stats-card enrollments">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h3 class="mb-0">{{ stats.totalEnrollments | number }}</h3>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="stats-card revenue">
+      <div class="stats-card instructors">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h3 class="mb-0">{{ stats.totalInstructors | number }}</h3>
