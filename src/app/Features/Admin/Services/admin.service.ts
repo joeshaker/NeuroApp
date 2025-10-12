@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, map } from 'rxjs';
 import { environment } from '../../../../environments/environments.development';
@@ -29,7 +29,7 @@ import {
 export class AdminService {
   private apiUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(@Inject(HttpClient) private http: HttpClient) {
     this.apiUrl = (typeof environment.apiUrl === 'string' && environment.apiUrl.startsWith('http'))
       ? environment.apiUrl
       : 'http://localhost:5075/api';
