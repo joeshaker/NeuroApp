@@ -152,6 +152,6 @@ export class AuthService {
   logout(): void {
     this.jwtService.clearAuth();
     localStorage.clear();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/home']);
   }
 }
