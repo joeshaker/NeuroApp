@@ -1,16 +1,19 @@
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';
 import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
 import { ViewCourse } from './Features/Instructor/Components/view-course/view-course';
 import { authGuard } from './Core/guards/auth-guard';
+import { LoginComponent } from './Features/auth/pages/login/login.component';
 
 export const routes: Routes = [
   // 🏠 Default route → Home page
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
+
 
   // 🔹 Auth routes (no guard)
   {
@@ -57,19 +60,23 @@ export const routes: Routes = [
   },
 
   // 🔹 Edit/View Course (Instructor or Admin)
-  { 
-    path: 'editCourse/:id', 
-    component: EditCourse, 
+  {
+    path: 'editCourse/:id',
+    component: EditCourse,
     canActivate: [authGuard],
     data: { roles: ['Instructor', 'Admin'] },
-    pathMatch: 'full' 
+    pathMatch: 'full'
   },
-  { 
-    path: 'ViewCourse', 
-    component: ViewCourse, 
+  {
+    path: 'ViewCourse',
+    component: ViewCourse,
     canActivate: [authGuard],
     data: { roles: ['Student', 'Instructor', 'Admin'] },
-    pathMatch: 'full' 
+    pathMatch: 'full'
+  },
+  {
+    path: 'Login',
+    component: LoginComponent
   },
 
   // 🔹 Fallback

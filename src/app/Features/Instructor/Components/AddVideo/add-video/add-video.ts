@@ -5,6 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { VideoService } from '../../../../../Core/services/Videoservice/videoservice';
 import { CourseDto, GetModuleDto, ModuleService } from '../../../../../Core/services/module-service';
 import Swal from 'sweetalert2';
+import { JwtService } from '../../../../../Core/services/jwt.service';
+import { CourseService } from '../../../../../Core/services/Course/course-service';
 
 
 @Component({
@@ -28,12 +30,21 @@ export class AddVideo implements OnInit {
     private videoService: VideoService,
     private moduleService: ModuleService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private jwtService: JwtService,
+    private courseservice: CourseService
   ) {}
 
   ngOnInit() {
+
+    const instructorId = this.jwtService.getEntityId(); // Get the instructor ID from the JWT token
+    if (!instructorId) {
+      console.error('Instructor ID not found in token');
+      return;
+    }
+    const id = Number(instructorId);
     // Load all courses when page loads
-    this.moduleService.getCourses().subscribe({
+    this.courseservice.GetCoursesByInstructorId(id).subscribe({
       next: (res) => {
         this.courses = res;
         this.cdr.detectChanges(); // update view with loaded courses

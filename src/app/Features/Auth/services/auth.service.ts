@@ -51,7 +51,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:5075/api/Auth';
 
   register(data: RegisterRequest): Observable<OtpResponse> {
-        console.log(data);
+    console.log(data);
 
     return this.http.post<OtpResponse>(`${this.apiUrl}/register`, data);
   }
@@ -85,19 +85,21 @@ export class AuthService {
    * Handle successful authentication and redirect based on role
    */
   private handleSuccessfulAuth(token: string): void {
-    // Store token using JWT service
+    // Save token
     this.jwtService.setToken(token);
-    
-    // Decode token to get user role
-    const decodedToken = this.jwtService.decodeToken();
-    
-    if (decodedToken) {
-      console.log('Authentication successful, user role:', decodedToken.role);
-      this.redirectBasedOnRole(decodedToken.role);
-    } else {
-      console.error('Failed to decode token, redirecting to login');
-      this.router.navigate(['/auth/login']);
-    }
+
+    // Wait for token to be available before decoding
+    setTimeout(() => {
+      const decodedToken = this.jwtService.decodeToken();
+
+      if (decodedToken && decodedToken.role) {
+        console.log('✅ Auth successful, redirecting:', decodedToken.role);
+        this.redirectBasedOnRole(decodedToken.role);
+      } else {
+        console.error('❌ Failed to decode token, redirecting to login');
+        this.router.navigate(['/auth/login']);
+      }
+    }, 0);
   }
 
   /**
@@ -105,7 +107,7 @@ export class AuthService {
    */
   private redirectBasedOnRole(role: string): void {
     console.log(`Redirecting user with role: ${role}`);
-    
+
     switch (role) {
       case 'Admin':
         this.router.navigate(['/admin/dashboard']);
