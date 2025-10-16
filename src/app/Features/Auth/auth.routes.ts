@@ -14,6 +14,10 @@ export const authRoutes: Routes = [
     loadComponent: () => import('../auth/pages/otp-verification/otp-verification.component').then(m => m.OtpVerificationComponent)
   },
   {
+    path: 'registerinstructor',
+    loadComponent: () => import('../auth/pages/registerinstructor/registerinstructor/registerinstructor').then(m => m.Registerinstructor)
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

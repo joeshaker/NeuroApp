@@ -82,4 +82,8 @@ updateModule(module: UpdateModuleDto & { id: number }): Observable<any> {
   getAllModulesByCourseId(courseId: number): Observable<GetModuleDto[]> {
     return this.http.get<GetModuleDto[]>(`${this.baseUrl}/api/Module/GetModulesByCrsID/${courseId}`);
   }
+
+  getModulesByInstructorId(instructorId: number): Observable<GetModuleDto[]> {
+    return this.http.get<GetModuleDto[]>(`${this.baseUrl}/api/Module/GetModulesByInstID/${instructorId}`);
+  }
 }

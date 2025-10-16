@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VideoCreateDto, VideoService } from '../../../../../Core/services/Videoservice/videoservice';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { JwtService } from '../../../../../Core/services/jwt.service';
 
 @Component({
   selector: 'app-videos',
@@ -18,14 +19,23 @@ export class Videos implements OnInit {
   searchText: string = '';
   loading: boolean = true;
 
-  constructor(private videoService: VideoService , private cdr: ChangeDetectorRef) {}
+  constructor(private videoService: VideoService , private cdr: ChangeDetectorRef,
+    private jwtService: JwtService
+  ) {}
 
   ngOnInit(): void {
     this.loadVideos();
   }
 
   loadVideos(): void {
-    this.videoService.getAllVideos().subscribe({
+    const instructorId = this.jwtService.getEntityId(); // Get the instructor ID from the JWT token
+    if (!instructorId) {
+      console.error('Instructor ID not found in token');
+      this.loading = false;
+      return;
+    }
+    const id = Number(instructorId);
+    this.videoService.getVideosByInstructorId(id).subscribe({
       next: (data) => {
         this.videos = data;
         this.loading = false;

@@ -42,4 +42,8 @@ export class VideoService {
   deleteVideo(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/api/Video/DeleteVideo/${id}`);
   }
+
+  getVideosByInstructorId(instructorId: number): Observable<VideoCreateDto[]> {
+    return this.http.get<VideoCreateDto[]>(`${this.baseUrl}/api/Video/GetByInsId/${instructorId}`);
+  }
 }

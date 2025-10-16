@@ -3,6 +3,7 @@ import { CourseModule } from './Components/CrsModules/course-module/course-modul
 import { Routes } from '@angular/router';
 import { Courses } from './Components/Courses/courses/courses';
 import { Instructorcontainer } from './InstructorContainer/instructorcontainer/instructorcontainer';
+import { authGuard } from '../../Core/guards/auth-guard';
 
 export const routes: Routes = [
   // {
@@ -35,7 +36,9 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard)
+        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard),
+        canActivate: [authGuard],
+        data: { roles: ['Instructor'] },
       },
       {
         path: 'courses',
@@ -65,8 +68,12 @@ export const routes: Routes = [
         path: 'EditModule/:id',
         loadComponent: () => import('./Components/EditModule/editmodule/editmodule')
           .then(m => m.Editmodule)
-      }
-
+      },
+      {
+        path:'ViewCourseDetails/:id',
+        loadComponent: () => import('./Components/view-course/view-course')
+        .then(m => m.ViewCourse)
+      },
     ]
   }
 ];
