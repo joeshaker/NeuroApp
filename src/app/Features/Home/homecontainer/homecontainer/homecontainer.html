@@ -1,24 +1,204 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neuro Platform - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
     <!-- Header -->
     <app-navbar></app-navbar>
 
+
+
+
+
     <!-- Hero Section -->
-    <app-hero></app-hero>
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-content">
+            <h1 class="hero-title">Advance Your Career With Expert-Led Courses</h1>
+            <p class="hero-subtitle">
+              Join over 5,000 students learning at their own pace with our professional courses. Gain
+              skills that matter in today's competitive job market.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <button class="btn btn-light px-4 py-2 rounded-pill fw-bold">Explore Courses</button>
+              <!-- <button class="btn btn-outline-light px-4 py-2 rounded-pill">Become an Instructor</button> -->
+            </div>
+          </div>
+          <div class="col-lg-6 text-center">
+            <div class="hero-image mt-5 mt-lg-0">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                alt="Online Learning" class="img-fluid rounded-3 shadow-lg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- <app-hero></app-hero> -->
     <!-- Features Section -->
-     <app-features></app-features>
+    <app-features></app-features>
+
+
+
+
+
+
+
+    <section class="">
+      <div class="container">
+        <!-- <div class="section-header">
+          <span class="section-label">Featured Courses</span>
+          <h2 class="section-title">Master In-Demand Skills with Industry Experts</h2>
+          <p class="section-description">
+            Discover our most popular courses designed to help you advance your career. Learn from industry leaders and
+            build skills that matter in today's market.
+          </p>
+        </div> -->
+
+        <div class="carousel-wrapper">
+
+         <h2>Artificial Intelligence Courses 🤖</h2>
+
+          <div class="cards-container">
+            <!-- Course 1 -->
+      <!-- @for (item of FilterCoursesByCategory; track $index) {
+
+      <article class="card">
+        <div class="card-image-wrapper">
+          <img class="card-image"
+            src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            alt="Python programming">
+          <div class="card-badge">Bestseller</div>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <h3 class="card-title">Complete Python Developer Bootcamp</h3>
+            <p class="card-description">
+              Master Python programming by building real-world projects. From automation to data science, this course covers
+              everything you need.
+            </p>
+            <div class="category-tags">
+              <span class="category-tag">Programming</span>
+              <span class="category-tag">Python</span>
+            </div>
+            <div class="card-meta">
+              <div class="card-instructor">Dr. Angela Yu</div>
+              <div class="card-rating">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span>4.7</span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-duration">
+                <i class="far fa-clock"></i>
+                <span>42 hours</span>
+              </div>
+              <div class="card-level">
+                <i class="fas fa-signal"></i>
+                <span>Beginner</span>
+              </div>
+            </div>
+            <div class="card-price">$84.99 <span class="original-price">$199.99</span></div>
+          </div>
+          <a href="#" class="card-link">Enroll Now</a>
+        </div>
+      </article>
+
+      } -->
+
+
+
+
+
+
+
+
+
+      @for (item of FilterCoursesByAiCategory; track $index) {
+
+      <article class="card w-25 ">
+        <div class="course-card w-100 courses">
+          <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="">
+          <h3>{{item.title}}</h3>
+          <p>{{item.description}}</p>
+          <div class="card-price">${{item.price}}</div>
+          <button class=" mt-1 card-link w-100 btn text-center bg-light">Enroll Now</button>
+        </div>
+      </article>
+
+      }
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section class="mt-5  ">
+      <div class="container">
+        <div class="carousel-wrapper">
+
+          <h2>Artificial Intelligence Courses 🤖</h2>
+
+          <div class="cards-container">
+
+            @for (item of FilterCoursesByAiCategory; track $index) {
+
+            <article class="card w-25   ">
+              <div class="course-card w-100  courses">
+                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="">
+                <h3>{{item.title}} Course</h3>
+                <p>{{item.description}}</p>
+                <div class="card-price">${{item.price}}</div>
+                <button class=" mt-1 card-link w-100 btn text-center bg-light">Enroll Now</button>
+              </div>
+            </article>
+
+            }
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Hero Section -->
+
 
     <!-- AI Courses Section -->
-    <section class="courses ai">
+    <!-- <section class="courses ai">
         <h2>Artificial Intelligence Courses 🤖</h2>
         <div class="course-grid">
             <div class="course-card">
@@ -40,10 +220,10 @@
                 <button class="btn">Explore</button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Data Analysis Courses Section -->
-    <section class="courses data">
+    <!-- <section class="courses data">
         <h2>Data Analysis Courses 📊</h2>
         <div class="course-grid">
             <div class="course-card">
@@ -65,11 +245,65 @@
                 <button class="btn">Explore</button>
             </div>
         </div>
-    </section>
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Neuro Platform. All Rights Reserved.</p>
-    </footer>
-</body>
+    </section> -->
 
-</html>
+
+    <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5">
+          <a href="#" class="footer-logo"><i class="fas fa-graduation-cap"></i>CourseHub</a>
+          <p class="footer-description">
+            We provide high-quality online courses to help you learn new skills and advance your
+            career. Join our community of learners today.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Instructors</a></li>
+            <li><a href="#">About Us</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5">
+          <h5 class="footer-heading">Categories</h5>
+          <ul class="footer-links">
+            <li><a href="#">Development</a></li>
+            <li><a href="#">Design</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Photography</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 mb-5">
+          <h5 class="footer-heading">Newsletter</h5>
+          <p class="footer-description">
+            Subscribe to our newsletter to get the latest updates on new courses and offers.
+          </p>
+          <form class="newsletter-form">
+            <input type="email" class="form-control newsletter-input" placeholder="Your email address" />
+            <button class="btn newsletter-btn" type="button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; 2023 CourseHub. All rights reserved. |
+          <a href="#" class="text-light">Privacy Policy</a> |
+          <a href="#" class="text-light">Terms of Service</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+

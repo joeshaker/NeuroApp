@@ -38,6 +38,70 @@
             --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.05);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.1);
             --shadow-heavy: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+
+
+
+            --primary: #5624d0;
+            --primary-dark: #4a1fb8;
+            --secondary: #6a6f73;
+            --accent: #a435f0;
+            --light: #f7f9fa;
+            --dark: #1c1d1f;
+            --success: #1e6055;
+            --warning: #b4690e;
+            --danger: #c53929;
+            /* --gray: #6a6f73; */
+            --light-gray: #d1d7dc;
+            --border: #d1d7dc;
+
+
+
+
+              --primary: #3a36e0;
+            --primary-dark: #2a27b5;
+            --secondary: #5c5c7b;
+            --accent: #6c63ff;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --success: #1e6f5c;
+            --warning: #e9b949;
+            --danger: #e94560;
+            /* --gray: #8d93ab; */
+            /* --light-gray: #d1d7dc; */
+            --border: #e2e8f0;
+            /* --surface: #f8fafc; */
+            /* --surface-container: #f1f5f9; */
+            --on-surface: #334155;
+            --card-radius: 16px;
+            --visual-radius: 12px;
+            --btn-radius: 8px;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+
+
+
+
+
+
+
+
+             --primary: #3a36e0;
+            --primary-light: #5d5af8;
+            --secondary: #8b5cf6;
+            --accent: #06d6a0;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light-gray: #94a3b8;
+            --white: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(148, 163, 184, 0.15);
+            --gradient-1: linear-gradient(135deg, #3a36e0 0%, #8b5cf6 100%);
+            --gradient-2: linear-gradient(135deg, #06d6a0 0%, #3a36e0 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -49,6 +113,15 @@
         body {
             color: var(--dark);
 
+        }
+
+
+         body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: var(--dark);
+            line-height: 1.4;
+            padding: 2rem;
         }
 /* You can add global styles to this file, and also import other style files */
         :root {

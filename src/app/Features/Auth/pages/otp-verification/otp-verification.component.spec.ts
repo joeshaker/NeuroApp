@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { OtpVerificationComponent } from './otp-verification.component';
+
+// import { OtpVerificationComponent } from '../../../Auth/pages/otp-verification/otp-verification.component';
 
 describe('OtpVerificationComponent', () => {
   let component: OtpVerificationComponent;

@@ -38,4 +38,9 @@ export class CourseService {
   }
 
 
+  GetCourseByCategoryName(categoryName:string) :Observable<IAllCourses[]>  {
+   return this.http.get<IAllCourses[]>(`${this.baseUrl}/GetByCategoryName/${categoryName}`)
+  }
+
+
 }

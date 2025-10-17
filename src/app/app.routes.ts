@@ -3,6 +3,7 @@ import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simpl
 import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
 import { ViewCourse } from './Features/Instructor/Components/view-course/view-course';
 import { authGuard } from './Core/guards/auth-guard';
+import { AllCourses } from './Features/Home/all-courses/all-courses';
 
 export const routes: Routes = [
   // 🏠 Default route → Home page
@@ -16,7 +17,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./Features/auth/auth.routes').then(m => m.authRoutes),
+      import('./Features/Auth/auth.routes').then(m => m.authRoutes),
   },
 
   // 🔹 Unauthorized page
@@ -41,8 +42,8 @@ export const routes: Routes = [
   {
     path: 'instructor',
     component: SimpleLayout,
-    canActivate: [authGuard],
-    data: { roles: ['Instructor'] },
+    // canActivate: [authGuard],
+    // data: { roles: ['Instructor'] },
     loadChildren: () =>
       import('./Features/Instructor/instructor.routes').then(m => m.routes),
   },
@@ -57,19 +58,27 @@ export const routes: Routes = [
   },
 
   // 🔹 Edit/View Course (Instructor or Admin)
-  { 
-    path: 'editCourse/:id', 
-    component: EditCourse, 
+  {
+    path: 'editCourse/:id',
+    component: EditCourse,
     canActivate: [authGuard],
     data: { roles: ['Instructor', 'Admin'] },
-    pathMatch: 'full' 
+    pathMatch: 'full'
   },
-  { 
-    path: 'ViewCourse', 
-    component: ViewCourse, 
+  {
+    path: 'ViewCourse',
+    component: ViewCourse,
     canActivate: [authGuard],
     data: { roles: ['Student', 'Instructor', 'Admin'] },
-    pathMatch: 'full' 
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'AllCourses',
+    component: AllCourses,
+    // canActivate: [authGuard],
+    // data: { roles: ['Student', 'Instructor', 'Admin'] },
+    pathMatch: 'full'
   },
 
   // 🔹 Fallback

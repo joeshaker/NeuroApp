@@ -1,0 +1,233 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"> <i class="fas fa-graduation-cap"></i>CourseHub </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Instructors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <button class="btn btn-primary">Sign In</button>
+      </div>
+    </div>
+  </div>
+</nav> -->
+
+<!-- Hero Section -->
+<!-- <section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 hero-content">
+        <h1 class="hero-title">Advance Your Career With Expert-Led Courses</h1>
+        <p class="hero-subtitle">
+          Join over 5,000 students learning at their own pace with our professional courses. Gain
+          skills that matter in today's competitive job market.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <button class="btn btn-light px-4 py-2 rounded-pill fw-bold">Explore Courses</button>
+          <button class="btn btn-outline-light px-4 py-2 rounded-pill">Become an Instructor</button>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="hero-image mt-5 mt-lg-0">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+            alt="Online Learning"
+            class="img-fluid rounded-3 shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Search & Filters -->
+<section class="search-section mt-5">
+  <div class="container">
+    <div class="search-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="search-box">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search for courses, skills, or instructors..."
+            />
+            <i class="fas fa-search search-icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active"><i class="fas fa-th-large"></i> All</button>
+        <button class="filter-btn"><i class="fas fa-laptop-code"></i> Development</button>
+        <button class="filter-btn"><i class="fas fa-chart-bar"></i> Data Science</button>
+        <button class="filter-btn"><i class="fas fa-palette"></i> Design</button>
+        <button class="filter-btn"><i class="fas fa-briefcase"></i> Business</button>
+        <button class="filter-btn"><i class="fas fa-bullhorn"></i> Marketing</button>
+        <button class="filter-btn"><i class="fas fa-camera"></i> Photography</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Courses Section -->
+<section class="courses-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Popular Courses</h2>
+      <p>Discover our most popular courses based on student enrollment and ratings</p>
+    </div>
+
+    <div class="row">
+      <!-- Course 1 -->
+      @for (item of allCourses; track $index) {
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="course-card">
+          <div class="course-img-container">
+            <img
+              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+              class="course-img"
+              alt="Web Development"
+            />
+            <span class="course-category">{{ item.categoryName }}</span>
+            <!-- <span class="course-level">Beginner</span> -->
+          </div>
+          <div class="card-body">
+            <h5 class="course-title">{{ item.title }}</h5>
+            <div class="course-instructor">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" />
+              <span>Alex Johnson</span>
+            </div>
+            <p class="card-text">{{ item.description }}.</p>
+            <!-- <div class="course-stats">
+                <div class="course-stat">
+                  <i class="far fa-clock"></i> 45 hours
+                </div>
+                <div class="course-stat">
+                  <i class="far fa-user"></i> 2,450 students
+                </div>
+                <div class="course-rating">
+                  <i class="fas fa-star"></i> 4.8
+                </div>
+              </div> -->
+            <div class="course-price">
+              <div>${{ item.price }}</div>
+              <button class="enroll-btn">Enroll Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      }
+    </div>
+
+    <!-- Creative Pagination -->
+    <div class="pagination-container text-center">
+      <nav aria-label="Course pagination">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+            </a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-dots">...</li>
+          <li class="page-item"><a class="page-link" href="#">8</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-5">
+        <a href="#" class="footer-logo"><i class="fas fa-graduation-cap"></i>CourseHub</a>
+        <p class="footer-description">
+          We provide high-quality online courses to help you learn new skills and advance your
+          career. Join our community of learners today.
+        </p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-5">
+        <h5 class="footer-heading">Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Instructors</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-5">
+        <h5 class="footer-heading">Categories</h5>
+        <ul class="footer-links">
+          <li><a href="#">Development</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Marketing</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Photography</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 mb-5">
+        <h5 class="footer-heading">Newsletter</h5>
+        <p class="footer-description">
+          Subscribe to our newsletter to get the latest updates on new courses and offers.
+        </p>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            class="form-control newsletter-input"
+            placeholder="Your email address"
+          />
+          <button class="btn newsletter-btn" type="button">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        &copy; 2023 CourseHub. All rights reserved. |
+        <a href="#" class="text-light">Privacy Policy</a> |
+        <a href="#" class="text-light">Terms of Service</a>
+      </p>
+    </div>
+  </div>
+</footer>
