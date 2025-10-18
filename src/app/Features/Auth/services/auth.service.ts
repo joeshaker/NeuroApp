@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { JwtService } from '../../../Core/services/jwt.service';
 
 export interface RegisterRequest {
   firstName: string;
@@ -46,10 +47,11 @@ export interface VerifyOtpResponse {
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private jwtService = inject(JwtService);
   private apiUrl = 'http://localhost:5075/api/Auth';
 
   register(data: RegisterRequest): Observable<OtpResponse> {
-        console.log(data);
+    console.log(data);
 
     return this.http.post<OtpResponse>(`${this.apiUrl}/register`, data);
   }
@@ -63,7 +65,7 @@ export class AuthService {
       params: { email, code }
     }).pipe(
       tap(response => {
-        this.setToken(response.token);
+        this.handleSuccessfulAuth(response.token);
       })
     );
   }
@@ -79,13 +81,56 @@ export class AuthService {
     return this.sendOtp(email);
   }
 
+  /**
+   * Handle successful authentication and redirect based on role
+   */
+  private handleSuccessfulAuth(token: string): void {
+    // Save token
+    this.jwtService.setToken(token);
+
+    // Wait for token to be available before decoding
+    setTimeout(() => {
+      const decodedToken = this.jwtService.decodeToken();
+
+      if (decodedToken && decodedToken.role) {
+        console.log('✅ Auth successful, redirecting:', decodedToken.role);
+        this.redirectBasedOnRole(decodedToken.role);
+      } else {
+        console.error('❌ Failed to decode token, redirecting to login');
+        this.router.navigate(['/auth/login']);
+      }
+    }, 0);
+  }
+
+  /**
+   * Redirect user based on their role after successful authentication
+   */
+  private redirectBasedOnRole(role: string): void {
+    console.log(`Redirecting user with role: ${role}`);
+
+    switch (role) {
+      case 'Admin':
+        this.router.navigate(['/admin/dashboard']);
+        break;
+      case 'Instructor':
+        this.router.navigate(['/instructor/dashboard']);
+        break;
+      case 'Student':
+        this.router.navigate(['/home']);
+        break;
+      default:
+        console.warn(`Unknown role: ${role}, redirecting to home`);
+        this.router.navigate(['/home']);
+    }
+  }
+
   private setTokens(token: string, refreshToken: string): void {
-    localStorage.setItem('token', token);
+    this.jwtService.setToken(token);
     localStorage.setItem('refreshToken', refreshToken);
   }
 
   private setToken(token: string): void {
-    localStorage.setItem('token', token);
+    this.jwtService.setToken(token);
   }
 
   private setUserInfo(email: string, userName: string, role: string): void {
@@ -95,15 +140,20 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return this.jwtService.getToken();
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    return this.jwtService.isAuthenticated();
+  }
+
+  getUserRole(): string | null {
+    return this.jwtService.getUserRole();
   }
 
   logout(): void {
+    this.jwtService.clearAuth();
     localStorage.clear();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/home']);
   }
 }

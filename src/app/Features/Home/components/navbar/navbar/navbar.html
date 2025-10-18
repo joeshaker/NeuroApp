@@ -1,10 +1,15 @@
-  <header>
-    <div class="logo">Neuro<span>Platform</span></div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Courses</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <button class="btn" routerLink="/login">Login</button>
-    </nav>
-  </header>
+<header>
+  <div class="logo">Neuro<span>Platform</span></div>
+  <nav>
+    <a routerLink="/home">Home</a>
+    <a routerLink="/courses">Courses</a>
+    <a routerLink="/about">About</a>
+    <a routerLink="/contact">Contact</a>
+
+    <!-- Show Login button only if NOT authenticated -->
+    <button *ngIf="!isAuthenticated" class="btn" routerLink="/auth/login">Login</button>
+
+    <!-- Show Logout button if authenticated -->
+    <button *ngIf="isAuthenticated" class="btn logout-btn" (click)="logout()">Logout</button>
+  </nav>
+</header>

@@ -1,119 +1,88 @@
-import { Route, Routes } from '@angular/router';
-import { Homecontainer } from './Features/Home/homecontainer/homecontainer/homecontainer';
+import { AdminContent } from './Features/Admin/Pages/content/content';
+import { Component } from '@angular/core';
+import { Routes } from '@angular/router';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';
 import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
 import { ViewCourse } from './Features/Instructor/Components/view-course/view-course';
+import { authGuard } from './Core/guards/auth-guard';
+import { LoginComponent } from './Features/auth/pages/login/login.component';
 
 export const routes: Routes = [
-  // 🔹 Admin area as default (for testing)
+  // 🏠 Default route → Home page
   {
     path: '',
-    redirectTo: 'admin/dashboard',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
 
-  // 🔹 Course routes
-  {
-    path: 'courses',
-    loadChildren: () =>
-      import('./Features/Admin/Pages/course-details/course-details').then((m) => m.CourseDetailsComponent),
-  },
 
-  // 🔹 Auth routes
+  // 🔹 Auth routes (no guard)
   {
     path: 'auth',
     loadChildren: () =>
-      import('./../app/Features/Admin/admin.routes').then((m) => m.adminRoutes),
+      import('./Features/auth/auth.routes').then(m => m.authRoutes),
   },
 
-  // 🔹 Instructor area
+  // 🔹 Unauthorized page
   {
-    path: 'instructor',
-    component: SimpleLayout,
-    loadChildren: () =>
-      import('./Features/Instructor/instructor.routes').then((m) => m.routes),
-    // canActivate: [AuthGuard],
-    // data: { roles: ['instructor'] }
+    path: 'unauthorized',
+    loadComponent: () =>
+      import('./Shared/components/unauthorized/unauthorized.component')
+        .then(m => m.UnauthorizedComponent),
   },
 
   // 🔹 Admin area
   {
     path: 'admin',
     component: SimpleLayout,
+    canActivate: [authGuard],
+    data: { roles: ['Admin'] },
     loadChildren: () =>
-      import('./Features/Admin/admin.routes').then((m) => m.adminRoutes),
-    // canActivate: [AuthGuard],
-    // data: { roles: ['admin'] }
+      import('./Features/Admin/admin.routes').then(m => m.adminRoutes),
   },
 
-  { path: 'editCourse/:id', component: EditCourse, pathMatch: 'full' },
-  { path: 'ViewCourse', component: ViewCourse, pathMatch: 'full' },
+  // 🔹 Instructor area
+  {
+    path: 'instructor',
+    component: SimpleLayout,
+    canActivate: [authGuard],
+    data: { roles: ['Instructor'] },
+    loadChildren: () =>
+      import('./Features/Instructor/instructor.routes').then(m => m.routes),
+  },
 
+  // 🔹 Home area (Student, Instructor, Admin)
+  {
+    path: 'home',
+    // canActivate: [authGuard],
+    // data: { roles: ['Student', 'Instructor', 'Admin'] },
+    loadChildren: () =>
+      import('./Features/Home/home.routes').then(m => m.homeRoutes),
+  },
 
-  // 🔹 Wildcard fallback
+  // 🔹 Edit/View Course (Instructor or Admin)
+  {
+    path: 'editCourse/:id',
+    component: EditCourse,
+    canActivate: [authGuard],
+    data: { roles: ['Instructor', 'Admin'] },
+    pathMatch: 'full'
+  },
+  {
+    path: 'ViewCourse',
+    component: ViewCourse,
+    canActivate: [authGuard],
+    data: { roles: ['Student', 'Instructor', 'Admin'] },
+    pathMatch: 'full'
+  },
+  {
+    path: 'Login',
+    component: LoginComponent
+  },
+
+  // 🔹 Fallback
   {
     path: '**',
-    redirectTo: 'admin/dashboard'
+    redirectTo: 'auth/login'
   }
-
-
 ];
-
-
-// export const routes: Routes = [
-//   {
-//     path: '',
-//     redirectTo: 'Home',
-//     pathMatch: 'full'
-//   },
-//   {
-//     path: 'Home',
-//     component: Homecontainer
-//   },
-//   {
-//     path: 'auth',
-//     loadChildren: () => import('./Features/auth/auth.routes').then(m => m.authRoutes)
-//   },
-//   {
-//     path: 'login',
-//     redirectTo: 'auth/login',
-//     pathMatch: 'full'
-//   },
-//   {
-//     path: 'instructor',
-//     component: SimpleLayout,
-//     loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
-//     // data: { roles: ['instructor'] }
-//   },
-//   {
-//     path: '**',
-//     redirectTo: 'auth/login'
-//   }
-
-// import { AddCourse } from './Features/Instructor/Components/add-course/add-course';
-// import { Instructorcontainer } from './Features/Instructor/InstructorContainer/instructorcontainer/instructorcontainer';
-// import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
-
-// export const routes: Routes = [
-//   // {path:'addCourse', component:AddCourse , pathMatch:'full'},
-//     {
-//         path: 'auth',
-//         loadChildren: () => import('./Features/Auth/auth.routes').then(m => m.authRoutes)
-//     },
-//     {
-//         path: '',
-//         redirectTo: 'auth/login',
-//         pathMatch: 'full'
-//     },
-//     {
-//         path: '**',
-//         redirectTo: 'auth/login'
-//     },
-//   {path:'editCourse/:id', component:EditCourse , pathMatch:'full'},
-//     {
-//         path: '',
-//         component: SimpleLayout,
-//         loadChildren: () => import('./Features/Instructor/instructor.routes').then(m => m.routes),
-//         // data: { roles: ['instructor'] }
-//     },
-// ];

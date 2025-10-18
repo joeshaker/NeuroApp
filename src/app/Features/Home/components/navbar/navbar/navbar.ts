@@ -1,12 +1,30 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrls: ['./navbar.css']
 })
 export class Navbar {
+  isAuthenticated = false;
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    // Check auth status initially
+    this.isAuthenticated = this.authService.isAuthenticated();
+
+    // (Optional) If you use events or observables to track login/logout state,
+    // you could subscribe to that here for real-time updates.
+  }
+
+  logout(): void {
+    this.authService.logout(); // Calls logout method in AuthService
+    this.isAuthenticated = false; // Update UI
+  }
 }

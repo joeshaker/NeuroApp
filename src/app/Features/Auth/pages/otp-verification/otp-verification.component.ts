@@ -1,9 +1,9 @@
-import { Component, inject, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { JwtService } from '../../../../Core/services/jwt.service';
 @Component({
   selector: 'app-otp-verification',
   standalone: true,
@@ -11,11 +11,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './otp-verification.component.html',
   styleUrls: ['./otp-verification.component.scss']
 })
-export class OtpVerificationComponent implements OnInit {
+export class OtpVerificationComponent implements OnInit, OnDestroy {
   @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private jwtService = inject(JwtService); // ✅ Added
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -49,6 +50,7 @@ export class OtpVerificationComponent implements OnInit {
     });
   }
 
+  // 👉 Handle input typing and auto focus next
   onInput(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
@@ -58,11 +60,14 @@ export class OtpVerificationComponent implements OnInit {
         const inputs = this.otpInputs.toArray();
         inputs[index + 1].nativeElement.focus();
       }
+    } else {
+      input.value = '';
     }
 
     this.errorMessage = '';
   }
 
+  // 👉 Handle backspace key navigation
   onKeyDown(event: KeyboardEvent, index: number): void {
     const input = event.target as HTMLInputElement;
 
@@ -72,6 +77,7 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
 
+  // 👉 Handle paste of 6 digits
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     const pastedData = event.clipboardData?.getData('text');
@@ -89,6 +95,7 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
 
+  // ✅ Submit OTP for verification + handle token + redirection
   onSubmit(): void {
     if (this.otpForm.valid) {
       this.isLoading = true;
@@ -97,11 +104,26 @@ export class OtpVerificationComponent implements OnInit {
       const otp = Object.values(this.otpForm.value).join('');
 
       this.authService.verifyOtp(this.email, otp).subscribe({
-        next: () => {
+        next: (response) => {
           this.isLoading = false;
           this.successMessage = 'Verification successful! Redirecting...';
+
+          // ✅ Save token to localStorage using JwtService
+          const token = response.token; // ensure your backend returns this
+          this.jwtService.setToken(token);
+
+          // ✅ Extract role from token
+          const role = this.jwtService.getUserRole();
+
+          // ✅ Redirect based on role
           setTimeout(() => {
-            this.router.navigate(['/']);
+            if (role === 'Admin') {
+              this.router.navigate(['/admin/dashboard']);
+            } else if (role === 'Instructor') {
+              this.router.navigate(['/instructor/dashboard']);
+            } else {
+              this.router.navigate(['/home']);
+            }
           }, 1500);
         },
         error: (error) => {
@@ -115,6 +137,7 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
 
+  // 👉 Resend OTP logic
   resendOtp(): void {
     if (!this.canResend) return;
 
@@ -123,7 +146,7 @@ export class OtpVerificationComponent implements OnInit {
     this.successMessage = '';
 
     this.authService.resendOtp(this.email).subscribe({
-      next: (response) => {
+      next: () => {
         this.isResending = false;
         this.successMessage = 'OTP sent successfully! Check your email.';
         this.startResendCountdown();
@@ -138,6 +161,7 @@ export class OtpVerificationComponent implements OnInit {
     });
   }
 
+  // 👉 Countdown for resend
   private startResendCountdown(): void {
     this.canResend = false;
     this.resendCountdown = 60;
@@ -151,6 +175,7 @@ export class OtpVerificationComponent implements OnInit {
     }, 1000);
   }
 
+  // 👉 Clear OTP inputs
   private clearOtp(): void {
     this.otpForm.reset();
     const inputs = this.otpInputs.toArray();
@@ -159,6 +184,7 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
 
+  // 👉 Cleanup timer
   ngOnDestroy(): void {
     if (this.resendInterval) {
       clearInterval(this.resendInterval);

@@ -1,0 +1,222 @@
+<div class="auth-container">
+  <div class="auth-background"></div>
+
+  <div class="auth-content">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Instructor Registration</h1>
+        <p class="auth-subtitle">Join NeuroTech as an Instructor and start teaching today</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+        @if (errorMessage) {
+          <div class="error-alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-input"
+              placeholder="Enter your first name"
+              [class.invalid]="firstName?.invalid && firstName?.touched"
+            />
+          </div>
+          @if (firstName?.invalid && firstName?.touched) {
+            <div class="error-message">
+              <span *ngIf="firstName?.errors?.['required']">First name is required</span>
+            </div>
+          }
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-input"
+              placeholder="Enter your last name"
+              [class.invalid]="lastName?.invalid && lastName?.touched"
+            />
+          </div>
+          @if (lastName?.invalid && lastName?.touched) {
+            <div class="error-message">
+              <span *ngIf="lastName?.errors?.['required']">Last name is required</span>
+            </div>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope input-icon"></i>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="Enter your email"
+              [class.invalid]="email?.invalid && email?.touched"
+            />
+          </div>
+          @if (email?.invalid && email?.touched) {
+            <div class="error-message">
+              <span *ngIf="email?.errors?.['required']">Email is required</span>
+              <span *ngIf="email?.errors?.['email']">Enter a valid email</span>
+            </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="form-input"
+              placeholder="Create a password"
+              [class.invalid]="password?.invalid && password?.touched"
+            />
+            <i
+              class="fas input-icon-right"
+              [class.fa-eye]="!showPassword"
+              [class.fa-eye-slash]="showPassword"
+              (click)="togglePassword()"
+            ></i>
+          </div>
+          @if (password?.invalid && password?.touched) {
+            <div class="error-message">
+              <span *ngIf="password?.errors?.['required']">Password is required</span>
+              <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+            </div>
+          }
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address" class="form-label">Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-map-marker-alt input-icon"></i>
+            <input
+              type="text"
+              id="address"
+              formControlName="address"
+              class="form-input"
+              placeholder="Enter your address"
+              [class.invalid]="address?.invalid && address?.touched"
+            />
+          </div>
+          @if (address?.invalid && address?.touched) {
+            <div class="error-message">
+              <span *ngIf="address?.errors?.['required']">Address is required</span>
+            </div>
+          }
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender" class="form-label">Gender</label>
+          <div class="input-wrapper">
+            <i class="fas fa-venus-mars input-icon"></i>
+            <select
+              id="gender"
+              formControlName="gender"
+              class="form-input form-select"
+              [class.invalid]="gender?.invalid && gender?.touched"
+            >
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          @if (gender?.invalid && gender?.touched) {
+            <div class="error-message">
+              <span>Gender is required</span>
+            </div>
+          }
+        </div>
+
+        <!-- LinkedIn -->
+        <div class="form-group">
+          <label for="linkedIn" class="form-label">LinkedIn Profile</label>
+          <div class="input-wrapper">
+            <i class="fab fa-linkedin input-icon"></i>
+            <input
+              type="text"
+              id="linkedIn"
+              formControlName="linkedIn"
+              class="form-input"
+              placeholder="Enter your LinkedIn URL"
+              [class.invalid]="linkedIn?.invalid && linkedIn?.touched"
+            />
+          </div>
+          @if (linkedIn?.invalid && linkedIn?.touched) {
+            <div class="error-message">
+              <span *ngIf="linkedIn?.errors?.['required']">LinkedIn URL is required</span>
+            </div>
+          }
+        </div>
+
+        <!-- Qualifications -->
+        <div class="form-group">
+          <label for="qualifications" class="form-label">Qualifications</label>
+          <div class="input-wrapper">
+            <i class="fas fa-graduation-cap input-icon"></i>
+            <textarea
+              id="qualifications"
+              formControlName="qualifications"
+              class="form-input"
+              rows="3"
+              placeholder="Enter your qualifications"
+              [class.invalid]="qualifications?.invalid && qualifications?.touched"
+            ></textarea>
+          </div>
+          @if (qualifications?.invalid && qualifications?.touched) {
+            <div class="error-message">
+              <span *ngIf="qualifications?.errors?.['required']">Qualifications are required</span>
+            </div>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="isLoading"
+          [class.loading]="isLoading"
+        >
+          @if (isLoading) {
+            <span class="spinner"></span>
+            <span>Registering...</span>
+          } @else {
+            <span>Register Instructor</span>
+          }
+        </button>
+
+        @if (successMessage) {
+          <div class="success-alert">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ successMessage }}</span>
+          </div>
+        }
+      </form>
+    </div>
+  </div>
+</div>
