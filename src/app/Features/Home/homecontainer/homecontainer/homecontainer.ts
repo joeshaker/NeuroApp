@@ -2,14 +2,17 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar/navbar";
 import { Hero } from "../../components/HeroSection/hero/hero";
 import { Features } from "../../components/Features/features/features";
+
 import { CourseService } from '../../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
 import { CategoryService } from '../../../../Core/services/Category/category-service';
 import { IAllCategories } from '../../../../Core/interfaces/Category/iall-categories';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-homecontainer',
-  imports: [Navbar, Hero, Features],
+  imports: [Navbar, Hero, Features, RouterLink],
   templateUrl: './homecontainer.html',
   styleUrl: './homecontainer.css'
 })

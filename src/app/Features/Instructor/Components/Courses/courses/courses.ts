@@ -1,52 +1,57 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CourseService } from '../../../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../../../Core/interfaces/Course/iall-courses';
-import { RouterLink } from '@angular/router';
 import { ModuleService } from '../../../../../Core/services/module-service';
+import { JwtService } from '../../../../../Core/services/jwt.service';
+
 @Component({
   selector: 'app-courses',
-  standalone:true,
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './courses.html',
   styleUrl: './courses.css'
 })
 export class Courses implements OnInit {
-
   AllCourses: IAllCourses[] = [];
-  constructor(private service: CourseService,private cdr: ChangeDetectorRef  , private moduleService : ModuleService) { }
+
+  constructor(
+    private courseService: CourseService,
+    private cdr: ChangeDetectorRef,
+    private moduleService: ModuleService,
+    private jwtService: JwtService
+  ) {}
 
   ngOnInit(): void {
-    this.service.GetAllCourses().subscribe({
+    const instructorId = this.jwtService.getEntityId(); // ✅ get "id" from token
+    if (!instructorId) {
+      console.error('Instructor ID not found in token');
+      return;
+    }
+
+    const id = Number(instructorId);
+
+    this.courseService.GetCoursesByInstructorId(id).subscribe({
       next: (response) => {
-        console.log(response);
+        console.log('Courses:', response);
         this.AllCourses = response;
         this.cdr.detectChanges();
-
-
+      },
+      error: (err) => {
+        console.error('Error fetching courses:', err);
       }
-    })
+    });
   }
-
-
 
   ViewCourse(id: number) {
+    this.moduleService.getAllModulesByCourseId(id).subscribe({
+      next: (response) => console.log('Modules:', response),
+      error: (err) => console.error('Error fetching modules:', err)
+    });
 
-     this.moduleService.getAllModulesByCourseId(id).subscribe({
-      next: (response) => {
-        console.log(response);
-      }
-    })
-
-
-    this.service.ViewCourseDetails(id).subscribe({
-      next: (response) => {
-        console.log(response);
-      }
-    })
-
-
-
+    this.courseService.ViewCourseDetails(id).subscribe({
+      next: (response) => console.log('Course Details:', response),
+      error: (err) => console.error('Error fetching course details:', err)
+    });
   }
-
-
 }
