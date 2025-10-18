@@ -1,24 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neuro Platform - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
     <!-- Header -->
     <app-navbar></app-navbar>
 
+
+
+
+
     <!-- Hero Section -->
-    <app-hero></app-hero>
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-content">
+            <h1 class="hero-title">Advance Your Career With Expert-Led Courses</h1>
+            <p class="hero-subtitle">
+              Join over 5,000 students learning at their own pace with our professional courses. Gain
+              skills that matter in today's competitive job market.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <button class="btn btn-light px-4 py-2 rounded-pill fw-bold">Explore Courses</button>
+              <!-- <button class="btn btn-outline-light px-4 py-2 rounded-pill">Become an Instructor</button> -->
+            </div>
+          </div>
+          <div class="col-lg-6 text-center">
+            <div class="hero-image mt-5 mt-lg-0">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                alt="Online Learning" class="img-fluid rounded-3 shadow-lg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- <app-hero></app-hero> -->
     <!-- Features Section -->
-     <app-features></app-features>
+    <app-features></app-features>
+
+
+
+
+
+
+  <section class="ai-courses-section">
+    <div class="container">
+      <h2 class="section-title">{{currentCategory?.name ??""}} </h2>
+      <p class="section-subtitle">{{currentCategory?.description ?? ""}}.</p>
+
+      <div class="carousel-wrapper">
+        <div class="cards-container" id="ai-courses-carousel">
+
+            @for (item of FilterCoursesByFirstCategory; track $index) {
+
+
+
+
+          <article class="card">
+            <div class="course-card w-100">
+              <div class="card-image-wrapper">
+                <img  [src]="item?.thumbnailUrl ?? 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" alt="Machine Learning Icon">
+                <!-- <div class="card-badge">Popular</div> -->
+              </div>
+              <div class="card-content   m-0">
+                <div class="card-body  p-0  ">
+                  <h3 class="card-title   mb-0  ">{{item.title}} Course</h3>
+                  <p class="card-description   mb-0 ">
+                    {{item.description}}.
+                  </p>
+
+                  <div class="card-price  mb-0 ">${{item.price}}</div>
+                </div>
+                <a href="#" class="card-link mt-0">Enroll Now</a>
+              </div>
+            </div>
+          </article>
+
+
+        }
+
+        </div>
+
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="nav-btn" id="next-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <section class="ai-courses-section mt-5">
+    <div class="container">
+      <h2 class="section-title">{{secondCategory?.name ??""}} </h2>
+      <p class="section-subtitle">{{secondCategory?.description ?? ""}}.</p>
+
+      <div class="carousel-wrapper">
+        <div class="cards-container" id="ai-courses-carousel">
+
+          @for (item of FilterCoursesBySecondCategory; track $index) {
+
+
+
+
+          <article class="card">
+            <div class="course-card w-100">
+              <div class="card-image-wrapper">
+                <img  [src]="item?.thumbnailUrl ?? 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" alt="Machine Learning Icon">
+                <!-- <div class="card-badge">Popular</div> -->
+              </div>
+              <div class="card-content   m-0">
+                <div class="card-body  p-0  ">
+                  <h3 class="card-title   mb-0  ">{{item.title}} Course</h3>
+                  <p class="card-description   mb-0 ">
+                    {{item.description}}.
+                  </p>
+
+                  <div class="card-price  mb-0 ">${{item.price}}</div>
+                </div>
+                <a href="#" class="card-link mt-0">Enroll Now</a>
+              </div>
+            </div>
+          </article>
+
+
+          }
+
+        </div>
+
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="nav-btn" id="next-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Hero Section -->
+
 
     <!-- AI Courses Section -->
-    <section class="courses ai">
+    <!-- <section class="courses ai">
         <h2>Artificial Intelligence Courses 🤖</h2>
         <div class="course-grid">
             <div class="course-card">
@@ -40,10 +196,10 @@
                 <button class="btn">Explore</button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Data Analysis Courses Section -->
-    <section class="courses data">
+    <!-- <section class="courses data">
         <h2>Data Analysis Courses 📊</h2>
         <div class="course-grid">
             <div class="course-card">
@@ -65,14 +221,78 @@
                 <button class="btn">Explore</button>
             </div>
         </div>
+
+    </section> -->
+
+
+    <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5">
+          <a href="#" class="footer-logo"><i class="fas fa-graduation-cap"></i>CourseHub</a>
+          <p class="footer-description">
+            We provide high-quality online courses to help you learn new skills and advance your
+            career. Join our community of learners today.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Instructors</a></li>
+            <li><a href="#">About Us</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5">
+          <h5 class="footer-heading">Categories</h5>
+          <ul class="footer-links">
+            <li><a href="#">Development</a></li>
+            <li><a href="#">Design</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Photography</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 mb-5">
+          <h5 class="footer-heading">Newsletter</h5>
+          <p class="footer-description">
+            Subscribe to our newsletter to get the latest updates on new courses and offers.
+          </p>
+                <button class="btn" routerLink="/auth/registerinstructor">
+        👩‍🏫 Register as Instructor
+      </button>
+          <form class="newsletter-form">
+            <input type="email" class="form-control newsletter-input" placeholder="Your email address" />
+            <button class="btn newsletter-btn" type="button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; 2023 CourseHub. All rights reserved. |
+          <a href="#" class="text-light">Privacy Policy</a> |
+          <a href="#" class="text-light">Terms of Service</a>
+        </p>
+      </div>
+    </div>
+  </footer>
     </section>
 <!-- Footer -->
-<footer>
+<!-- <footer>
   <div class="footer-content">
     <h3>Join Neuro Platform</h3>
     <p>Empower learners with your knowledge! Become an instructor and help shape the future of AI and Data Science education.</p>
     <div class="footer-btn">
-      <!-- ✅ Angular router navigation -->
       <button class="btn" routerLink="/auth/registerinstructor">
         👩‍🏫 Register as Instructor
       </button>
@@ -89,7 +309,7 @@
       © 2025 Neuro Platform. All Rights Reserved.
     </div>
   </div>
-</footer>
+</footer> -->
 </body>
 
-</html>
+
