@@ -23,7 +23,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./../app/Features/auth/auth.routes').then((m) => m.authRoutes),
+      import('./../app/Features/Admin/admin.routes').then((m) => m.adminRoutes),
   },
 
   // 🔹 Instructor area
