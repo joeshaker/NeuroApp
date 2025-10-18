@@ -37,6 +37,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         router.navigate(['/unauthorized']);
       }
 
+
       return throwError(() => error);
     })
   );

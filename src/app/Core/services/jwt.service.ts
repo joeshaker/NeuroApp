@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export interface JwtPayload {
   sub: string;
     entityId?: string;  // the instructor or student ID from the token
+// the instructor or student ID from the token
   role: string;
   email?: string;
   name?: string;
