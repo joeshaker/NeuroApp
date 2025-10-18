@@ -8,51 +8,36 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const jwtService = inject(JwtService);
   const router = inject(Router);
 
-  // Skip auth header for auth-related requests
-  const isAuthRequest = req.url.includes('/auth/') || 
-                       req.url.includes('/login') || 
-                       req.url.includes('/register');
+  // ✅ Skip auth header for login/register/otp endpoints
+  const isAuthRequest = /\/api\/auth\//i.test(req.url) ||
+                        req.url.includes('/login') ||
+                        req.url.includes('/register') ||
+                        req.url.includes('/verify-otp');
 
-  if (!isAuthRequest && jwtService.isAuthenticated()) {
-    const token = jwtService.getToken();
-    
-    if (token) {
-      const clonedReq = req.clone({
+  const token = jwtService.getToken();
+
+  // ✅ Attach Authorization header if token exists
+  const clonedReq = (!isAuthRequest && token)
+    ? req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
-      });
-      
-      return next(clonedReq).pipe(
-        catchError((error: HttpErrorResponse) => {
-          // Handle 401 Unauthorized responses
-          if (error.status === 401) {
-            console.log('Token expired or invalid, redirecting to login');
-            jwtService.clearAuth();
-            router.navigate(['/auth/login']);
-          }
-          
-          // Handle 403 Forbidden responses
-          if (error.status === 403) {
-            console.log('Access forbidden, redirecting to unauthorized page');
-            router.navigate(['/unauthorized']);
-          }
-          
-          return throwError(() => error);
-        })
-      );
-    }
-  }
+      })
+    : req;
 
-  return next(req).pipe(
+  return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      // Handle errors for non-authenticated requests
-      if (error.status === 401 && !isAuthRequest) {
-        console.log('Authentication required, redirecting to login');
+      if (error.status === 401) {
+        console.warn('⛔ Token expired or invalid — redirecting to login');
         jwtService.clearAuth();
         router.navigate(['/auth/login']);
       }
-      
+      else if (error.status === 403) {
+        console.warn('🚫 Access forbidden — redirecting to unauthorized page');
+        router.navigate(['/unauthorized']);
+      }
+
+
       return throwError(() => error);
     })
   );

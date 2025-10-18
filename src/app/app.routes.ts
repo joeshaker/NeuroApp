@@ -1,3 +1,4 @@
+import { AdminContent } from './Features/Admin/Pages/content/content';
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';

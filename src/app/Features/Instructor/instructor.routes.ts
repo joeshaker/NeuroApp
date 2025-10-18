@@ -36,7 +36,7 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.Insdashboard),
+        loadComponent: () => import('./Components/Dashboard/insdashboard/insdashboard').then(m => m.InsdashboardComponent),
         canActivate: [authGuard],
         data: { roles: ['Instructor'] },
       },
