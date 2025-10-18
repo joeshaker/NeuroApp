@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import { AuthService } from '../../../../Auth/services/auth.service';
+import { AuthService } from '../../../../auth/services/auth.service';
 // import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({

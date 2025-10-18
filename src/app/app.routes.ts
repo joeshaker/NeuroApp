@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./Features/Auth/auth.routes').then(m => m.authRoutes),
+      import('./Features/auth/auth.routes').then(m => m.authRoutes),
   },
 
   // 🔹 Unauthorized page
@@ -83,7 +83,7 @@ export const routes: Routes = [
     // canActivate: [authGuard],
     // data: { roles: ['Student', 'Instructor', 'Admin'] },
     pathMatch: 'full'
-
+  },
   {
     path: 'Login',
     component: LoginComponent
