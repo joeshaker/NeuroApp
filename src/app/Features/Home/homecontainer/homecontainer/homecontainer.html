@@ -42,137 +42,113 @@
 
 
 
+  <section class="ai-courses-section">
+    <div class="container">
+      <h2 class="section-title">{{currentCategory?.name ??""}} </h2>
+      <p class="section-subtitle">{{currentCategory?.description ?? ""}}.</p>
 
-    <section class="">
-      <div class="container">
-        <!-- <div class="section-header">
-          <span class="section-label">Featured Courses</span>
-          <h2 class="section-title">Master In-Demand Skills with Industry Experts</h2>
-          <p class="section-description">
-            Discover our most popular courses designed to help you advance your career. Learn from industry leaders and
-            build skills that matter in today's market.
-          </p>
-        </div> -->
+      <div class="carousel-wrapper">
+        <div class="cards-container" id="ai-courses-carousel">
 
-        <div class="carousel-wrapper">
+            @for (item of FilterCoursesByFirstCategory; track $index) {
 
-         <h2>Artificial Intelligence Courses 🤖</h2>
 
-          <div class="cards-container">
-            <!-- Course 1 -->
-      <!-- @for (item of FilterCoursesByCategory; track $index) {
 
-      <article class="card">
-        <div class="card-image-wrapper">
-          <img class="card-image"
-            src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-            alt="Python programming">
-          <div class="card-badge">Bestseller</div>
-        </div>
-        <div class="card-content">
-          <div class="card-body">
-            <h3 class="card-title">Complete Python Developer Bootcamp</h3>
-            <p class="card-description">
-              Master Python programming by building real-world projects. From automation to data science, this course covers
-              everything you need.
-            </p>
-            <div class="category-tags">
-              <span class="category-tag">Programming</span>
-              <span class="category-tag">Python</span>
-            </div>
-            <div class="card-meta">
-              <div class="card-instructor">Dr. Angela Yu</div>
-              <div class="card-rating">
-                <div class="stars">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star-half-alt"></i>
+
+          <article class="card">
+            <div class="course-card w-100">
+              <div class="card-image-wrapper">
+                <img  [src]="item?.thumbnailUrl ?? 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" alt="Machine Learning Icon">
+                <!-- <div class="card-badge">Popular</div> -->
+              </div>
+              <div class="card-content   m-0">
+                <div class="card-body  p-0  ">
+                  <h3 class="card-title   mb-0  ">{{item.title}} Course</h3>
+                  <p class="card-description   mb-0 ">
+                    {{item.description}}.
+                  </p>
+
+                  <div class="card-price  mb-0 ">${{item.price}}</div>
                 </div>
-                <span>4.7</span>
+                <a href="#" class="card-link mt-0">Enroll Now</a>
               </div>
             </div>
-            <div class="card-info">
-              <div class="card-duration">
-                <i class="far fa-clock"></i>
-                <span>42 hours</span>
+          </article>
+
+
+        }
+
+        </div>
+
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="nav-btn" id="next-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <section class="ai-courses-section mt-5">
+    <div class="container">
+      <h2 class="section-title">{{secondCategory?.name ??""}} </h2>
+      <p class="section-subtitle">{{secondCategory?.description ?? ""}}.</p>
+
+      <div class="carousel-wrapper">
+        <div class="cards-container" id="ai-courses-carousel">
+
+          @for (item of FilterCoursesBySecondCategory; track $index) {
+
+
+
+
+          <article class="card">
+            <div class="course-card w-100">
+              <div class="card-image-wrapper">
+                <img  [src]="item?.thumbnailUrl ?? 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" alt="Machine Learning Icon">
+                <!-- <div class="card-badge">Popular</div> -->
               </div>
-              <div class="card-level">
-                <i class="fas fa-signal"></i>
-                <span>Beginner</span>
+              <div class="card-content   m-0">
+                <div class="card-body  p-0  ">
+                  <h3 class="card-title   mb-0  ">{{item.title}} Course</h3>
+                  <p class="card-description   mb-0 ">
+                    {{item.description}}.
+                  </p>
+
+                  <div class="card-price  mb-0 ">${{item.price}}</div>
+                </div>
+                <a href="#" class="card-link mt-0">Enroll Now</a>
               </div>
             </div>
-            <div class="card-price">$84.99 <span class="original-price">$199.99</span></div>
-          </div>
-          <a href="#" class="card-link">Enroll Now</a>
-        </div>
-      </article>
-
-      } -->
+          </article>
 
 
-
-
-
-
-
-
-
-      @for (item of FilterCoursesByAiCategory; track $index) {
-
-      <article class="card w-25 ">
-        <div class="course-card w-100 courses">
-          <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="">
-          <h3>{{item.title}}</h3>
-          <p>{{item.description}}</p>
-          <div class="card-price">${{item.price}}</div>
-          <button class=" mt-1 card-link w-100 btn text-center bg-light">Enroll Now</button>
-        </div>
-      </article>
-
-      }
-          </div>
+          }
 
         </div>
+
+        <div class="carousel-nav">
+          <button class="nav-btn" id="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="nav-btn" id="next-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+
       </div>
-    </section>
-
-
-
-
-    <section class="mt-5  ">
-      <div class="container">
-        <div class="carousel-wrapper">
-
-          <h2>Artificial Intelligence Courses 🤖</h2>
-
-          <div class="cards-container">
-
-            @for (item of FilterCoursesByAiCategory; track $index) {
-
-            <article class="card w-25   ">
-              <div class="course-card w-100  courses">
-                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="">
-                <h3>{{item.title}} Course</h3>
-                <p>{{item.description}}</p>
-                <div class="card-price">${{item.price}}</div>
-                <button class=" mt-1 card-link w-100 btn text-center bg-light">Enroll Now</button>
-              </div>
-            </article>
-
-            }
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-
-
-
-
+    </div>
+  </section>
 
 
 

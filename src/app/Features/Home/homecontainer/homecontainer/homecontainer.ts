@@ -4,6 +4,8 @@ import { Hero } from "../../components/HeroSection/hero/hero";
 import { Features } from "../../components/Features/features/features";
 import { CourseService } from '../../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
+import { CategoryService } from '../../../../Core/services/Category/category-service';
+import { IAllCategories } from '../../../../Core/interfaces/Category/iall-categories';
 
 @Component({
   selector: 'app-homecontainer',
@@ -12,31 +14,92 @@ import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
   styleUrl: './homecontainer.css'
 })
 export class Homecontainer implements OnInit {
-  constructor(private service: CourseService  , private cdr:ChangeDetectorRef) { }
+  constructor(private service: CourseService, private cdr: ChangeDetectorRef, private categoryService: CategoryService) { }
 
   FilterCoursesByCategory: IAllCourses[] = [];
-  FilterCoursesByAiCategory: IAllCourses[] = [];
+  FilterCoursesByFirstCategory: IAllCourses[] = [];
+  FilterCoursesBySecondCategory: IAllCourses[] = [];
+
+  firstCategoryIndex: number = 0;
+  secondCategoryIndex: number = 0;
+  allCategories: IAllCategories[] = [];
+
+  currentCategory!: IAllCategories;
+  secondCategory!: IAllCategories;
+
+
+
+  allCategoriesName: string[] = [];
 
   ngOnInit(): void {
-    this.service.GetCourseByCategoryName("C Languages").subscribe({
+    // this.service.GetCourseByCategoryName("C Languages").subscribe({
+    //   next: (response) => {
+
+    //     this.FilterCoursesByCategory = response.slice(0, 7);
+
+    //     this.cdr.detectChanges();
+
+    //   }
+    // })
+
+
+
+
+
+
+
+    this.categoryService.GetAllCategories().subscribe({
       next: (response) => {
 
-        this.FilterCoursesByCategory = response.slice(0, 7);
 
+        this.allCategories = response as [];
+
+        this.allCategoriesName.push(...response.map(cat => cat.name))
         this.cdr.detectChanges();
+        console.log(this.allCategoriesName);
+
+        console.log(this.allCategories);
+
+
+
+
+        this.firstCategoryIndex = Math.floor(Math.random() * this.allCategoriesName.length);
+        this.secondCategoryIndex = Math.floor(Math.random() * this.allCategoriesName.length);
+        while (this.secondCategoryIndex == this.firstCategoryIndex) {
+          this.secondCategoryIndex = Math.floor(Math.random() * this.allCategoriesName.length);
+        }
+
+        this.service.GetCourseByCategoryName(this.allCategoriesName[this.firstCategoryIndex]).subscribe({
+          next: (response) => {
+
+            this.currentCategory = this.allCategories.find(c => c.name == this.allCategoriesName[this.firstCategoryIndex]) as IAllCategories;
+
+            console.log(this.currentCategory);
+
+
+            this.FilterCoursesByFirstCategory = response.slice(0, 6);
+            this.cdr.detectChanges();
+          }
+        })
+
+
+
+        this.service.GetCourseByCategoryName(this.allCategoriesName[this.secondCategoryIndex]).subscribe({
+          next: (response) => {
+            this.FilterCoursesBySecondCategory = response.slice(0, 6);
+
+            this.secondCategory= this.allCategories.find(c => c.name == this.allCategoriesName[this.secondCategoryIndex]) as IAllCategories;
+
+            this.cdr.detectChanges();
+
+          }
+        })
+
+
 
       }
-    })
 
 
-
-    this.service.GetCourseByCategoryName("C Languages").subscribe({
-      next: (response) => {
-
-        this.FilterCoursesByAiCategory = response.slice(0, 7);
-        this.cdr.detectChanges();
-      }
     })
   }
-
 }
