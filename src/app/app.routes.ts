@@ -7,6 +7,7 @@ import { ViewCourse } from './Features/Instructor/Components/view-course/view-co
 import { authGuard } from './Core/guards/auth-guard';
 import { AllCourses } from './Features/Home/all-courses/all-courses';
 import { LoginComponent } from './Features/auth/pages/login/login.component';
+import { StudentCourseDetails } from './Features/Home/student-course-details/student-course-details';
 export const routes: Routes = [
   // 🏠 Default route → Home page
   {
@@ -73,6 +74,11 @@ export const routes: Routes = [
     component: ViewCourse,
     canActivate: [authGuard],
     data: { roles: ['Student', 'Instructor', 'Admin'] },
+    pathMatch: 'full'
+  },
+  {
+    path: 'CourseDetails/:id',
+    component: StudentCourseDetails,
     pathMatch: 'full'
   },
 
