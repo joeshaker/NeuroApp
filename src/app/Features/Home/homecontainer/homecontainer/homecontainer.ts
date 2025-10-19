@@ -78,8 +78,11 @@ export class Homecontainer implements OnInit {
 
 
             this.FilterCoursesByFirstCategory = response.slice(0, 6);
+            console.log(this.FilterCoursesByFirstCategory);
+
             this.cdr.detectChanges();
           }
+
         })
 
 
@@ -91,6 +94,9 @@ export class Homecontainer implements OnInit {
             this.secondCategory= this.allCategories.find(c => c.name == this.allCategoriesName[this.secondCategoryIndex]) as IAllCategories;
 
             this.cdr.detectChanges();
+
+            console.log(this.FilterCoursesBySecondCategory);
+
 
           }
         })
