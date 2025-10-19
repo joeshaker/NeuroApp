@@ -3,6 +3,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 export interface JwtPayload {
   sub: string;
+    entityId?: string;  // the instructor or student ID from the token
+// the instructor or student ID from the token
   role: string;
   email?: string;
   name?: string;
@@ -112,6 +114,12 @@ export class JwtService {
   isAuthenticated(): boolean {
     const token = this.getToken();
     return token !== null && !this.isTokenExpired();
+  }
+
+    // ✅ Get entity ID (InstructorId / StudentId)
+  getEntityId(): string | null {
+    const decoded = this.decodeToken();
+    return decoded?.entityId || null;
   }
 
   /**
