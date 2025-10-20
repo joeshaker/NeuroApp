@@ -3,7 +3,6 @@ import { GetModuleDto, ModuleService } from '../../../Core/services/module-servi
 import { CourseService } from '../../../Core/services/Course/course-service';
 import { IAllCourses } from '../../../Core/interfaces/Course/iall-courses';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { IModule } from '../../Admin/Interfaces/admin.interface';
 import { Navbar } from "../components/navbar/navbar/navbar";
 import { Footer } from "../components/footer/footer";
 import { InstructorService } from '../../../Core/services/Instructor/instructorservice';
