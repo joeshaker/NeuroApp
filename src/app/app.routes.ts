@@ -5,7 +5,6 @@ import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simpl
 import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
 import { ViewCourse } from './Features/Instructor/Components/view-course/view-course';
 import { authGuard } from './Core/guards/auth-guard';
-import { AllCourses } from './Features/Home/all-courses/all-courses';
 import { LoginComponent } from './Features/auth/pages/login/login.component';
 export const routes: Routes = [
   // 🏠 Default route → Home page
@@ -77,13 +76,13 @@ export const routes: Routes = [
   },
 
 
-  {
-    path: 'AllCourses',
-    component: AllCourses,
-    // canActivate: [authGuard],
-    // data: { roles: ['Student', 'Instructor', 'Admin'] },
-    pathMatch: 'full'
-  },
+  // {
+  //   path: 'AllCourses',
+  //   component: AllCourses,
+  //   // canActivate: [authGuard],
+  //   // data: { roles: ['Student', 'Instructor', 'Admin'] },
+  //   pathMatch: 'full'
+  // },
   {
     path: 'Login',
     component: LoginComponent

@@ -1,10 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CourseService } from '../../../Core/services/Course/course-service';
-import { IAllCourses } from '../../../Core/interfaces/Course/iall-courses';
+import { CourseService } from '../../../../Core/services/Course/course-service';
+import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
+import { Navbar } from "../navbar/navbar/navbar";
+
 
 @Component({
   selector: 'app-all-courses',
-  imports: [],
+  imports: [Navbar],
   templateUrl: './all-courses.html',
   styleUrl: './all-courses.css'
 })

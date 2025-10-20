@@ -8,5 +8,9 @@ export const homeRoutes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./homecontainer/homecontainer/homecontainer').then(m => m.Homecontainer)
+  },
+  {
+    path: 'allcourses',
+    loadComponent: () => import('./components/all-courses/all-courses').then(m => m.AllCourses)
   }
 ];
