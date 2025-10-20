@@ -1,0 +1,339 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="hero-section vh-75">
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="container position-relative p-0">
+        <div class="row align-items-center p-0 ">
+            <div class="col-lg-8  p-0">
+
+
+                <h1 class="hero-title text-center display-4 fw-bold">{{courseDetails?.title ?? ''}} Course</h1>
+                <p class=" text-center h2">Sub of {{courseDetails?.categoryName ?? ''}}</p>
+                <p class="hero-subtitle mt-4 text-center">{{courseDetails?.description ?? ''}}.</p>
+
+
+            </div>
+            <div class="col-lg-4  p-0 ">
+                <div class="enrollment-card">
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <span class="price-tag">${{courseDetails?.price ?? 0 }}</span>
+                            </div>
+
+                        </div>
+                        <p class="text-success mb-3"><i class="fas fa-bolt me-1"></i> Limited time offer</p>
+                        <button class="btn enroll-btn py-3">
+                            <i class="fas fa-shopping-cart me-2"></i> Enroll Now
+                        </button>
+
+                        <h6 class="mb-3  text-dark">This course includes:</h6>
+                        <ul class="feature-list list-unstyled text-dark">
+                            @for (item of modules; track $index) {
+                            <li><i class="fas fa-check"></i> {{item.title}}</li>
+
+                            }
+
+
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Details -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Navigation Tabs -->
+            <ul class="nav nav-tabs mb-4" id="courseTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview"
+                        type="button" role="tab">Overview</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum"
+                        type="button" role="tab">Curriculum</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor"
+                        type="button" role="tab">Instructor</button>
+                </li>
+
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="courseTabsContent">
+                <!-- Overview Tab -->
+                <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                    <h3 class="section-title">About This Course</h3>
+                    <p>{{courseDetails?.description ?? ''}}.</p>
+
+                    <h4 class="mt-5 mb-3">What You'll Learn</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="feature-list">
+                                @for (item of modules; track $index) {
+                                <li><i class="fas fa-check"></i> {{item?.title ?? ''}}</li>
+
+                                }
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <!-- Curriculum Tab -->
+                <div class="tab-pane fade" id="curriculum" role="tabpanel">
+                    <h3 class="section-title">Course Content</h3>
+                    <div class="d-flex justify-content-between mb-4" *ngIf="modules.length != 0">
+                        <p class="mb-0">{{modules.length}} sections • 185 lectures •</p>
+
+                    </div>
+
+                    <div class="accordion" id="curriculumAccordion">
+                        <!-- Section 1 -->
+
+                        @if (modules.length == 0 ) {
+
+                        <span>There is no Modules Here .</span>
+                        }
+
+                        @else {
+
+                        @for (item of modules; track $index) {
+
+
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    [attr.data-bs-target]="'#section' + $index"> >
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <span>
+                                            <i class="fas fa-folder-open me-2 text-primary"></i>
+                                            <strong>Section {{$index+1}}:</strong> {{item?.title ?? ''}}
+                                        </span>
+                                        <span class="badge bg-primary rounded-pill">{{item?.videos?.length ?? 0}}
+                                            lectures • 4h 20m</span>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div [attr.id]="'section' + $index" class="accordion-collapse collapse show"
+                                data-bs-parent="#curriculumAccordion">
+                                <div class="accordion-body p-0">
+
+                                    @if (item.videos?.length == 0 ) {
+
+
+                                    <div class="module-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <i class="far fa-play-circle text-primary me-2"></i>
+                                                <span>No videos in this module</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    }
+
+
+                                    @else {
+
+                                    @for (i of item.videos; track $index) {
+                                    <div class="module-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <i class="far fa-play-circle text-primary me-2"></i>
+                                                <span>{{i.title}}</span>
+                                            </div>
+                                            <span>{{i.duration}} s</span>
+                                        </div>
+                                    </div>
+                                    }
+
+
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        }
+
+
+                        }
+
+
+
+                    </div>
+                </div>
+
+                <!-- Instructor Tab -->
+                <div class="tab-pane fade" id="instructor" role="tabpanel">
+                    <h3 class="section-title">Instructor</h3>
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor"
+                                class="rounded-circle img-fluid mb-3" style="max-width: 180px;">
+                            <div class="social-icons mt-3">
+                                <a [href]="InstDetails?.linkedIn ?? 'UnKnown'"><i
+                                        class="fab fa-linkedin text-dark"></i></a>
+                                <a class="text-decoration-none" [href]="InstDetails?.email ?? 'UnKnown'"><i
+                                        class="fa-solid fa-envelope text-dark"></i></a>
+
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h2>Dr. {{InstDetails?.fullName ?? 'UnKnown'}}</h2>
+                            <p class="text-muted mb-3">Instructor</p>
+
+                            <div class="d-flex flex-wrap mb-4">
+
+                                <div class="mb-2">
+                                    <i class="fas fa-play-circle text-primary"></i>
+                                    <span><strong>{{InstDetails?.courses?.length??0}}</strong> Courses</span>
+                                </div>
+                            </div>
+
+                            <p>{{InstDetails?.fullName ?? 'UnKnown'}} is an instructor in the Academy.</p>
+
+                            <p>His teaching methodology focuses on {{InstDetails?.qualifications??''}}.</p>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-5">
+                <h3 class="section-title">Frequently Asked Questions</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long do I have access to the course?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You will have lifetime access to the course materials, including any future updates. You can
+                            learn at your own pace and revisit the content whenever you need a refresher.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need any prior experience?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No prior programming experience is required. This course is designed for complete beginners
+                            and will take you from the basics to advanced concepts step by step.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if I don't like the course?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day money-back guarantee. If you're not satisfied with the course for any
+                            reason, you can request a full refund within 30 days of purchase.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will I receive a certificate upon completion?</span>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you will receive a certificate of completion that you can share on LinkedIn and include
+                            in your resume or portfolio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Course Features -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Course Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-language fa-lg text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="mb-1">Languages</h6>
+                            <p class="mb-0 text-muted">English, Arabic</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-level-up-alt fa-lg text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="mb-1">Level</h6>
+                            <p class="mb-0 text-muted">Beginner to Advanced</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Requirements</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Basic computer literacy</li>
+                        <li><i class="fas fa-check"></i> No prior programming experience required</li>
+                        <li><i class="fas fa-check"></i> A computer with internet access</li>
+                        <li><i class="fas fa-check"></i> Willingness to learn and practice</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- More Courses -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-th-large me-2"></i>You Might Also Like</h5>
+                    <button [routerLink]="['/AllCourses']" class="btn btn-outline-primary w-100 mt-3">Visit this
+                        page</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top text-dark" id="backToTop">
+    <i class="fas fa-chevron-up text-danger"></i>
+</a>

@@ -1,13 +1,12 @@
-import { AdminContent } from './Features/Admin/Pages/content/content';
-import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SimpleLayout } from './Shared/layouts/simple-Layout/simple-layout/simple-layout';
 import { EditCourse } from './Features/Instructor/Components/edit-course/edit-course';
-import { ViewCourse } from './Features/Instructor/Components/view-course/view-course';
 import { authGuard } from './Core/guards/auth-guard';
 import { AllCourses } from './Features/Home/all-courses/all-courses';
 import { LoginComponent } from './Features/auth/pages/login/login.component';
 import { StudentCourseDetails } from './Features/Home/student-course-details/student-course-details';
+import { CourseDetails } from './Features/Instructor/Components/course-details/course-details';
+
 export const routes: Routes = [
   // 🏠 Default route → Home page
   {
@@ -70,10 +69,10 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'ViewCourse',
-    component: ViewCourse,
-    canActivate: [authGuard],
-    data: { roles: ['Student', 'Instructor', 'Admin'] },
+    path: 'InstructorCourseDetails/:id',
+    component: CourseDetails,
+    // canActivate: [authGuard],
+    // data: { roles: ['Student', 'Instructor', 'Admin'] },
     pathMatch: 'full'
   },
   {
