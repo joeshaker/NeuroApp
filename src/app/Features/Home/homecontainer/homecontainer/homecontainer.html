@@ -58,7 +58,8 @@
           <article class="card">
             <div class="course-card w-100">
               <div class="card-image-wrapper">
-                <img [src]="'http://localhost:5075/wwwroot/uploads/Images/' + item.thumbnailUrl" alt="Machine Learning Icon">
+<img [src]="getImageUrl(item.thumbnailUrl)" alt="Course Thumbnail" class="img-fluid rounded-3 shadow-sm"
+                onerror="this.src='https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" />
                 <!-- <div class="card-badge">Popular</div> -->
               </div>
               <div class="card-content   m-0">
@@ -114,7 +115,8 @@
           <article class="card">
             <div class="course-card w-100">
               <div class="card-image-wrapper">
-                <img  [src]="'http://localhost:5075/wwwroot/uploads/Images/' + item.thumbnailUrl" alt="Machine Learning Icon">
+<img [src]="getImageUrl(item.thumbnailUrl)" alt="Course Thumbnail" class="img-fluid rounded-3 shadow-sm"
+                onerror="this.src='https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" />
                 <!-- <div class="card-badge">Popular</div> -->
               </div>
               <div class="card-content   m-0">
@@ -268,7 +270,7 @@
           <p class="footer-description">
             Subscribe to our newsletter to get the latest updates on new courses and offers.
           </p>
-                <button class="btn" routerLink="/auth/registerinstructor">
+                <button class="btn btn-warning" routerLink="/auth/registerinstructor">
         👩‍🏫 Register as Instructor
       </button>
           <form class="newsletter-form">
