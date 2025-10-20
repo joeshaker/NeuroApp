@@ -71,9 +71,12 @@ export const routes: Routes = [
       },
       {
         path:'ViewCourseDetails/:id',
-        loadComponent: () => import('./Components/view-course/view-course')
-        .then(m => m.ViewCourse)
+        loadComponent:()=> import('./Components/course-details/course-details').then(m => m.CourseDetails)
       },
+      {
+        path:'EditCourse/:id',
+        loadComponent:()=> import('./Components/edit-course/edit-course').then(m => m.EditCourse)
+      }
     ]
   }
 ];

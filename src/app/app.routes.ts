@@ -61,20 +61,20 @@ export const routes: Routes = [
   },
 
   // 🔹 Edit/View Course (Instructor or Admin)
-  {
-    path: 'editCourse/:id',
-    component: EditCourse,
-    canActivate: [authGuard],
-    data: { roles: ['Instructor', 'Admin'] },
-    pathMatch: 'full'
-  },
-  {
-    path: 'InstructorCourseDetails/:id',
-    component: CourseDetails,
-    // canActivate: [authGuard],
-    // data: { roles: ['Student', 'Instructor', 'Admin'] },
-    pathMatch: 'full'
-  },
+  // {
+  //   path: 'editCourse/:id',
+  //   component: EditCourse,
+  //   canActivate: [authGuard],
+  //   data: { roles: ['Instructor', 'Admin'] },
+  //   pathMatch: 'full'
+  // },
+  // {
+  //   path: 'InstructorCourseDetails/:id',
+  //   component: CourseDetails,
+  //   // canActivate: [authGuard],
+  //   // data: { roles: ['Student', 'Instructor', 'Admin'] },
+  //   pathMatch: 'full'
+  // },
   {
     path: 'CourseDetails/:id',
     component: StudentCourseDetails,

@@ -139,11 +139,11 @@
         <div class="top-courses">
           <div class="d-flex justify-content-between align-items-center mb-4">
             <h5 class="mb-0">Top Courses</h5>
-            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+            <a routerLink="/instructor/courses" class="btn btn-sm btn-outline-primary">View All</a>
           </div>
           <div class="course-list">
             <div class="d-flex align-items-center mb-3" *ngFor="let course of topCourses">
-              <img src="assets/default-course.png" class="rounded" width="50" height="50" alt="course">
+              <img [src]="getImageUrl(course.thumbnailUrl)" class="rounded" width="50" height="50" alt="course" onerror="this.src='https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'">
               <div class="flex-grow-1 ms-3">
                 <h6 class="mb-0">{{ course.title }}</h6>
                 <small class="text-muted">{{ course.students }} students</small>
@@ -170,7 +170,8 @@
             <div class="col-md-6 col-lg-4 mb-4" *ngFor="let course of courseProgress">
               <div class="course-card card">
                 <div class="position-relative">
-                  <img src="assets/default-course.png" class="card-img-top" alt="course">
+<img [src]="getImageUrl(course.thumbnailUrl)" alt="Course Thumbnail" class="img-fluid rounded-3 shadow-sm"
+                onerror="this.src='https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220'" />
                   <span class="course-badge" *ngIf="course.badge">{{ course.badge }}</span>
                 </div>
                 <div class="card-body">

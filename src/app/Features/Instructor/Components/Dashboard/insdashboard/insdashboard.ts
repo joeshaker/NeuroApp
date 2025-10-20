@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterLink } from "@angular/router";
 
 interface DashboardStats {
   courses: number;
@@ -71,7 +72,7 @@ interface Instructor {
 @Component({
   selector: 'app-insdashboard',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterLink],
   templateUrl: './insdashboard.html',
   styleUrls: ['./insdashboard.css']
 })
@@ -117,6 +118,15 @@ export class InsdashboardComponent implements OnInit {
   loadDashboardData(): void {
     this.isLoading = true;
     this.loadCurrentUser();
+  }
+    getImageUrl(fileName: string): string {
+    if (!fileName) {
+      return 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220';
+    }
+
+    // 👇 change this to your backend base URL
+    const baseUrl = 'http://localhost:5075/uploads/images/';
+    return `${baseUrl}${fileName}`;
   }
 
   loadCurrentUser(): void {

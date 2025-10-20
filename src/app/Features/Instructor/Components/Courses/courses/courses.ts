@@ -20,7 +20,7 @@ export class Courses implements OnInit {
     private cdr: ChangeDetectorRef,
     private moduleService: ModuleService,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const instructorId = this.jwtService.getEntityId(); // ✅ get "id" from token
@@ -43,6 +43,15 @@ export class Courses implements OnInit {
     });
   }
 
+  getImageUrl(fileName: string): string {
+    if (!fileName) {
+      return 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220';
+    }
+
+    // 👇 change this to your backend base URL
+    const baseUrl = 'http://localhost:5075/uploads/images/';
+    return `${baseUrl}${fileName}`;
+  }
   ViewCourse(id: number) {
     this.moduleService.getAllModulesByCourseId(id).subscribe({
       next: (response) => console.log('Modules:', response),
