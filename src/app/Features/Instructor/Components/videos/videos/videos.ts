@@ -94,7 +94,7 @@ openVideo(videoUrl: string): void {
     return;
   }
 
-  const fullUrl = `http://82.29.190.91:5000/${videoUrl}`;
+  const fullUrl = `https://82-29-190-91.sslip.io:5001/${videoUrl}`;
   console.log('Opening video URL:', fullUrl);
   const iframePage = `
     <html>

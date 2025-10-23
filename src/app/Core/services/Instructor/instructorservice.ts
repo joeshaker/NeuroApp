@@ -18,7 +18,7 @@ export interface InstructorRegisterRequest {
 })
 export class InstructorService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://82.29.190.91:5000/api/Instructor';
+  private apiUrl = 'https://82-29-190-91.sslip.io:5001/api/Instructor';
 
   /**
    * Register a new instructor (new account)

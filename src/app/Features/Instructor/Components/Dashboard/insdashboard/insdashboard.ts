@@ -107,7 +107,7 @@ export class InsdashboardComponent implements OnInit {
   isLoading: boolean = true;
   error: string = '';
 
-  private readonly API_BASE = 'http://82.29.190.91:5000/api';
+  private readonly API_BASE = 'https://82-29-190-91.sslip.io:5001/api';
 
   constructor(private http: HttpClient) {}
 
@@ -125,7 +125,7 @@ export class InsdashboardComponent implements OnInit {
     }
 
     // 👇 change this to your backend base URL
-    const baseUrl = 'http://82.29.190.91:5000/uploads/Images/';
+    const baseUrl = 'https://82-29-190-91.sslip.io:5001/uploads/Images/';
     return `${baseUrl}${fileName}`;
   }
 

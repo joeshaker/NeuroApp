@@ -48,7 +48,7 @@ export interface UpdateModuleDto {
 })
 export class ModuleService {
 
-  private baseUrl = 'http://82.29.190.91:5000'; // change if different
+  private baseUrl = 'https://82-29-190-91.sslip.io:5001'; // change if different
 
   constructor(private http: HttpClient) {}
 

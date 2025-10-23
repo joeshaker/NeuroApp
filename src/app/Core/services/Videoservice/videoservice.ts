@@ -16,7 +16,7 @@ export interface VideoCreateDto {
   providedIn: 'root'
 })
 export class VideoService {
-  private baseUrl = 'http://82.29.190.91:5000'; // adjust if different
+  private baseUrl = 'https://82-29-190-91.sslip.io:5001'; // adjust if different
 
   constructor(private http: HttpClient) {}
 
