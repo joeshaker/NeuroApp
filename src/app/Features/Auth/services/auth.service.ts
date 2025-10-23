@@ -48,7 +48,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private jwtService = inject(JwtService);
-  private apiUrl = 'http://localhost:5075/api/Auth';
+  private apiUrl = 'http://82.29.190.91:5000/api/Auth';
 
   register(data: RegisterRequest): Observable<OtpResponse> {
     console.log(data);

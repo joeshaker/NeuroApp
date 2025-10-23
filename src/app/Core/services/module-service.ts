@@ -48,7 +48,7 @@ export interface UpdateModuleDto {
 })
 export class ModuleService {
 
-  private baseUrl = 'http://localhost:5075'; // change if different
+  private baseUrl = 'http://82.29.190.91:5000'; // change if different
 
   constructor(private http: HttpClient) {}
 

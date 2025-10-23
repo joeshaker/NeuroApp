@@ -18,7 +18,7 @@ export interface InstructorRegisterRequest {
 })
 export class InstructorService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5075/api/Instructor';
+  private apiUrl = 'http://82.29.190.91:5000/api/Instructor';
 
   /**
    * Register a new instructor (new account)

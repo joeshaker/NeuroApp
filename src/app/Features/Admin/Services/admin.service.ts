@@ -32,7 +32,7 @@ export class AdminService {
   constructor(@Inject(HttpClient) private http: HttpClient) {
     this.apiUrl = (typeof environment.apiUrl === 'string' && environment.apiUrl.startsWith('http'))
       ? environment.apiUrl
-      : 'http://localhost:5075/api';
+      : 'http://82.29.190.91:5000/api';
     console.log('[AdminService] apiUrl =', this.apiUrl);
   }
 

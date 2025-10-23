@@ -8,7 +8,7 @@ import { IAllCategories } from '../../interfaces/Category/iall-categories';
 })
 export class CategoryService {
 
-  BaseUrl: string = 'http://localhost:5075/api/Category';
+  BaseUrl: string = 'http://82.29.190.91:5000/api/Category';
 
   constructor(private http: HttpClient) { }
 

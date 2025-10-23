@@ -84,6 +84,46 @@ deleteVideo(id: number): void {
     }
   });
 }
+openVideo(videoUrl: string): void {
+  if (!videoUrl) {
+    Swal.fire({
+      icon: 'error',
+      title: 'No video URL found',
+      text: 'This video does not have a valid link.',
+    });
+    return;
+  }
+
+  const fullUrl = `http://82.29.190.91:5000/${videoUrl}`;
+  console.log('Opening video URL:', fullUrl);
+  const iframePage = `
+    <html>
+      <head>
+        <title>Video Player</title>
+        <style>
+          body { margin: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+          iframe { width: 80%; height: 80%; border: none; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        </style>
+      </head>
+      <body>
+        <iframe src="${fullUrl}" allowfullscreen></iframe>
+      </body>
+    </html>
+  `;
+
+  const newWindow = window.open('', '_blank');
+  if (newWindow) {
+    newWindow.document.write(iframePage);
+    newWindow.document.close();
+  } else {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Popup Blocked',
+      text: 'Please allow popups to open the video in a new tab.',
+    });
+  }
+}
+
 
 
   toggleView(isGrid: boolean): void {

@@ -70,10 +70,15 @@
       </div>
       <p class="text-muted small">Module ID: {{ video.moduleId }}</p>
       <div class="video-actions d-flex justify-content-end">
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="video.filePath && openVideo(video.filePath)">
+          <i class="fas fa-eye"></i>
+        </button>
+
         <button class="btn btn-sm btn-outline-danger" (click)="deleteVideo(video.id!)">
           <i class="fas fa-trash"></i>
         </button>
       </div>
+
     </div>
   </div>
 </div>

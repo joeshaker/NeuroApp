@@ -83,7 +83,7 @@ export class Homecontainer implements OnInit {
             this.FilterCoursesByFirstCategory = response.slice(0, 6);
             console.log(this.FilterCoursesByFirstCategory);
 
-            this.cdr.detectChanges();
+            // this.cdr.detectChanges();
           }
 
         })
@@ -118,7 +118,7 @@ export class Homecontainer implements OnInit {
   }
 
   // 👇 change this to your backend base URL
-  const baseUrl = 'http://localhost:5075/uploads/images/';
+  const baseUrl = 'http://82.29.190.91:5000/uploads/Images/';
   return `${baseUrl}${fileName}`;
 }
 }
