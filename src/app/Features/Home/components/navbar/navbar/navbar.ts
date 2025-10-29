@@ -23,6 +23,12 @@ export class Navbar {
     // (Optional) If you use events or observables to track login/logout state,
     // you could subscribe to that here for real-time updates.
   }
+  isMenuOpen = false;
+
+toggleMenu() {
+  this.isMenuOpen = !this.isMenuOpen;
+}
+
 
   logout(): void {
     this.authService.logout(); // Calls logout method in AuthService

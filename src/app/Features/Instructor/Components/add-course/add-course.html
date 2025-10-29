@@ -2,7 +2,7 @@
   <!-- Page Header -->
   <div class="page-header">
     <h1 class="page-title">Create New Course</h1>
-    <div>
+    <div class="header-buttons">
       <button class="btn btn-outline me-2">
         <i class="fas fa-arrow-left me-2"></i> Back to Courses
       </button>
@@ -15,126 +15,147 @@
   <!-- Form Steps -->
   <div class="form-steps">
     <div class="step active">
-      <div class="step-icon">
-        <i class="fas fa-info-circle"></i>
-      </div>
+      <div class="step-icon"><i class="fas fa-info-circle"></i></div>
       <div class="step-label">Basic Info</div>
     </div>
     <div class="step">
-      <div class="step-icon">
-        <i class="fas fa-book-open"></i>
-      </div>
+      <div class="step-icon"><i class="fas fa-book-open"></i></div>
       <div class="step-label">Content</div>
     </div>
     <div class="step">
-      <div class="step-icon">
-        <i class="fas fa-cogs"></i>
-      </div>
+      <div class="step-icon"><i class="fas fa-cogs"></i></div>
       <div class="step-label">Settings</div>
     </div>
     <div class="step">
-      <div class="step-icon">
-        <i class="fas fa-eye"></i>
-      </div>
+      <div class="step-icon"><i class="fas fa-eye"></i></div>
       <div class="step-label">Preview</div>
     </div>
     <div class="step">
-      <div class="step-icon">
-        <i class="fas fa-check"></i>
-      </div>
+      <div class="step-icon"><i class="fas fa-check"></i></div>
       <div class="step-label">Publish</div>
     </div>
   </div>
 
-  <div class="row">
-    <form (ngSubmit)="SaveCourse()" [formGroup]="AddCourseForm" class="col-lg-8">
-      <!-- Course Creation Form -->
+  <div class="row gx-4 gy-4">
+    <!-- Form Section -->
+    <form
+      (ngSubmit)="SaveCourse()"
+      [formGroup]="AddCourseForm"
+      class="col-12 col-lg-8"
+    >
       <div class="form-container fade-in">
         <h2 class="form-title">Course Information</h2>
 
         <div class="form-card">
+          <!-- Title -->
           <div class="mb-4">
             <label class="form-label">Course Title</label>
-            <input formControlName="title" type="text" class="form-control" placeholder="Enter course title">
-            <div class="form-text">Make it descriptive and engaging for potential students.</div>
+            <input
+              formControlName="title"
+              type="text"
+              class="form-control"
+              placeholder="Enter course title"
+            />
+            <div class="form-text">
+              Make it descriptive and engaging for potential students.
+            </div>
           </div>
 
+          <!-- Description -->
           <div class="mb-4">
             <label class="form-label">Course Description</label>
-            <textarea formControlName="description" class="form-control" rows="5"
-              placeholder="Describe what students will learn in this course"></textarea>
-            <div class="form-text">Provide a comprehensive overview of the course content and learning outcomes.</div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-4">
-                <label class="form-label">Category</label>
-                <select formControlName="categoryId" class="form-select">
-                  <option selected disabled>Select Category</option>
-                  @for (item of AllCategories; track $index) {
-                  <option [ngValue]="item?.id">{{item?.name ?? ''}}</option>
-                  }
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-4">
-                <label class="form-label">Thumbnail</label>
-                <input type="file" class="form-control" (change)="onFileSelected($event)">
-
-                <div class="form-text">Recommended size: 1280x720 pixels</div>
-              </div>
+            <textarea
+              formControlName="description"
+              class="form-control"
+              rows="5"
+              placeholder="Describe what students will learn in this course"
+            ></textarea>
+            <div class="form-text">
+              Provide a comprehensive overview of the course content and
+              learning outcomes.
             </div>
           </div>
 
-          <div class="row">
+          <!-- Category & Thumbnail -->
+          <div class="row g-3">
             <div class="col-md-6">
-              <div class="mb-4">
-                <label class="form-label">Price</label>
-                <div class="input-group">
-                  <span class="input-group-text">$</span>
-                  <input formControlName="price" type="number" class="form-control" placeholder="0.00" step="0.01">
-                </div>
+              <label class="form-label">Category</label>
+              <select formControlName="categoryId" class="form-select">
+                <option selected disabled>Select Category</option>
+                @for (item of AllCategories; track $index) {
+                <option [ngValue]="item?.id">{{ item?.name ?? '' }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Thumbnail</label>
+              <input
+                type="file"
+                class="form-control"
+                (change)="onFileSelected($event)"
+              />
+              <div class="form-text">Recommended size: 1280x720 pixels</div>
+            </div>
+          </div>
+
+          <!-- Price & Free -->
+          <div class="row g-3 mt-3">
+            <div class="col-md-6">
+              <label class="form-label">Price</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input
+                  formControlName="price"
+                  type="number"
+                  class="form-control"
+                  placeholder="0.00"
+                  step="0.01"
+                />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="mb-4 d-flex align-items-end h-100">
-                <div class="form-check form-switch">
-                  <input formControlName="isFree" class="form-check-input" type="checkbox" role="switch"
-                    id="freeCourse">
-                  <label class="form-check-label" for="freeCourse">
-                    This is a free course
-                  </label>
-                </div>
+
+            <div class="col-md-6 d-flex align-items-end">
+              <div class="form-check form-switch">
+                <input
+                  formControlName="isFree"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="freeCourse"
+                />
+                <label class="form-check-label" for="freeCourse">
+                  This is a free course
+                </label>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <!-- Buttons -->
+        <div class="d-flex flex-wrap justify-content-between gap-2 mt-3">
           <button class="btn btn-outline">
             <i class="fas fa-times me-2"></i> Cancel
           </button>
-          <div>
-            <button class="btn btn-outline me-2">
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline">
               <i class="fas fa-eye me-2"></i> Preview
             </button>
-
-            <button type="submit" class="btn btn-success me-1 mb-1" id="type-success">
+            <button
+              type="submit"
+              class="btn btn-success"
+              id="type-success"
+            >
               <i class="fas fa-save me-2"></i> Save & Continue
             </button>
-
-            <!-- <button  type="submit" class="btn btn-primary">
-            </button> -->
           </div>
         </div>
       </div>
     </form>
 
-    <div class="col-lg-4">
-      <!-- Preview Section -->
-      <div class="preview-section fade-in" style="animation-delay: 0.2s;">
+    <!-- Preview Section -->
+    <div class="col-12 col-lg-4">
+      <div class="preview-section fade-in" style="animation-delay: 0.2s">
         <h2 class="preview-title">Course Preview</h2>
 
         <div class="preview-card">
@@ -143,8 +164,10 @@
           </div>
           <div class="preview-content">
             <h3 class="preview-course-title">Your Course Title</h3>
-            <p class="preview-course-description">Your course description will appear here. Make it engaging and
-              informative to attract students.</p>
+            <p class="preview-course-description">
+              Your course description will appear here. Make it engaging and
+              informative to attract students.
+            </p>
 
             <div class="preview-meta">
               <div class="preview-price">$0.00</div>
@@ -160,11 +183,26 @@
         <div class="mt-4">
           <h5 class="mb-3">Quick Tips</h5>
           <ul class="list-unstyled">
-            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Use a clear, descriptive title</li>
-            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Write a compelling description</li>
-            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Choose an engaging thumbnail</li>
-            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Set an appropriate price point</li>
-            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Select the right category</li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i> Use a clear,
+              descriptive title
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i> Write a
+              compelling description
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i> Choose an
+              engaging thumbnail
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i> Set an
+              appropriate price
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i> Select the
+              right category
+            </li>
           </ul>
         </div>
       </div>

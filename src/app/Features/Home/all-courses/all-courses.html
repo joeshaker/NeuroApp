@@ -80,7 +80,7 @@
     </div>
 
     <!-- Pagination -->
-    <div class="pagination-container text-center">
+    <!-- <div class="pagination-container text-center">
       <nav aria-label="Course pagination">
         <ul class="pagination">
           <li class="page-item">
@@ -100,74 +100,9 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </div> -->
   </div>
 </section>
 
 <!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 mb-5">
-        <a href="#" class="footer-logo"><i class="fas fa-graduation-cap"></i>CourseHub</a>
-        <p class="footer-description">
-          We provide high-quality online courses to help you learn new skills and advance your
-          career. Join our community of learners today.
-        </p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-2 col-md-6 mb-5">
-        <h5 class="footer-heading">Quick Links</h5>
-        <ul class="footer-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Courses</a></li>
-          <li><a href="#">Categories</a></li>
-          <li><a href="#">Instructors</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-2 col-md-6 mb-5">
-        <h5 class="footer-heading">Categories</h5>
-        <ul class="footer-links">
-          @for (cat of categories; track $index) {
-            <li><a href="#" (click)="filterByCategory(cat)">{{ cat }}</a></li>
-          }
-        </ul>
-      </div>
-
-      <div class="col-lg-4 mb-5">
-        <h5 class="footer-heading">Newsletter</h5>
-        <p class="footer-description">
-          Subscribe to our newsletter to get the latest updates on new courses and offers.
-        </p>
-        <button class="btn" routerLink="/auth/registerinstructor">
-          👩‍🏫 Register as Instructor
-        </button>
-        <form class="newsletter-form">
-          <input
-            type="email"
-            class="form-control newsletter-input"
-            placeholder="Your email address"
-          />
-          <button class="btn newsletter-btn" type="button">Subscribe</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>
-        &copy; 2023 CourseHub. All rights reserved. |
-        <a href="#" class="text-light">Privacy Policy</a> |
-        <a href="#" class="text-light">Terms of Service</a>
-      </p>
-    </div>
-  </div>
-</footer>
+ <app-footer></app-footer>

@@ -1,15 +1,20 @@
 <header>
-  <div class="logo">Neuro<span>Platform</span></div>
-  <nav>
+  <div class="logo">
+    <img src="Artboard 20.png" alt="NeuroApp Logo" />
+  </div>
+
+  <!-- Hamburger Button (visible only on small screens) -->
+  <button class="menu-toggle" (click)="toggleMenu()">
+    ☰
+  </button>
+
+  <nav [class.active]="isMenuOpen">
     <a routerLink="/home">Home</a>
     <a routerLink="/AllCourses">Courses</a>
     <a routerLink="/MyLearning">My Learning</a>
     <a routerLink="/Profile">Profile</a>
 
-    <!-- Show Login button only if NOT authenticated -->
     <button *ngIf="!isAuthenticated" class="btn" routerLink="/auth/login">Login</button>
-
-    <!-- Show Logout button if authenticated -->
     <button *ngIf="isAuthenticated" class="btn logout-btn" (click)="logout()">Logout</button>
   </nav>
 </header>

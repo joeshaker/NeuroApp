@@ -8,11 +8,12 @@ import { IAllCourses } from '../../../../Core/interfaces/Course/iall-courses';
 import { CategoryService } from '../../../../Core/services/Category/category-service';
 import { IAllCategories } from '../../../../Core/interfaces/Category/iall-categories';
 import { RouterLink } from '@angular/router';
+import { Footer } from "../../components/footer/footer";
 
 
 @Component({
   selector: 'app-homecontainer',
-  imports: [Navbar, Hero, Features, RouterLink],
+  imports: [Navbar, Hero, Features, RouterLink, Footer],
   templateUrl: './homecontainer.html',
   styleUrl: './homecontainer.css'
 })

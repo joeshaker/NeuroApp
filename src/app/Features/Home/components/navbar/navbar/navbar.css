@@ -1,34 +1,53 @@
-/* Header */
+/* === Header === */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
   background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
+/* === Logo === */
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
   color: #222;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.logo span {
-  color: #007bff;
+
+.logo img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* === Navigation === */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
 }
 
 nav a {
-  margin: 0 15px;
+  margin: 0 10px;
   text-decoration: none;
   color: #444;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
+
 nav a:hover {
   color: #007bff;
 }
 
+/* === Buttons === */
 .btn {
   background: #007bff;
   color: white;
@@ -36,8 +55,83 @@ nav a:hover {
   padding: 8px 18px;
   border-radius: 25px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s ease;
 }
+
 .btn:hover {
   background: #0056b3;
+}
+
+/* === Hamburger Button === */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* === Responsive Design === */
+
+/* Tablets (≤ 992px) */
+@media (max-width: 992px) {
+  header {
+    padding: 15px 30px;
+  }
+  .logo img {
+    height: 50px;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide nav by default */
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Show nav when active */
+  nav.active {
+    display: flex;
+  }
+
+  nav a,
+  .btn {
+    margin: 8px 0;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Small Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .logo img {
+    height: 45px;
+  }
+
+  nav a {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 }

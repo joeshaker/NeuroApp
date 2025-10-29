@@ -4,10 +4,12 @@ import { CategoryService } from '../../../Core/services/Category/category-servic
 import { IAllCourses } from '../../../Core/interfaces/Course/iall-courses';
 import { Router, RouterLink } from '@angular/router';
 import { Navbar } from "../components/navbar/navbar/navbar";
+import { Features } from "../components/Features/features/features";
+import { Footer } from "../components/footer/footer";
 
 @Component({
   selector: 'app-all-courses',
-  imports: [RouterLink, Navbar],
+  imports: [RouterLink, Navbar, Features, Footer],
   templateUrl: './all-courses.html',
   styleUrl: './all-courses.css'
 })

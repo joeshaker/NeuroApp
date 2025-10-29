@@ -127,3 +127,92 @@
       border-radius: 5px;
       font-size: 12px;
     }
+    /* ===========================
+   Responsive Dashboard Layout
+=========================== */
+
+/* For Tablets and Smaller Screens */
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0; /* Remove sidebar space */
+    padding: 15px;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100vh;
+    background-color: #0d6efd;
+    transition: left 0.3s ease;
+    z-index: 1050;
+  }
+
+  .sidebar.active {
+    left: 0; /* Show when toggled */
+  }
+
+  /* Add a toggle button in header */
+  .header::before {
+    content: "\2630"; /* ☰ hamburger icon */
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+    color: #0d6efd;
+  }
+
+  .header {
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  /* Adjust header layout */
+  .header .input-group {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Dim background when sidebar is open */
+  body.menu-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1049;
+  }
+}
+
+/* Small Phones (≤ 576px) */
+@media (max-width: 576px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+
+  .header h3 {
+    font-size: 1.2rem;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .stats-card {
+    text-align: center;
+  }
+
+  .stats-card .icon {
+    margin: 0 auto 10px;
+  }
+
+  .recent-activity, .top-courses {
+    padding: 15px;
+  }
+
+  .course-card img {
+    height: 140px;
+  }
+}

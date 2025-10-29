@@ -1,45 +1,55 @@
 <!-- Sidebar -->
 <div class="w-100">
-  <div class="sidebar d-flex flex-column ">
-    <div class="logo d-flex align-items-center">
-      <i class="fas fa-graduation-cap fa-2x me-2"></i>
-      <h4 class="logo-text mb-0">NeuroApp</h4>
+  <!-- Sidebar container -->
+  <div class="sidebar d-flex flex-column" [class.active]="isSidebarOpen">
+    <!-- Logo + close button -->
+    <div class="logo d-flex align-items-center justify-content-between px-3">
+      <img src="Artboard 20.png" alt="NeuroApp Logo" class="img-fluid" style="max-height: 50px;">
+      <button class="btn btn-sm btn-light d-md-none" (click)="toggleSidebar(false)">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
 
-
+    <!-- Navigation links -->
     <ul class="nav flex-column mt-4">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/instructor/dashboard" routerLinkActive="active">
+        <a class="nav-link" routerLink="/instructor/dashboard" routerLinkActive="active" (click)="toggleSidebar(false)">
           <i class="fas fa-home"></i><span>Dashboard</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" routerLink="/instructor/courses" routerLinkActive="active">
+        <a class="nav-link" routerLink="/instructor/courses" routerLinkActive="active" (click)="toggleSidebar(false)">
           <i class="fas fa-book"></i><span>My Courses</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" routerLink="/instructor/module" routerLinkActive="active">
+        <a class="nav-link" routerLink="/instructor/module" routerLinkActive="active" (click)="toggleSidebar(false)">
           <i class="fas fa-users"></i><span>Modules</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" routerLink="/instructor/Videos" routerLinkActive="active">
+        <a class="nav-link" routerLink="/instructor/Videos" routerLinkActive="active" (click)="toggleSidebar(false)">
           <i class="fas fa-chart-bar"></i><span>Videos</span>
         </a>
       </li>
-
     </ul>
 
-
+    <!-- Logout button -->
     <div class="mt-auto p-3 text-center">
-      <!-- <div class="user-profile mb-3">
-        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="img-fluid">
-      </div> -->
-      <button class="btn btn-outline-danger mt-3 w-100" (click)="logout()">
+      <button class="btn btn-outline-primary mt-3 w-100" (click)="logout()">
         <i class="fas fa-sign-out-alt me-2"></i> Logout
       </button>
     </div>
   </div>
 
+  <!-- Overlay for mobile -->
+  <div *ngIf="isSidebarOpen" class="sidebar-overlay" (click)="toggleSidebar(false)"></div>
+
+  <!-- Hamburger button (only on small screens) -->
+  <button class="btn btn-outline-primary d-md-none menu-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
 </div>
