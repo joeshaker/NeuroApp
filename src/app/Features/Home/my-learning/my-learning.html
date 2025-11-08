@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<div class="my-learning-container">
+  <h2 class="page-title"><i class="fa-solid fa-lines-leaning"></i> My Learning</h2>
+
+  <!-- Filter Dropdown -->
+  <div class="filter-section">
+    <label for="statusFilter">Show:</label>
+    <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="onStatusChange(selectedStatus)">
+      <option value="all">All Courses</option>
+      <option value="paid">Paid Only</option>
+    </select>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading your courses...</p>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && filteredEnrollments.length === 0" class="empty">
+    <img src="assets/img/empty-learning.svg" alt="No courses" />
+    <p>You haven’t enrolled in any courses yet.</p>
+    <a routerLink="/AllCourses" class="browse-btn">Browse Courses</a>
+  </div>
+
+  <!-- Courses grid -->
+  <div *ngIf="!loading && filteredEnrollments.length > 0" class="courses-grid">
+    <div class="course-card" *ngFor="let enrollment of filteredEnrollments">
+      <img src="assets/img/default-course.jpg" alt="Course thumbnail" class="course-img" />
+
+      <div class="details">
+        <div class="top-section">
+          <h3 class="course-title">Course ID: {{ enrollment.courseId }}</h3>
+          <p class="status">
+            <span [ngClass]="{
+              paid: enrollment.status === 'Paid',
+              canceled: enrollment.isCanceled
+            }">{{ enrollment.status }}</span>
+          </p>
+        </div>
+
+        <div class="progress-section">
+          <p>Progress: {{ enrollment.progressPercentage }}%</p>
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="enrollment.progressPercentage"></div>
+          </div>
+        </div>
+
+        <p class="date">Enrolled on: {{ enrollment.enrollmentDate | date: 'mediumDate' }}</p>
+
+        <a class="btn btn-primary" [routerLink]="['/CourseDetails', enrollment.courseId]">
+          Continue Learning
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
