@@ -6,10 +6,13 @@ import { Router, RouterLink } from '@angular/router';
 import { Navbar } from "../components/navbar/navbar/navbar";
 import { Features } from "../components/Features/features/features";
 import { Footer } from "../components/footer/footer";
+import { JwtService } from '../../../Core/services/jwt.service';
+import { EnrollmentService } from '../../../Core/services/enrollment.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-all-courses',
-  imports: [RouterLink, Navbar, Features, Footer],
+  imports: [RouterLink, Navbar, Features, Footer,CommonModule],
   templateUrl: './all-courses.html',
   styleUrl: './all-courses.css'
 })
@@ -18,17 +21,24 @@ export class AllCourses implements OnInit {
   filteredCourses: IAllCourses[] = [];
   categories: string[] = [];
 
+  enrolledCourseIds: number[] = []; // 🔹 store enrolled course IDs
   searchTerm: string = '';
   selectedCategory: string = 'All';
+  studentId: string | null = null;
 
   constructor(
     private courseService: CourseService,
     private categoryService: CategoryService,
+    private enrollmentService: EnrollmentService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private jwtService: JwtService
   ) {}
 
   ngOnInit(): void {
+    // ✅ Get current student ID from token
+    this.studentId = this.jwtService.getEntityId();
+
     // 🟢 Load all courses
     this.courseService.GetAllCourses().subscribe({
       next: (response) => {
@@ -41,10 +51,17 @@ export class AllCourses implements OnInit {
     // 🟢 Load categories dynamically
     this.categoryService.GetAllCategories().subscribe({
       next: (response) => {
-        // assuming each category object has a "name" property
         this.categories = response.map((cat: any) => cat.name);
         this.cdr.detectChanges();
       },
+    });
+
+    // 🟢 Load student's enrolled courses
+    this.enrollmentService.getUserEnrollments(this.studentId).subscribe({
+      next: (enrollments) => {
+        this.enrolledCourseIds = enrollments.map(e => e.courseId);
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -60,7 +77,6 @@ export class AllCourses implements OnInit {
     return `${baseUrl}${fileName}`;
   }
 
-  // 🔍 Filter by search + category
   applyFilters() {
     this.filteredCourses = this.allCourses.filter((course) => {
       const matchesSearch =
@@ -84,5 +100,15 @@ export class AllCourses implements OnInit {
   filterByCategory(category: string) {
     this.selectedCategory = category;
     this.applyFilters();
+  }
+
+  // 🔹 Check if student is enrolled
+  isEnrolled(courseId: number): boolean {
+    return this.enrolledCourseIds.includes(courseId);
+  }
+
+  enroll(courseId: number) {
+    // Redirect to course detail or payment page
+    this.router.navigate(['/CourseDetails', courseId]);
   }
 }

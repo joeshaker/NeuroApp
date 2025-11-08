@@ -7,37 +7,30 @@
     </button>
   </div>
 
-  <!-- Stats Overview -->
-  <div class="d-flex justify-content-around mb-5">
-    <div class="stats-card fade-in col-2">
-      <div class="stats-icon">
-        <i class="fas fa-book"></i>
-      </div>
-      <div class="stats-value">18</div>
-      <div class="stats-label">Active Courses</div>
-    </div>
-    <div class="stats-card fade-in col-2" style="animation-delay: 0.1s;">
-      <div class="stats-icon">
-        <i class="fas fa-users"></i>
-      </div>
-      <div class="stats-value">2,841</div>
-      <div class="stats-label">Enrolled Students</div>
-    </div>
-    <div class="stats-card fade-in col-2" style="animation-delay: 0.2s;">
-      <div class="stats-icon">
-        <i class="fas fa-star"></i>
-      </div>
-      <div class="stats-value">4.8</div>
-      <div class="stats-label">Average Rating</div>
-    </div>
-    <div class="stats-card fade-in col-2" style="animation-delay: 0.3s;">
-      <div class="stats-icon">
-        <i class="fas fa-dollar-sign"></i>
-      </div>
-      <div class="stats-value">$3,240</div>
-      <div class="stats-label">Monthly Revenue</div>
-    </div>
+<!-- Stats Overview -->
+<div class="d-flex justify-content-around mb-5">
+  <div class="stats-card fade-in col-2">
+    <div class="stats-icon"><i class="fas fa-book"></i></div>
+    <div class="stats-value">{{ activeCourses }}</div>
+    <div class="stats-label">Active Courses</div>
   </div>
+  <div class="stats-card fade-in col-2" style="animation-delay: 0.1s;">
+    <div class="stats-icon"><i class="fas fa-users"></i></div>
+    <div class="stats-value">{{ enrolledStudents }}</div>
+    <div class="stats-label">Enrolled Students</div>
+  </div>
+  <div class="stats-card fade-in col-2" style="animation-delay: 0.2s;">
+    <div class="stats-icon"><i class="fas fa-star"></i></div>
+    <div class="stats-value">{{ averageRating.toFixed(1) }}</div>
+    <div class="stats-label">Average Rating</div>
+  </div>
+  <div class="stats-card fade-in col-2" style="animation-delay: 0.3s;">
+    <div class="stats-icon"><i class="fas fa-dollar-sign"></i></div>
+    <div class="stats-value">${{ monthlyRevenue }}</div>
+    <div class="stats-label">Monthly Revenue</div>
+  </div>
+</div>
+
 
   <!-- Course Creation Form (Initially Hidden) -->
   <!-- <div class="form-container" id="courseForm" style="display: none;">

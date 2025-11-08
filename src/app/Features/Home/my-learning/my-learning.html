@@ -28,11 +28,11 @@
   <!-- Courses grid -->
   <div *ngIf="!loading && filteredEnrollments.length > 0" class="courses-grid">
     <div class="course-card" *ngFor="let enrollment of filteredEnrollments">
-      <img src="assets/img/default-course.jpg" alt="Course thumbnail" class="course-img" />
+      <img [src]="getImageUrl(enrollment.courseImageUrl)" alt="Course thumbnail" class="course-img" />
 
       <div class="details">
         <div class="top-section">
-          <h3 class="course-title">Course ID: {{ enrollment.courseId }}</h3>
+          <h3 class="course-title">Course Name: {{ enrollment.courseTitle }}</h3>
           <p class="status">
             <span [ngClass]="{
               paid: enrollment.status === 'Paid',

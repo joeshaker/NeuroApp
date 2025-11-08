@@ -4,6 +4,9 @@ export interface Enrollment {
   progressPercentage: number;
   stdId: number;
   courseId: number;
+  courseTitle: string;
+  courseDescription: string;
+  courseImageUrl: string;
   isDeleted: boolean;
   isCanceled: boolean;
   status: string;

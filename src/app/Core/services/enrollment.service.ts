@@ -8,9 +8,10 @@ export class EnrollmentService {
 
   constructor(private http: HttpClient) {}
 
-  getUserEnrollments(): Observable<any[]> {
-    // Replace 9 with the current logged-in student's ID dynamically if needed
-    const studentId = 9;
-    return this.http.get<any[]>(`${this.baseUrl}/GetEnrollmentsByStudentId/${studentId}`);
+  getUserEnrollments(studentid : string | null): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/GetEnrollmentsByStudentId/${studentid}`);
+  }
+  getInsEnrollments(instructorid : number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/GetEnrollmentsByInstructorId/${instructorid}`);
   }
 }
