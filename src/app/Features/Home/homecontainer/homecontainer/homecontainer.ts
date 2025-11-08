@@ -112,14 +112,14 @@ export class Homecontainer implements OnInit {
 
     })
   }
-  
+
   getImageUrl(fileName: string): string {
   if (!fileName) {
     return 'https://tse2.mm.bing.net/th/id/OIP.Ct30McAoRmpZ0OH8ii6oeAHaHa?pid=Api&P=0&h=220';
   }
 
   // 👇 change this to your backend base URL
-  const baseUrl = 'https://82-29-190-91.sslip.io:5001/uploads/Images/';
+  const baseUrl = 'http://localhost:5075/uploads/Images/';
   return `${baseUrl}${fileName}`;
 }
 }
