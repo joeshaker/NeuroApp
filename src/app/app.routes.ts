@@ -6,6 +6,7 @@ import { AllCourses } from './Features/Home/all-courses/all-courses';
 import { LoginComponent } from './Features/auth/pages/login/login.component';
 import { StudentCourseDetails } from './Features/Home/student-course-details/student-course-details';
 import { CourseDetails } from './Features/Instructor/Components/course-details/course-details';
+import { MyLearningComponent } from './Features/Home/my-learning/my-learning.component';
 
 export const routes: Routes = [
   // 🏠 Default route → Home page
@@ -14,7 +15,6 @@ export const routes: Routes = [
     redirectTo: '/home',
     pathMatch: 'full'
   },
-
 
   // 🔹 Auth routes (no guard)
   {
@@ -60,28 +60,23 @@ export const routes: Routes = [
       import('./Features/Home/home.routes').then(m => m.homeRoutes),
   },
 
-  // 🔹 Edit/View Course (Instructor or Admin)
-  // {
-  //   path: 'editCourse/:id',
-  //   component: EditCourse,
-  //   canActivate: [authGuard],
-  //   data: { roles: ['Instructor', 'Admin'] },
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'InstructorCourseDetails/:id',
-  //   component: CourseDetails,
-  //   // canActivate: [authGuard],
-  //   // data: { roles: ['Student', 'Instructor', 'Admin'] },
-  //   pathMatch: 'full'
-  // },
+  // 🔹 My Learning (Student only)
+  {
+    path: 'my-learning',
+    component: MyLearningComponent,
+    canActivate: [authGuard],
+    data: { roles: ['Student'] },
+    pathMatch: 'full'
+  },
+
+  // 🔹 Course details (for Students)
   {
     path: 'CourseDetails/:id',
     component: StudentCourseDetails,
     pathMatch: 'full'
   },
 
-
+  // 🔹 All Courses
   {
     path: 'AllCourses',
     component: AllCourses,
@@ -89,10 +84,11 @@ export const routes: Routes = [
     // data: { roles: ['Student', 'Instructor', 'Admin'] },
     pathMatch: 'full'
   },
+
+  // 🔹 Login
   {
     path: 'Login',
     component: LoginComponent
-
   },
 
   // 🔹 Fallback

@@ -49,7 +49,7 @@ export class Courses implements OnInit {
     }
 
     // 👇 change this to your backend base URL
-    const baseUrl = 'https://82-29-190-91.sslip.io:5001/uploads/Images/';
+    const baseUrl = 'http://localhost:5075/uploads/Images/';
     console.log(fileName)
     return `${baseUrl}${fileName}`;
   }

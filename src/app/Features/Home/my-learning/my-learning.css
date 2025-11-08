@@ -1,0 +1,204 @@
+/* 🌟 Overall layout */
+.my-learning-container {
+  padding: 2rem 5%;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2rem;
+}
+
+/* 🔄 Filter section */
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+}
+
+#statusFilter {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+#statusFilter:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* 🔄 Loading state */
+.loading {
+  text-align: center;
+  margin-top: 4rem;
+  color: #555;
+}
+
+.spinner {
+  border: 4px solid #eee;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 🕳️ Empty state */
+.empty {
+  text-align: center;
+  margin-top: 4rem;
+  color: #666;
+}
+
+.empty img {
+  width: 220px;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.browse-btn {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 1rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.browse-btn:hover {
+  background: #43a047;
+  transform: translateY(-2px);
+}
+
+/* 🎓 Courses Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+}
+
+/* 📦 Course Card */
+.course-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.course-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* 📖 Details section */
+.details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.4rem;
+}
+
+.status {
+  margin-bottom: 0.6rem;
+}
+
+.status span {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.status span.paid {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.status span.canceled {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+/* 📊 Progress bar */
+.progress-section {
+  margin: 0.8rem 0;
+}
+
+.progress-bar {
+  background: #eee;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 0.3rem;
+}
+
+.progress {
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* 🗓️ Date & Button */
+.date {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.continue-btn {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.continue-btn:hover {
+  background: #43a047;
+  transform: translateY(-2px);
+}

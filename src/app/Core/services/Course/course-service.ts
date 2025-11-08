@@ -11,7 +11,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = 'https://82-29-190-91.sslip.io:5001/api/Course';
+  baseUrl: string = 'http://localhost:5075/api/Course';
 
 
   GetAllCourses():Observable<IAllCourses[]> {
