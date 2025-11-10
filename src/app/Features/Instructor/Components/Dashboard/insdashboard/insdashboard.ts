@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterLink } from "@angular/router";
+import { JwtService } from '../../../../../Core/services/jwt.service';
+import { EnrollmentService } from '../../../../../Core/services/enrollment.service';
 
 interface DashboardStats {
   courses: number;
@@ -109,7 +111,7 @@ export class InsdashboardComponent implements OnInit {
 
   private readonly API_BASE = 'http://localhost:5075/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwt: JwtService, private enrollmentService: EnrollmentService) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -208,6 +210,15 @@ export class InsdashboardComponent implements OnInit {
 
     // Load enrollments to get student counts and earnings
     this.loadEnrollmentsData(courses, instructorId);
+
+    // Compute earnings by instructor id using EnrollmentService
+    this.enrollmentService.getInstructorEarnings(instructorId).subscribe({
+      next: ({ total, monthly }) => {
+        this.stats.earnings = total;
+        // Optionally, if you show monthly somewhere, you can store it too
+        // this.stats.monthlyEarnings = monthly; // add to interface if needed
+      }
+    });
   }
 
   loadEnrollmentsData(courses: Course[], instructorId: number): void {
@@ -228,12 +239,7 @@ export class InsdashboardComponent implements OnInit {
     const uniqueStudents = new Set(enrollments.map(e => e.stdId));
     this.stats.students = uniqueStudents.size;
 
-    // Calculate earnings (sum of course prices for completed enrollments)
-    const completedEnrollments = enrollments.filter(e => e.status === 'completed');
-    this.stats.earnings = completedEnrollments.reduce((total, enrollment) => {
-      const course = courses.find(c => c.id === enrollment.courseId);
-      return total + (course?.price || 0);
-    }, 0);
+    // Earnings are handled via EnrollmentService (paid, not canceled/deleted)
 
     // Update student counts in courses
     this.topCourses = this.topCourses.map(course => ({
