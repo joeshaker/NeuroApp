@@ -68,6 +68,13 @@ export const routes: Routes = [
     data: { roles: ['Student'] },
     pathMatch: 'full'
   },
+  {
+    path:'profile',
+    loadComponent: () => import('./Features/Profile/profile.component').then(c => c.ProfileComponent),
+    canActivate: [authGuard],
+    data: { roles: ['Student', 'Instructor', 'Admin'] },
+    pathMatch: 'full'
+  },
 
   // 🔹 Course details (for Students)
   {

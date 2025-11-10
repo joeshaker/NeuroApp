@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+<div class="profile-section">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8">
+        <div class="profile-card">
+          <div class="card-header text-center">
+            <h5 class="academy-brand">
+              <i class="fa-solid fa-robot me-2"></i> AI Code Academy
+            </h5>
+          </div>
+
+          <div class="card-body text-center">
+            <div class="avatar-wrapper">
+              <img
+                [src]="avatarUrl"
+                class="avatar-img rounded-circle"
+                alt="User Avatar"
+              />
+              <div class="avatar-glow"></div>
+            </div>
+
+            <h3 class="username mt-3">
+              {{ user?.fullName || user?.name || 'User' }}
+            </h3>
+            <p class="user-email">
+              <i class="fa-regular fa-envelope me-1"></i>
+              {{ user?.email || 'email@example.com' }}
+            </p>
+
+            <div class="user-info-grid mt-5">
+              <div class="info-box" *ngIf="user?.id">
+                <label>User ID</label>
+                <p>{{ user?.id }}</p>
+              </div>
+
+              <div class="info-box">
+                <label>Role</label>
+                <p>{{ user?.role || 'User' }}</p>
+              </div>
+
+              <div class="info-box" *ngIf="user?.firstName">
+                <label>First Name</label>
+                <p>{{ user?.firstName }}</p>
+              </div>
+
+              <div class="info-box" *ngIf="user?.lastName">
+                <label>Last Name</label>
+                <p>{{ user?.lastName }}</p>
+              </div>
+            </div>
+
+            <div class="status mt-4" *ngIf="isLoading">
+              <i class="fa-solid fa-spinner fa-spin me-2"></i>
+              Loading profile...
+            </div>
+            <div class="error-msg mt-4" *ngIf="error">
+              <i class="fa-solid fa-triangle-exclamation me-1"></i> {{ error }}
+            </div>
+          </div>
+
+          <div class="card-footer text-center mt-3">
+            <button class="btn-edit">
+              <i class="fa-solid fa-pen-to-square me-1"></i> Edit Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

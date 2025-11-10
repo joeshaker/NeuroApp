@@ -1,0 +1,148 @@
+/* Page background */
+.profile-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0f1a 0%, #051726 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Card Styling - glassmorphism + glow */
+.profile-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  transition: all 0.4s ease;
+}
+.profile-card:hover {
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Header */
+.academy-brand {
+  color: #00e0ff;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Avatar section */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.avatar-img {
+  width: 130px;
+  height: 130px;
+  border: 3px solid #00ffff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  transition: transform 0.3s ease;
+}
+.avatar-img:hover {
+  transform: scale(1.08);
+}
+.avatar-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+  animation: glowPulse 3s infinite alternate;
+}
+@keyframes glowPulse {
+  from {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Username and email */
+.username {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.user-email {
+  color: #00d0ff;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Info boxes */
+.user-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+}
+.info-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: left;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.info-box:hover {
+  background: rgba(0, 255, 255, 0.08);
+  transform: translateY(-3px);
+}
+.info-box label {
+  color: #aaa;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.info-box p {
+  color: #fff;
+  font-weight: 500;
+  margin: 0.2rem 0 0;
+}
+
+/* Buttons */
+.btn-edit {
+  background: linear-gradient(90deg, #00ffff, #0077ff);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.btn-edit:hover {
+  background: linear-gradient(90deg, #00e0ff, #00b3ff);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Status & Error */
+.status {
+  color: #00e0ff;
+  font-weight: 500;
+}
+.error-msg {
+  color: #ff4b4b;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1.8rem;
+  }
+  .avatar-img,
+  .avatar-glow {
+    width: 100px;
+    height: 100px;
+  }
+}
