@@ -12,7 +12,7 @@
     <a routerLink="/home">Home</a>
     <a routerLink="/AllCourses">Courses</a>
     <a routerLink="/my-learning">My Learning</a>
-    <a routerLink="/Profile">Profile</a>
+    <a routerLink="/profile">Profile</a>
 
     <button *ngIf="!isAuthenticated" class="btn" routerLink="/auth/login">Login</button>
     <button *ngIf="isAuthenticated" class="btn logout-btn" (click)="logout()">Logout</button>

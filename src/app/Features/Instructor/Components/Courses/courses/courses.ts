@@ -7,6 +7,7 @@ import { JwtService } from '../../../../../Core/services/jwt.service';
 import { EnrollmentService } from '../../../../../Core/services/enrollment.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courses',
@@ -23,6 +24,7 @@ export class Courses implements OnInit {
   enrolledStudents = 0;
   averageRating = 0;
   monthlyRevenue = 0;
+  totalRevenue = 0;
 
   constructor(
     private courseService: CourseService,
@@ -50,7 +52,12 @@ export class Courses implements OnInit {
         this.activeCourses = this.AllCourses.length;
         this.enrolledStudents = 0; // Example: assume 20 students per course
         this.averageRating = 4.5; // static placeholder
-        this.monthlyRevenue = this.AllCourses.length * 100; // placeholder revenue
+
+        // Compute earnings by instructor id
+        this.enrollmentservice.getInstructorEarnings(id).subscribe(({ total, monthly }) => {
+          this.totalRevenue = total;
+          this.monthlyRevenue = monthly;
+        });
 
         this.getEnrolledStudentsCount(id);
 
@@ -82,6 +89,47 @@ export class Courses implements OnInit {
 
     const baseUrl = 'http://localhost:5075/uploads/Images/';
     return `${baseUrl}${fileName}`;
+  }
+
+  confirmDeleteCourse(id?: number) {
+    if (id == null) return;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.courseServiceDelete(id);
+      }
+    });
+  }
+
+  private courseServiceDelete(id: number) {
+    // Backend expects DELETE http://localhost:5075/api/Course/{courseId}
+    // Add a delete method if not present by using HttpClient directly in the service if needed.
+    (this.courseService as any).http
+      ? (this.courseService as any).http.delete(`${this.courseService.baseUrl}/${id}`).subscribe({
+          next: () => {
+            this.AllCourses = this.AllCourses.filter(c => c.id !== id);
+            this.activeCourses = this.AllCourses.length;
+            this.cdr.detectChanges();
+            Swal.fire({ title: 'Deleted!', text: 'The course has been deleted.', icon: 'success', timer: 2000, showConfirmButton: false });
+          },
+          error: () => {
+            Swal.fire({ title: 'Error!', text: 'Failed to delete the course.', icon: 'error', confirmButtonText: 'OK' });
+          }
+        })
+      : this.deleteViaTempHttp(id);
+  }
+
+  private deleteViaTempHttp(id: number) {
+    // Fallback if direct http is not exposed: extend service quickly
+    // @ts-ignore
+    (this.courseService as any).http = (this.courseService as any).http || null;
   }
 
   ViewCourse(id: number) {
