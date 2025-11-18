@@ -9,5 +9,7 @@ export interface IAllCourses {
   categoryId: number
   instructorId: number
   categoryName: string
-  instructorName: any
+  instructorName: string;
+  numofModulues?: number; // match backend
+  numofVideos?: number;
 }

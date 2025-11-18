@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environments.development';
 import { EnrollmentService } from '../../../Core/services/enrollment.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2'; // ✅ SweetAlert2 import
 
 @Component({
   selector: 'app-student-course-details',
@@ -26,7 +27,7 @@ export class StudentCourseDetails implements OnInit {
   id: number = 0;
   InstDetails: any;
   videos: VideoCreateDto[] = [];
-  isEnrolled: boolean = false; // Track enrollment status
+  isEnrolled: boolean = false;
 
   constructor(
     private service: CourseService,
@@ -37,7 +38,7 @@ export class StudentCourseDetails implements OnInit {
     private video: VideoService,
     private JwtService: JwtService,
     private http: HttpClient,
-    private enrollmentService: EnrollmentService, // Inject EnrollmentService
+    private enrollmentService: EnrollmentService,
     private router: Router
   ) { }
 
@@ -48,7 +49,7 @@ export class StudentCourseDetails implements OnInit {
     this.service.GetCourseById(this.id).subscribe({
       next: (response) => {
         this.courseDetails = response;
-        this.checkEnrollment(); // Check if student is enrolled
+        this.checkEnrollment();
         this.cdr.detectChanges();
       }
     });
@@ -90,21 +91,46 @@ export class StudentCourseDetails implements OnInit {
         },
         error: (err) => console.error('Failed to fetch enrollments', err)
       });
-
   }
 
   // Enroll & initiate payment
   enrollCourse() {
+    // ✅ 1. Check if the user is logged in
+    const token = this.JwtService.getToken();
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You must log in before enrolling in a course.',
+        confirmButtonText: 'Go to Login',
+      }).then(() => {
+        this.router.navigate(['/login']);
+      });
+      return;
+    }
+
+    // ✅ 2. Prevent enrolling twice
     if (this.isEnrolled) {
-      alert('You are already enrolled in this course.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Already Enrolled',
+        text: 'You are already enrolled in this course.',
+        confirmButtonText: 'OK'
+      });
       return;
     }
 
+    // ✅ 3. Ensure course details are loaded
     if (!this.courseDetails) {
-      alert('Course details not loaded yet.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Course Not Loaded',
+        text: 'Course details are not loaded yet. Please try again later.',
+      });
       return;
     }
 
+    // ✅ 4. Proceed with payment
     const payload = {
       CourseId: this.courseDetails.id,
       StudentId: this.JwtService.getEntityId(),
@@ -114,12 +140,33 @@ export class StudentCourseDetails implements OnInit {
     this.http.post(`${environment.apiUrl}/payment/initiatePayment`, payload)
       .subscribe({
         next: (res: any) => {
-          if (res.paymentUrl) window.location.href = res.paymentUrl;
-          else alert('Payment initiated successfully!');
+          if (res.paymentUrl) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Redirecting to Payment',
+              text: 'Please wait while we take you to the payment page...',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              window.location.href = res.paymentUrl;
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Payment Initiated',
+              text: 'Payment initiated successfully!',
+              confirmButtonText: 'OK'
+            });
+          }
         },
         error: (err) => {
           console.error('Payment initiation failed:', err);
-          alert('Failed to initiate payment. Please try again.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Payment Failed',
+            text: 'Failed to initiate payment. Please try again.',
+            confirmButtonText: 'Retry'
+          });
         }
       });
   }

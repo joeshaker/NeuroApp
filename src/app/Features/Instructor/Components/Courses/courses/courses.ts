@@ -5,11 +5,13 @@ import { IAllCourses } from '../../../../../Core/interfaces/Course/iall-courses'
 import { ModuleService } from '../../../../../Core/services/module-service';
 import { JwtService } from '../../../../../Core/services/jwt.service';
 import { EnrollmentService } from '../../../../../Core/services/enrollment.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule,FormsModule],
   templateUrl: './courses.html',
   styleUrls: ['./courses.css']
 })

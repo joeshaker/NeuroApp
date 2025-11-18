@@ -223,34 +223,38 @@ export class InsdashboardComponent implements OnInit {
     });
   }
 
-  processEnrollmentsData(courses: Course[], enrollments: Enrollment[]): void {
-    // Calculate total students (unique student IDs)
-    const uniqueStudents = new Set(enrollments.map(e => e.stdId));
-    this.stats.students = uniqueStudents.size;
+processEnrollmentsData(courses: Course[], enrollments: Enrollment[]): void {
+  // Calculate total students (unique student IDs)
+  const uniqueStudents = new Set(enrollments.map(e => e.stdId));
+  this.stats.students = uniqueStudents.size;
 
-    // Calculate earnings (sum of course prices for completed enrollments)
-    const completedEnrollments = enrollments.filter(e => e.status === 'completed');
-    this.stats.earnings = completedEnrollments.reduce((total, enrollment) => {
-      const course = courses.find(c => c.id === enrollment.courseId);
-      return total + (course?.price || 0);
-    }, 0);
+  // ✅ Calculate total earnings for all paid/enrolled courses
+  const paidEnrollments = enrollments.filter(e =>
+    e.status?.toLowerCase() === 'paid' || e.status?.toLowerCase() === 'completed'
+  );
 
-    // Update student counts in courses
-    this.topCourses = this.topCourses.map(course => ({
-      ...course,
-      students: enrollments.filter(e => e.courseId === course.id).length
-    }));
+  this.stats.earnings = paidEnrollments.reduce((total, enrollment) => {
+    const course = courses.find(c => c.id === enrollment.courseId);
+    return total + (course?.price || 0);
+  }, 0);
 
-    this.courseProgress = this.courseProgress.map(course => ({
-      ...course,
-      students: enrollments.filter(e => e.courseId === course.id).length
-    }));
+  // Update student counts in courses
+  this.topCourses = this.topCourses.map(course => ({
+    ...course,
+    students: enrollments.filter(e => e.courseId === course.id).length
+  }));
 
-    // Generate recent activities
-    this.generateRecentActivities(enrollments, courses);
+  this.courseProgress = this.courseProgress.map(course => ({
+    ...course,
+    students: enrollments.filter(e => e.courseId === course.id).length
+  }));
 
-    this.isLoading = false;
-  }
+  // Generate recent activities
+  this.generateRecentActivities(enrollments, courses);
+
+  this.isLoading = false;
+}
+
 
   generateRecentActivities(enrollments: Enrollment[], courses: Course[]): void {
     const activities: Activity[] = [];

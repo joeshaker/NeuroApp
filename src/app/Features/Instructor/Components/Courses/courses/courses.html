@@ -9,22 +9,22 @@
 
 <!-- Stats Overview -->
 <div class="d-flex justify-content-around mb-5">
-  <div class="stats-card fade-in col-2">
+  <div class="stats-card fade-in col-3">
     <div class="stats-icon"><i class="fas fa-book"></i></div>
     <div class="stats-value">{{ activeCourses }}</div>
     <div class="stats-label">Active Courses</div>
   </div>
-  <div class="stats-card fade-in col-2" style="animation-delay: 0.1s;">
+  <div class="stats-card fade-in col-3" style="animation-delay: 0.1s;">
     <div class="stats-icon"><i class="fas fa-users"></i></div>
     <div class="stats-value">{{ enrolledStudents }}</div>
     <div class="stats-label">Enrolled Students</div>
   </div>
-  <div class="stats-card fade-in col-2" style="animation-delay: 0.2s;">
+  <!-- <div class="stats-card fade-in col-2" style="animation-delay: 0.2s;">
     <div class="stats-icon"><i class="fas fa-star"></i></div>
     <div class="stats-value">{{ averageRating.toFixed(1) }}</div>
     <div class="stats-label">Average Rating</div>
-  </div>
-  <div class="stats-card fade-in col-2" style="animation-delay: 0.3s;">
+  </div> -->
+  <div class="stats-card fade-in col-3" style="animation-delay: 0.3s;">
     <div class="stats-icon"><i class="fas fa-dollar-sign"></i></div>
     <div class="stats-value">${{ monthlyRevenue }}</div>
     <div class="stats-label">Monthly Revenue</div>
@@ -130,11 +130,11 @@
         <div class="course-stats">
           <div class="stat">
             <i class="fas fa-cube"></i>
-            <span>5 Modules</span>
+            <span>{{item?.numofModulues}} Modules</span>
           </div>
           <div class="stat">
             <i class="fas fa-play-circle"></i>
-            <span>24 Videos</span>
+            <span>{{item?.numofVideos}} Videos</span>
           </div>
         </div>
 
